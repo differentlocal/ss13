@@ -1,0 +1,7 @@
+*.lk
+*.rsc
+*.dmb
+*.int
+
+config/*
+data/*
