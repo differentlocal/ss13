@@ -12,11 +12,12 @@ var/list/occupations = list(
 	"Research Director",
 	"Chaplain",
 	"Roboticist",
+//	"Cyborg","Cyborg","Cyborg"
 	"AI",
 	"Barman",
 	"Chef",
 	"Janitor",
-	"Clown",
+	"Clown", "Mime",
 	"Chemist",
 	"Quartermaster","Quartermaster","Quartermaster",
 	"Botanist", "Botanist",

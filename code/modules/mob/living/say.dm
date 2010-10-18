@@ -6,6 +6,11 @@
 
 	log_say("[src.name]/[src.key] : [message]")
 
+	if (length(message) >= 1)
+		if (copytext(message, 1, 2) != "*")
+			if (src.miming)
+				return
+
 	if (src.muted)
 		return
 

@@ -120,9 +120,6 @@
 	return K
 
 /proc/sanitize(var/t)
-	// Fixes ASCII 255 engine problem - Micktu
-	t = dd_replacetext(t, "ÿ", "ß")
-
 	var/index = findtext(t, "\n")
 	while(index)
 		t = copytext(t, 1, index) + "#" + copytext(t, index+1)
