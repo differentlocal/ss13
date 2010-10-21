@@ -4,7 +4,9 @@
 	name = "Xenomorph Transformation"
 	max_stages = 5
 	spread = "Syringe"
+	spread_type = SPECIAL
 	cure = "None"
+	agent = "Rip-LEY Alien Microbes"
 	affected_species = list("Human")
 
 /datum/disease/xeno_transformation/stage_act()

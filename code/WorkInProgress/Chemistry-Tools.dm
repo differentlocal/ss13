@@ -244,6 +244,7 @@
 					for(var/mob/living/carbon/M in D.loc)
 						if(!istype(M,/mob/living/carbon)) continue
 						if(M == user) continue
+						D.reagents.reaction(M, INGEST)
 						D.reagents.trans_to(M, 15)
 						M.bruteloss += 5
 						for(var/mob/O in viewers(world.view, D))
@@ -356,6 +357,18 @@
 	amount_per_transfer_from_this = 10
 	flags = FPRINT | TABLEPASS | OPENCONTAINER
 
+	var/list/can_be_placed_into = list(
+	/obj/machinery/chem_master/,
+	/obj/table,
+	/obj/secure_closet,
+	/obj/closet,
+	/obj/item/weapon/storage,
+	/obj/machinery/atmospherics/unary/cryo_cell,
+	/obj/item/weapon/chem_grenade,
+	/obj/machinery/bot/medbot,
+	/obj/machinery/pandemic,
+	/obj/item/weapon/secstorage/ssafe)
+
 	examine()
 		set src in view(2)
 		..()
@@ -373,7 +386,8 @@
 		R.my_atom = src
 
 	afterattack(obj/target, mob/user , flag)
-
+		if(src.can_be_placed_into.Find(target.type))
+			return
 		if(ismob(target) && target.reagents && reagents.total_volume)
 			user << "\blue You splash the solution onto [target]."
 			for(var/mob/O in viewers(world.view, user))
@@ -406,7 +420,7 @@
 			var/trans = src.reagents.trans_to(target, 10)
 			user << "\blue You transfer [trans] units of the solution to [target]."
 
-		else if(reagents.total_volume  && !istype(target,/obj/machinery/chem_master/) && !istype(target,/obj/table) && !istype(target,/obj/secure_closet) && !istype(target,/obj/closet) && !istype(target,/obj/item/weapon/storage) && !istype(target, /obj/machinery/atmospherics/unary/cryo_cell) && !istype(target, /obj/item/weapon/chem_grenade) && !istype(target, /obj/machinery/bot/medbot))
+		else if(reagents.total_volume)
 			user << "\blue You splash the solution onto [target]."
 			src.reagents.reaction(target, TOUCH)
 			spawn(5) src.reagents.clear_reagents()
@@ -529,15 +543,49 @@
 
 		switch(mode)
 			if("d")
-				if(ismob(target)) return //Blood?
+
+				if(reagents.total_volume >= reagents.maximum_volume)
+					user << "\red The syringe is full."
+					return
+
+				if(ismob(target))//Blood!
+					if(src.reagents.has_reagent("blood"))
+						user << "\red There is already a blood sample in this syringe"
+						return
+					if(istype(target, /mob/living/carbon))//maybe just add a blood reagent to all mobs. Then you can suck them dry...With hundreds of syringes. Jolly good idea.
+						var/amount = src.reagents.maximum_volume - src.reagents.total_volume
+						var/mob/living/carbon/T = target
+						var/datum/reagent/B = new /datum/reagent/blood
+						B.holder = src
+						B.volume = amount
+						//set reagent data
+						B.data["donor"] = T
+						if(T.virus && T.virus.spread_type != SPECIAL)
+							B.data["virus"] = new T.virus.type
+						B.data["blood_DNA"] = copytext(T.dna.unique_enzymes,1,0)
+						if(T.resistances&&T.resistances.len)
+							B.data["resistances"] = T.resistances.Copy()
+						if(istype(target, /mob/living/carbon/human))//I wish there was some hasproperty operation...
+							var/mob/living/carbon/human/HT = target
+							B.data["blood_type"] = copytext(HT.b_type,1,0)
+						//debug
+						//for(var/D in B.data)
+						//	world << "Data [D] = [B.data[D]]"
+						//debug
+						src.reagents.reagent_list += B
+						src.reagents.update_total()
+						src.on_reagent_change()
+						src.reagents.handle_reactions()
+						user << "\blue You take a blood sample from [target]"
+						for(var/mob/O in viewers(4, user))
+							O.show_message("\red [user] takes a blood sample from [target].", 1)
+					return
+
 
 				if(!target.reagents.total_volume)
 					user << "\red [target] is empty."
 					return
 
-				if(reagents.total_volume >= reagents.maximum_volume)
-					user << "\red The syringe is full."
-					return
 
 				if(!target.is_open_container() && !istype(target,/obj/reagent_dispensers))
 					user << "\red You cannot directly remove reagents from this object."
@@ -1104,6 +1152,116 @@
 		R.add_reagent("anti_toxin", 30)
 
 
+/obj/item/weapon/reagent_containers/glass/bottle/flu_virion
+	name = "Flu virion culture bottle"
+	desc = "A small bottle. Contains H13N1 flu virion culture in synthblood medium."
+	icon = 'chemical.dmi'
+	icon_state = "bottle3"
+	amount_per_transfer_from_this = 5
+
+	New()
+		var/datum/reagents/R = new/datum/reagents(20)
+		reagents = R
+		R.my_atom = src
+		var/datum/disease/F = new /datum/disease/flu
+		var/list/data = list("virus"= F)
+		R.add_reagent("blood", 20, data)
+
+
+/obj/item/weapon/reagent_containers/glass/bottle/cold
+	name = "Rhinovirus culture bottle"
+	desc = "A small bottle. Contains XY-rhinovirus culture in synthblood medium."
+	icon = 'chemical.dmi'
+	icon_state = "bottle3"
+	amount_per_transfer_from_this = 5
+
+	New()
+		var/datum/reagents/R = new/datum/reagents(20)
+		reagents = R
+		R.my_atom = src
+		var/datum/disease/F = new /datum/disease/cold
+		var/list/data = list("virus"= F)
+		R.add_reagent("blood", 20, data)
+
+/*
+/obj/item/weapon/reagent_containers/glass/bottle/gbs
+	name = "GBS culture bottle"
+	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS+ culture in synthblood medium."//Or simply - General BullShit
+	icon = 'chemical.dmi'
+	icon_state = "bottle3"
+	amount_per_transfer_from_this = 5
+
+	New()
+		var/datum/reagents/R = new/datum/reagents(20)
+		reagents = R
+		R.my_atom = src
+		var/datum/disease/F = new /datum/disease/gbs
+		var/list/data = list("virus"= F)
+		R.add_reagent("blood", 20, data) -- No.
+*/
+/obj/item/weapon/reagent_containers/glass/bottle/fake_gbs
+	name = "GBS culture bottle"
+	desc = "A small bottle. Contains Gravitokinetic Bipotential SADS- culture in synthblood medium."//Or simply - General BullShit
+	icon = 'chemical.dmi'
+	icon_state = "bottle3"
+	amount_per_transfer_from_this = 5
+
+	New()
+		var/datum/reagents/R = new/datum/reagents(20)
+		reagents = R
+		R.my_atom = src
+		var/datum/disease/F = new /datum/disease/fake_gbs
+		var/list/data = list("virus"= F)
+		R.add_reagent("blood", 20, data)
+
+
+/obj/item/weapon/reagent_containers/glass/bottle/brainrot
+	name = "Brainrot culture bottle"
+	desc = "A small bottle. Contains Cryptococcus Cosmosis culture in synthblood medium."
+	icon = 'chemical.dmi'
+	icon_state = "bottle3"
+	amount_per_transfer_from_this = 5
+
+	New()
+		var/datum/reagents/R = new/datum/reagents(30)
+		reagents = R
+		R.my_atom = src
+		var/datum/disease/F = new /datum/disease/brainrot
+		var/list/data = list("virus"= F)
+		R.add_reagent("blood", 20, data)
+
+/obj/item/weapon/reagent_containers/glass/bottle/magnitis
+	name = "Magnitis culture bottle"
+	desc = "A small bottle. Contains a small dosage of Fukkos Miracos."
+	icon = 'chemical.dmi'
+	icon_state = "bottle3"
+	amount_per_transfer_from_this = 5
+
+	New()
+		var/datum/reagents/R = new/datum/reagents(20)
+		reagents = R
+		R.my_atom = src
+		var/datum/disease/F = new /datum/disease/magnitis
+		var/list/data = list("virus"= F)
+		R.add_reagent("blood", 20, data)
+
+
+/obj/item/weapon/reagent_containers/glass/bottle/wizarditis
+	name = "Wizarditis culture bottle"
+	desc = "A small bottle. Contains a sample of Rincewindus Vulgaris."
+	icon = 'chemical.dmi'
+	icon_state = "bottle3"
+	amount_per_transfer_from_this = 5
+
+	New()
+		var/datum/reagents/R = new/datum/reagents(20)
+		reagents = R
+		R.my_atom = src
+		var/datum/disease/F = new /datum/disease/wizarditis
+		var/list/data = list("virus"= F)
+		R.add_reagent("blood", 20, data)
+
+
 
 /obj/item/weapon/reagent_containers/glass/beaker
 	name = "beaker"
@@ -1636,7 +1794,16 @@
 		R.my_atom = src
 		R.add_reagent("tonic", 50)
 
-
+/obj/item/weapon/reagent_containers/food/drinks/sodawater
+	name = "Soda Water"
+	desc = "A can of soda water. Why not make a scotch and soda?"
+	icon_state = "sodawater"
+	heal_amt = 2
+	New()
+		var/datum/reagents/R = new/datum/reagents(50)
+		reagents = R
+		R.my_atom = src
+		R.add_reagent("sodawater", 50)
 
 
 //Pills
@@ -1904,6 +2071,66 @@
 					icon_state = "cubalibreglass"
 					name = "Cuba Libre"
 					desc = "A classic mix of rum and cola."
+				if("irishcream")
+					icon_state = "irishcreamglass"
+					name = "Irish Cream"
+					desc = "It's cream, mixed with whiskey. What else would you expect from the Irish?"
+				if("cubalibre")
+					icon_state = "cubalibreglass"
+					name = "Cuba Libre"
+					desc = "A classic mix of rum and cola."
+				if("b52")
+					icon_state = "b52glass"
+					name = "B-52"
+					desc = "Kahlua, Irish Cream, and congac. You will get bombed."
+				if("longislandicedtea")
+					icon_state = "longislandicedteaglass"
+					name = "Long Island Iced Tea"
+					desc = "The liquor cabinet, brought together in a delicious mix. Intended for middle-aged alcoholic women only."
+				if("margarita")
+					icon_state = "margaritaglass"
+					name = "Margarita"
+					desc = "On the rocks with salt on the rim. Arriba~!"
+				if("blackrussian")
+					icon_state = "blackrussianglass"
+					name = "Black Russian"
+					desc = "For the lactose-intolerant. Still as classy as a White Russian."
+				if("vodkatonic")
+					icon_state = "vodkatonicglass"
+					name = "Vodka and Tonic"
+					desc = "For when a gin and tonic isn't russian enough."
+				if("manhattan")
+					icon_state = "manhattanglass"
+					name = "Manhattan"
+					desc = "The Detective's undercover drink of choice. He never could stomach gin..."
+				if("ginfizz")
+					icon_state = "ginfizzglass"
+					name = "Gin Fizz"
+					desc = "Refreshingly lemony, deliciously dry."
+				if("irishcoffee")
+					icon_state = "irishcoffeeglass"
+					name = "Irish Coffee"
+					desc = "Coffee and alcohol. More fun than a Mimosa to drink in the morning."
+				if("hooch")
+					icon_state = "glass_brown2"
+					name = "Hooch"
+					desc = "You've really hit rock bottom now... your liver packed its bags and left last night."
+				if("whiskeysoda")
+					icon_state = "whiskeysodaglass2"
+					name = "Whiskey Soda"
+					desc = "Ultimate refreshment."
+				if("tonic")
+					icon_state = "glass_clear"
+					name = "Glass of Tonic Water"
+					desc = "Quinine tastes funny, but at least it'll keep that Space Malaria away."
+				if("sodawater")
+					icon_state = "glass_clear"
+					name = "Glass of Soda Water"
+					desc = "Soda water. Why not make a scotch and soda?"
+				if("water")
+					icon_state = "glass_clear"
+					name = "Glass of Water"
+					desc = "Are you really that boring?"
 				else
 					icon_state ="glass_brown"
 					name = "Glass of ..what?"
@@ -1916,7 +2143,6 @@
 
 ///jar
 
-/*
 /obj/item/weapon/reagent_containers/food/drinks/jar
 	name = "empty jar"
 	desc = "A jar. You're not sure what it's supposed to hold."
@@ -1927,6 +2153,7 @@
 		var/datum/reagents/R = new/datum/reagents(50)
 		reagents = R
 		R.my_atom = src
+		R.add_reagent("metroid", 50)
 
 	on_reagent_change()
 		if (reagents.reagent_list.len > 0)
@@ -1943,5 +2170,4 @@
 			icon_state = "jar"
 			name = "empty jar"
 			desc = "A jar. You're not sure what it's supposed to hold."
-			return //Code no work :< -- Urist
-			*/
+			return

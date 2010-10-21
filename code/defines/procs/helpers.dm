@@ -120,8 +120,6 @@
 	return K
 
 /proc/sanitize(var/t)
-	t = dd_replacetext(t, "ÿ", "ß") // ASCII 0xFF fix - Micktu
-
 	var/index = findtext(t, "\n")
 	while(index)
 		t = copytext(t, 1, index) + "#" + copytext(t, index+1)

@@ -42,7 +42,6 @@
 	var/italics = 0
 	var/message_range = null
 	var/message_mode = null
-	var/marker = null
 
 	if (src.brainloss >= 60 && prob(50))
 		if (ishuman(src))
@@ -55,16 +54,15 @@
 
 
 	else if (length(message) >= 2)
-		marker = copytext(message, 1, 3)
-		if (marker == ":r" || marker == ":ï")
+		if (copytext(message, 1, 3) == ":r")
 			message_mode = "right hand"
 			message = copytext(message, 3)
 
-		else if (marker == ":l" || marker == ":ë")
+		else if (copytext(message, 1, 3) == ":l")
 			message_mode = "left hand"
 			message = copytext(message, 3)
 
-		else if (marker == ":h" || marker == ":ã")
+		else if (copytext(message, 1, 3) == ":h")
 			if (ishuman(src))
 				message_mode = "secure headset"
 			message = copytext(message, 3)
@@ -73,7 +71,7 @@
 			message_mode = "whisper"
 			message = copytext(message, 3)*/
 
-		else if (marker == ":i" || marker == ":è")
+		else if (copytext(message, 1, 3) == ":i")
 			message_mode = "intercom"
 			message = copytext(message, 3)
 	//
@@ -99,6 +97,15 @@
 			message = "[message][stutter(pick("!", "!!", "!!!"))]"
 		if(!src.stuttering && prob(15))
 			message = stutter(message)
+
+	if(src.virus)
+		if(src.virus.name=="beesease" && src.virus.stage>=2)
+			if(prob(src.virus.stage*10))
+				var/bzz = length(message)
+				message = "B"
+				for(var/i=0,i<bzz,i++)
+					message += "Z"
+
 
 	switch (message_mode)
 		if ("headset")

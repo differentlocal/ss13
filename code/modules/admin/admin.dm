@@ -13,7 +13,7 @@ var/showadminmessages = 1
 /proc/toggle_adminmsg()
 	set name = "Toggle Admin Messages"
 	set category = "Server"
-	showadminmessages = !showadminmessages
+	//showadminmessages = !showadminmessages
 
 /obj/admins/Topic(href, href_list)
 	..()
@@ -265,7 +265,7 @@ var/showadminmessages = 1
 			<A href='?src=\ref[src];c_mode2=blob'>Blob</A><br>
 			<A href='?src=\ref[src];c_mode2=sandbox'>Sandbox</A><br>
 			<A href='?src=\ref[src];c_mode2=revolution'>Revolution</A><br>
-			<A href='?src=\ref[src];c_mode2=malfunction'>AI Malfunction</A><br>
+			<A href='?src=\ref[src];c_mode2=cult'>Cult</A><br>			<A href='?src=\ref[src];c_mode2=malfunction'>AI Malfunction</A><br>
 			<A href='?src=\ref[src];c_mode2=deathmatch'>Death Commando Deathmatch</A><br>
 			<A href='?src=\ref[src];c_mode2=confliction'>Confliction (TESTING)</A><br>
 			<A href='?src=\ref[src];c_mode2=ctf'>Capture The Flag (Beta)</A><br><br>
@@ -302,6 +302,8 @@ var/showadminmessages = 1
 					master_mode = "wizard"
 				if("revolution")
 					master_mode = "revolution"
+				if("cult")
+					master_mode = "cult"
 				if("malfunction")
 					master_mode = "malfunction"
 				if("deathmatch")
@@ -663,6 +665,10 @@ var/showadminmessages = 1
 				else if(M.mind in current_mode:revolutionaries)
 					alert("Is a Revolutionary!")
 				return
+			if("cult")
+				if(M.mind in current_mode:cult)
+					alert("Is a Cultist!")
+					return
 			if("wizard")
 				if(current_mode:wizard && M.mind == current_mode:wizard)
 					var/datum/mind/antagonist = M.mind
@@ -672,6 +678,16 @@ var/showadminmessages = 1
 					if(antagonist.objectives.len == 0)
 						t = "None defined."
 					alert("Is a WIZARD. Objective(s):\n[t]", "[M.key]")
+					return
+			if("changeling")
+				if(M.mind in current_mode:changelings)
+					var/datum/mind/antagonist = M.mind
+					var/t = ""
+					for(var/datum/objective/OB in antagonist.objectives)
+						t += "[OB.explanation_text]\n"
+					if(antagonist.objectives.len == 0)
+						t = "None defined."
+					alert("Is a CHANGELING. Objective(s):\n[t]", "[M.key]")
 					return
 			if("malfunction")
 				if(M.mind in current_mode:malf_ai)
@@ -1122,6 +1138,15 @@ var/showadminmessages = 1
 					if(aliens_allowed)
 						alien_infestation()
 						message_admins("[key_name_admin(usr)] has spawned aliens", 1)
+				if("virus")
+					if(alert("Do you want this to be a random disease or do you have something in mind?",,"Random","Choose")=="Random")
+						viral_outbreak()
+						message_admins("[key_name_admin(usr)] has triggered a virus outbreak", 1)
+					else
+						var/list/viruses = list("fake gbs","gbs","magnitis","wizarditis",/*"beesease",*/"brain rot","cold","rhinovirus","flu")
+						var/V = input("Choose the virus to spread", "BIOHAZARD") in viruses
+						viral_outbreak(V)
+						message_admins("[key_name_admin(usr)] has triggered a virus outbreak of [V]", 1)
 				if("retardify")
 					if (src.rank in list("Shit Guy", "Coder", "Host"))
 						for(var/mob/living/carbon/human/H in world)
@@ -1158,7 +1183,7 @@ var/showadminmessages = 1
 				if("dorf")
 					if (src.rank in list("Shit Guy","Coder", "Host"))
 						for(var/mob/living/carbon/human/B in world)
-							B.face_icon_state = "facial_longbeard"
+							B.face_icon_state = "facial_wise"
 							B.update_face()
 						message_admins("[key_name_admin(usr)] activated dorf mode")
 					else
@@ -1258,6 +1283,56 @@ var/showadminmessages = 1
 										var/turf/mob_loc = get_turf_loc(M)
 										dat += "<td>[mob_loc.loc]</td></tr>"
 								dat += "</table>"
+
+							if("changeling")
+								if(ticker.mode:changelings.len > 0)
+									dat += "<br><table cellspacing=5><tr><td><B>Changelings</B></td><td></td><td></td></tr>"
+									for(var/datum/mind/changeling in ticker.mode:changelings)
+										var/mob/M = changeling.current
+										if(M)
+											dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+											dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>"
+											dat += "<td><A HREF='?src=\ref[src];traitor=\ref[M]'>Show Objective</A></td></tr>"
+										else
+											dat += "<tr><td><i>Changeling not found!</i></td></tr>"
+									dat += "</table>"
+								else
+									dat += "There are no changelings."
+
+							/* this doesn't work
+							if("wizard")
+								if(ticker.mode:wizards.len > 0)
+									dat += "<br><table cellspacing=5><tr><td><B>Wizards</B></td><td></td><td></td></tr>"
+									for(var/datum/mind/wizard in ticker.mode:wizards)
+										var/mob/M = wizard.current
+										if(M)
+											dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+											dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>"
+											dat += "<td><A HREF='?src=\ref[src];traitor=\ref[M]'>Show Objective</A></td></tr>"
+										else
+											dat += "<tr><td><i>Wizard not found!</i></td></tr>"
+									dat += "</table>"
+								else
+									dat += "There are no wizards."
+							*/
+
+							if("cult")
+								dat += "<br><table cellspacing=5><tr><td><B>Cultists</B></td><td></td></tr>"
+								for(var/datum/mind/N in ticker.mode:cult)
+									var/mob/M = N.current
+									if(M)
+										dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+										dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td></tr>"
+								dat += "</table><table cellspacing=5><tr><td><B>Target(s)</B></td><td></td><td><B>Location</B></td></tr>"
+								for(var/datum/mind/N in ticker.mode:get_living_heads())
+									var/mob/M = N.current
+									if(M)
+										dat += "<tr><td><a href='?src=\ref[src];adminplayeropts=\ref[M]'>[M.real_name]</a>[M.client ? "" : " <i>(logged out)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
+										dat += "<td><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>"
+										var/turf/mob_loc = get_turf_loc(M)
+										dat += "<td>[mob_loc.loc]</td></tr>"
+								dat += "</table>"
+
 							else // i'll finish this later
 								if(ticker.mode.traitors.len > 0)
 									dat += "<br><table cellspacing=5><tr><td><B>Traitors</B></td><td></td><td></td></tr>"
@@ -1343,33 +1418,75 @@ var/showadminmessages = 1
 
 /obj/admins/proc/player()
 	var/dat = "<html><head><title>Player Menu</title></head>"
-	dat += "<body><table border=1 cellspacing=5><B><tr><th>Name</th><th>Real Name</th><th>Key</th><th>Options</th><th>PM</th><th>Traitor?</th></tr></B>"
+	dat += "<body><table border=1 cellspacing=5><B><tr><th>Name</th><th>Real Name</th><th>Key</th><th>Options</th><th>PM</th><th>Traitor?</th><th>Karma</th></tr></B>"
 	//add <th>IP:</th> to this if wanting to add back in IP checking
 	//add <td>(IP: [M.lastKnownIP])</td> if you want to know their ip to the lists below
 	var/list/mobs = sortmobs()
+	var/DBConnection/dbcon = new()
+	dbcon.Connect("dbi:mysql:[sqldb]:[sqladdress]:[sqlport]","[sqllogin]","[sqlpass]")
+	if(!dbcon.IsConnected())
+		usr << "\red Unable to connect to karma database. This error can occur if your host has failed to set up an SQL database or improperly configured its login credentials.<br>"
 
-	for(var/mob/M in mobs)
-		if(M.ckey)
-			dat += "<tr><td>[M.name]</td>"
-			if(istype(M, /mob/living/silicon/ai))
-				dat += "<td>AI</td>"
-			if(istype(M, /mob/living/silicon/robot))
-				dat += "<td>Cyborg</td>"
-			if(istype(M, /mob/living/carbon/human))
-				dat += "<td>[M.real_name]</td>"
-			if(istype(M, /mob/new_player))
-				dat += "<td>New Player</td>"
-			if(istype(M, /mob/dead/observer))
-				dat += "<td>Ghost</td>"
-			if(istype(M, /mob/living/carbon/monkey))
-				dat += "<td>Monkey</td>"
-			if(istype(M, /mob/living/carbon/alien))
-				dat += "<td>Alien</td>"
-			dat += {"<td>[(M.client ? "[(M.client.goon ? "<font color=red>" : "<font>")][M.client]</font>" : "No client")]</td>
-			<td align=center><A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>X</A></td>
-			<td align=center><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>
-			<td align=center><A HREF='?src=\ref[src];traitor=\ref[M]'>[checktraitor(M) ? "<font color=red>" : "<font>"]Traitor?</font></A></td></tr>
-			"}
+		for(var/mob/M in mobs)
+			if(M.ckey)
+				dat += "<tr><td>[M.name]</td>"
+				if(istype(M, /mob/living/silicon/ai))
+					dat += "<td>AI</td>"
+				if(istype(M, /mob/living/silicon/robot))
+					dat += "<td>Cyborg</td>"
+				if(istype(M, /mob/living/carbon/human))
+					dat += "<td>[M.real_name]</td>"
+				if(istype(M, /mob/new_player))
+					dat += "<td>New Player</td>"
+				if(istype(M, /mob/dead/observer))
+					dat += "<td>Ghost</td>"
+				if(istype(M, /mob/living/carbon/monkey))
+					dat += "<td>Monkey</td>"
+				if(istype(M, /mob/living/carbon/alien))
+					dat += "<td>Alien</td>"
+				dat += {"<td>[(M.client ? "[(M.client.goon ? "<font color=red>" : "<font>")][M.client]</font>" : "No client")]</td>
+				<td align=center><A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>X</A></td>
+				<td align=center><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>
+				<td align=center><A HREF='?src=\ref[src];traitor=\ref[M]'>[checktraitor(M) ? "<font color=red>" : "<font>"]Traitor?</font></A></td>
+				"}
+				dat += "<td><font color=red>NOT CONNECTED</font></td></tr>"
+
+	else
+
+		for(var/mob/M in mobs)
+			if(M.ckey)
+
+				var/DBQuery/query = dbcon.NewQuery("SELECT karma FROM karmatotals WHERE byondkey='[M.key]'")
+				query.Execute()
+
+				var/currentkarma
+				while(query.NextRow())
+					currentkarma = query.item[1]
+
+				dat += "<tr><td>[M.name]</td>"
+				if(istype(M, /mob/living/silicon/ai))
+					dat += "<td>AI</td>"
+				if(istype(M, /mob/living/silicon/robot))
+					dat += "<td>Cyborg</td>"
+				if(istype(M, /mob/living/carbon/human))
+					dat += "<td>[M.real_name]</td>"
+				if(istype(M, /mob/new_player))
+					dat += "<td>New Player</td>"
+				if(istype(M, /mob/dead/observer))
+					dat += "<td>Ghost</td>"
+				if(istype(M, /mob/living/carbon/monkey))
+					dat += "<td>Monkey</td>"
+				if(istype(M, /mob/living/carbon/alien))
+					dat += "<td>Alien</td>"
+				dat += {"<td>[(M.client ? "[(M.client.goon ? "<font color=red>" : "<font>")][M.client]</font>" : "No client")]</td>
+				<td align=center><A HREF='?src=\ref[src];adminplayeropts=\ref[M]'>X</A></td>
+				<td align=center><A href='?src=\ref[usr];priv_msg=\ref[M]'>PM</A></td>
+				<td align=center><A HREF='?src=\ref[src];traitor=\ref[M]'>[checktraitor(M) ? "<font color=red>" : "<font>"]Traitor?</font></A></td>
+				"}
+				if(currentkarma)
+					dat += "<td>[currentkarma]</td></tr>"
+				else
+					dat += "<td>0</td></tr>"
 
 	dat += "</table></body></html>"
 
@@ -1491,6 +1608,7 @@ var/showadminmessages = 1
 <A href='?src=\ref[src];secretsfun=timeanomalies'>Spawn wormholes (Untested)</A><BR>
 <A href='?src=\ref[src];secretsfun=goblob'>Spawn magma(Untested)</A><BR>
 <A href='?src=\ref[src];secretsfun=aliens'>Trigger an Alien infestation</A><BR>
+<A href='?src=\ref[src];secretsfun=virus'>Trigger a Virus Outbreak</A><BR>
 <A href='?src=\ref[src];secretsfun=flicklights'>Ghost Mode</A><BR>
 <A href='?src=\ref[src];secretsfun=cleanexcrement'>Remove all urine/poo from station</A><BR>
 <A href='?src=\ref[src];secretsfun=retardify'>Make all players retarded</A><BR>
@@ -1867,6 +1985,9 @@ var/showadminmessages = 1
 	switch(ticker.mode.config_tag)
 		if("revolution")
 			if(M.mind in (ticker.mode:head_revolutionaries + ticker.mode:revolutionaries))
+				return 1
+		if("cult")
+			if(M.mind in ticker.mode:cult)
 				return 1
 		if("malfunction")
 			if(M.mind in ticker.mode:malf_ai)

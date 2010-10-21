@@ -853,7 +853,7 @@
 		if(!msg)
 			return
 		for (var/mob/V in hearers(src.mob.control_object))
-			V.show_message("<b>[src.mob.control_object.name]</b> говорит: \"" + msg + "\"", 2)
+			V.show_message("<b>[src.mob.control_object.name]</b> says, \"" + msg + "\"", 2)
 
 /client/proc/kill_air() // -- TLE
 	set category = "Debug"

@@ -9,8 +9,8 @@
 	var/ending = copytext(text, length(text))
 
 	if (ending == "?")
-		return "запрашивает, \"[text]\"";
+		return "queries, \"[text]\"";
 	else if (ending == "!")
-		return "объ€вл€ет, \"[copytext(text, 1, length(text))]\"";
+		return "declares, \"[copytext(text, 1, length(text))]\"";
 
-	return "констатирует, \"[text]\"";
+	return "states, \"[text]\"";

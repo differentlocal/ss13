@@ -6,7 +6,7 @@
 /mob/living/carbon/alien/say(var/message)
 
 	if (length(message) >= 2)
-		if (copytext(message, 1, 3) == ":a" || copytext(message, 1, 3) == ":÷")
+		if (copytext(message, 1, 3) == ":a")
 			message = copytext(message, 3)
 			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			src.alien_talk(message)

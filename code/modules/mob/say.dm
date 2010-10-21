@@ -46,15 +46,15 @@
 /mob/proc/say_quote(var/text)
 	var/ending = copytext(text, length(text))
 	if (src.stuttering)
-		return "заикается: \"[text]\"";
+		return "stammers, \"[text]\"";
 	if (src.brainloss >= 60)
-		return "бормочет: \"[text]\"";
+		return "gibbers, \"[text]\"";
 	if (ending == "?")
-		return "спрашивает: \"[text]\"";
+		return "asks, \"[text]\"";
 	else if (ending == "!")
-		return "восклицает: \"[text]\"";
+		return "exclaims, \"[text]\"";
 
-	return "говорит: \"[text]\"";
+	return "says, \"[text]\"";
 
 /mob/proc/emote(var/act)
 	return

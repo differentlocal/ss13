@@ -18,7 +18,7 @@
 		if (!M.stat)
 			if(M.job == "Chaplain")
 				if (prob (49))
-					M.show_message("<span class='game'><i>“ы слышишь приглушенную речь, но там никого...</i></span>", 2)
+					M.show_message("<span class='game'><i>You hear muffled speech... but nothing is there...</i></span>", 2)
 					if(prob(20))
 						playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
 				else
@@ -29,7 +29,7 @@
 				if (prob(50))
 					return
 				else if (prob (95))
-					M.show_message("<span class='game'><i>“ы слышишь приглушенную речь, но там никого...</i></span>", 2)
+					M.show_message("<span class='game'><i>You hear muffled speech... but nothing is there...</i></span>", 2)
 					if(prob(20))
 						playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
 				else

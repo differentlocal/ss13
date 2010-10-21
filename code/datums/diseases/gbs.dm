@@ -1,9 +1,14 @@
 /datum/disease/gbs
 	name = "GBS"
 	max_stages = 5
-	spread = "Airborne"
-	cure = "Epilepsy Pills"
+	spread = "On contact"
+	spread_type = CONTACT_GENERAL
+	cure = "Synaptizine & Sulfur"
+	cure_id = list("synaptizine","sulfur")
+	agent = "Gravitokinetic Bipotential SADS+"
 	affected_species = list("Human")
+	curable = 0
+	permeability_mod = 1
 
 /datum/disease/gbs/stage_act()
 	..()

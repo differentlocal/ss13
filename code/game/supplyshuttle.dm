@@ -140,6 +140,24 @@ var/supply_shuttle_points = 50
 	containertype = "/obj/crate/medical"
 	containername = "Medical crate"
 
+
+/datum/supply_packs/virus
+	name = "Virus crate"
+	contains = list("/obj/item/weapon/reagent_containers/glass/bottle/flu_virion",
+					"/obj/item/weapon/reagent_containers/glass/bottle/cold",
+					"/obj/item/weapon/reagent_containers/glass/bottle/fake_gbs",
+					"/obj/item/weapon/reagent_containers/glass/bottle/magnitis",
+					"/obj/item/weapon/reagent_containers/glass/bottle/wizarditis",
+//					"/obj/item/weapon/reagent_containers/glass/bottle/gbs", No. Just no.
+					"/obj/item/weapon/reagent_containers/glass/bottle/brainrot",
+					"/obj/item/weapon/storage/firstaid/syringes",
+					"/obj/item/weapon/storage/beakerbox")
+	cost = 20
+	containertype = "/obj/crate/secure/weapon"
+	containername = "Virus crate"
+	access = access_heads
+
+
 /datum/supply_packs/janitor
 	name = "Janitorial supplies"
 	contains = list("/obj/item/weapon/reagent_containers/glass/bucket",

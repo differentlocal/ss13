@@ -23,74 +23,74 @@
 			m_type = 1
 		if("scratch")
 			if (!src.restrained())
-				message = "<B>The [src.name]</B> почесываестся."
+				message = "<B>The [src.name]</B> scratches."
 				m_type = 1
 		if("whimper")
 			if (!muzzled)
-				message = "<B>The [src.name]</B> скулит."
+				message = "<B>The [src.name]</B> whimpers."
 				m_type = 2
 		if("roar")
 			if (!muzzled)
-				message = "<B>The [src.name]</B> рычит."
+				message = "<B>The [src.name]</B> roars."
 				m_type = 2
 		if("tail")
-			message = "<B>The [src.name]</B> виляет хвостом."
+			message = "<B>The [src.name]</B> waves his tail."
 			m_type = 1
 		if("gasp")
-			message = "<B>The [src.name]</B> ловит ртвом воздух."
+			message = "<B>The [src.name]</B> gasps."
 			m_type = 2
 		if("shiver")
-			message = "<B>The [src.name]</B> дрожит."
+			message = "<B>The [src.name]</B> shivers."
 			m_type = 2
 		if("drool")
-			message = "<B>The [src.name]</B> рыгает."
+			message = "<B>The [src.name]</B> drools."
 			m_type = 1
 		if("scretch")
 			if (!muzzled)
 				message = "<B>The [src.name]</B> scretches."
 				m_type = 2
 		if("choke")
-			message = "<B>The [src.name]</B> давится."
+			message = "<B>The [src.name]</B> chokes."
 			m_type = 2
 		if("moan")
-			message = "<B>The [src.name]</B> стонет!"
+			message = "<B>The [src.name]</B> moans!"
 			m_type = 2
 		if("nod")
-			message = "<B>The [src.name]</B> кивает головой."
+			message = "<B>The [src.name]</B> nods his head."
 			m_type = 1
 		if("sit")
-			message = "<B>The [src.name]</B> садится."
+			message = "<B>The [src.name]</B> sits down."
 			m_type = 1
 		if("sway")
-			message = "<B>The [src.name]</B> пошатывается."
+			message = "<B>The [src.name]</B> sways around dizzily."
 			m_type = 1
 		if("sulk")
-			message = "<B>The [src.name]</B> растроенно надувается."
+			message = "<B>The [src.name]</B> sulks down sadly."
 			m_type = 1
 		if("twitch")
-			message = "<B>The [src.name]</B> яростно подергивается."
+			message = "<B>The [src.name]</B> twitches violently."
 			m_type = 1
 		if("dance")
 			if (!src.restrained())
-				message = "<B>The [src.name]</B> радостно танцует."
+				message = "<B>The [src.name]</B> dances around happily."
 				m_type = 1
 		if("roll")
 			if (!src.restrained())
-				message = "<B>The [src.name]</B> вертится."
+				message = "<B>The [src.name]</B> rolls."
 				m_type = 1
 		if("shake")
-			message = "<B>The [src.name]</B> трясет головой."
+			message = "<B>The [src.name]</B> shakes his head."
 			m_type = 1
 		if("gnarl")
 			if (!muzzled)
-				message = "<B>The [src.name]</B> бормочет и скалится."
+				message = "<B>The [src.name]</B> gnarls and shows his teeth.."
 				m_type = 2
 		if("jump")
-			message = "<B>The [src.name]</B> прыгает!"
+			message = "<B>The [src.name]</B> jumps!"
 			m_type = 1
 		if("collapse")
 			if (!src.paralysis)	src.paralysis += 2
-			message = text("<B>[]</B> коллапсирует!", src) // Leprostyle
+			message = text("<B>[]</B> collapses!", src)
 			m_type = 2
 		if("help")
 			src << "choke, collapse, dance, drool, gasp, shiver, gnarl, jump, moan, nod, roar, roll, scratch,\nscretch, shake, sign-#, sit, sulk, sway, tail, twitch, whimper"

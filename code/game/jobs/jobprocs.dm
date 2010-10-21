@@ -303,19 +303,20 @@
 			src.equip_if_possible(new /obj/item/device/pda/clown(src), slot_belt)
 			src.equip_if_possible(new /obj/item/clothing/under/clown(src), slot_w_uniform)
 			src.equip_if_possible(new /obj/item/clothing/shoes/clown_shoes(src), slot_shoes)
-			src.equip_if_possible(new /obj/item/clothing/mask/clown_hat(src), slot_wear_mask)
+			src.equip_if_possible(new /obj/item/clothing/mask/gas/clown_hat(src), slot_wear_mask)
 			src.equip_if_possible(new /obj/item/weapon/banana(src), slot_in_backpack)
 			src.equip_if_possible(new /obj/item/weapon/bikehorn(src), slot_in_backpack)
 			src.mutations |= 16
 
 		if ("Mime")
 			src.equip_if_possible(new /obj/item/weapon/storage/backpack(src), slot_back)
-			src.equip_if_possible(new /obj/item/device/pda/mime(src), slot_belt)
+			src.equip_if_possible(new /obj/item/device/pda/mime(src), slot_r_store)
 			src.equip_if_possible(new /obj/item/clothing/under/mime(src), slot_w_uniform)
 			src.equip_if_possible(new /obj/item/clothing/shoes/black(src), slot_shoes)
 			src.equip_if_possible(new /obj/item/clothing/gloves/latex(src), slot_gloves)
 			src.equip_if_possible(new /obj/item/clothing/mask/mime(src), slot_wear_mask)
 			src.equip_if_possible(new /obj/item/clothing/head/beret(src), slot_head)
+			src.equip_if_possible(new /obj/item/clothing/belt/suspenders(src), slot_belt)
 			src.verbs += /client/proc/mimespeak
 			src.verbs += /client/proc/mimewall
 			src.miming = 1
@@ -463,7 +464,7 @@
 //			src.equip_if_possible(new /obj/item/device/pda/medical(src), slot_belt)
 			src.equip_if_possible(new /obj/item/clothing/under/rank/hydroponics(src), slot_w_uniform)
 			src.equip_if_possible(new /obj/item/clothing/shoes/black(src), slot_shoes)
-			src.equip_if_possible(new /obj/item/clothing/gloves/latex(src), slot_gloves)
+			src.equip_if_possible(new /obj/item/clothing/gloves/botanic_leather(src), slot_gloves)
 			src.equip_if_possible(new /obj/item/device/analyzer/plant_analyzer(src), slot_l_hand)
 			src.equip_if_possible(new /obj/item/clothing/suit/apron(src), slot_wear_suit)
 
@@ -504,6 +505,13 @@
 			src.equip_if_possible(new /obj/item/clothing/suit/labcoat(src), slot_wear_suit)
 			src.equip_if_possible(new /obj/item/weapon/pen(src), slot_l_hand)
 			src.equip_if_possible(new /obj/item/weapon/clipboard(src), slot_r_hand)
+
+		if ("Virologist")
+			src.equip_if_possible(new /obj/item/device/radio/headset/headset_med (src), slot_ears) // -- TLE
+			src.equip_if_possible(new /obj/item/device/pda/medical(src), slot_belt)
+			src.equip_if_possible(new /obj/item/clothing/under/rank/medical(src), slot_w_uniform)
+			src.equip_if_possible(new /obj/item/clothing/shoes/white(src), slot_shoes)
+			src.equip_if_possible(new /obj/item/clothing/suit/labcoat(src), slot_wear_suit)
 
 		else
 			src << "RUH ROH! Your job is [rank] and the game just can't handle it! Please report this bug to an administrator."
@@ -590,6 +598,8 @@
 	usr << "You form a wall in front of yourself."
 	var/obj/forcefield/F =  new /obj/forcefield(locate(usr.x,usr.y,usr.z))
 	F.icon_state = "empty"
+	F.name = "invisible wall"
+	F.desc = "You have a bad feeling about this."
 	spawn (300)
 		del (F)
 	return
