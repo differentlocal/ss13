@@ -120,8 +120,7 @@
 	return K
 
 /proc/sanitize(var/t)
-	// Fixes ASCII 255 engine problem - Micktu
-	t = dd_replacetext(t, "ÿ", "ß")
+	t = dd_replacetext(t, "ÿ", "ß") // ASCII 0xFF fix - Micktu
 
 	var/index = findtext(t, "\n")
 	while(index)

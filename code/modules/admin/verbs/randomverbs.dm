@@ -114,7 +114,7 @@
 			return
 		var/t = input("Message:", text("Private message to [M.key]"))  as text
 		if(src.holder.rank != "Coder" && src.holder.rank != "Host")
-			t = strip_html(t,500)
+			t = strip_html(sanitize(t),500)
 		if (!( t ))
 			return
 		if (usr.client && usr.client.holder)
@@ -167,7 +167,7 @@
 
 
 /client/proc/cmd_admin_add_random_ai_law()
-	set category = "Admin"
+	set category = "Fun"
 	set name = "Add Random AI Law"
 	if(!src.authenticated || !src.holder)
 		src << "Only administrators may use this command."
@@ -231,7 +231,7 @@
 
 
 /client/proc/cmd_admin_add_freeform_ai_law()
-	set category = "Admin"
+	set category = "Fun"
 	set name = "Add Custom AI law"
 	if(!src.authenticated || !src.holder)
 		src << "Only administrators may use this command."
@@ -363,7 +363,7 @@
 
 /client/proc/cmd_admin_gib_self()
 	set name = "Gibself"
-	set category = "Special Verbs"
+	set category = "Fun"
 	if (istype(src.mob, /mob/dead/observer)) // so they don't spam gibs everywhere
 		return
 	else

@@ -39,6 +39,7 @@
 	var/poll_answer = 0.0
 	var/sdisabilities = 0
 	var/disabilities = 0
+	var/midis = 1 //Check if midis should be played for someone -- Urist
 	var/atom/movable/pulling = null
 	var/stat = 0.0
 	var/next_move = null
@@ -103,6 +104,8 @@
 	var/r_epil = 0
 	var/r_ch_cou = 0
 	var/r_Tourette = 0
+
+	var/miming = null //checks if the guy is a mime
 
 	var/obj/hud/hud_used = null
 
