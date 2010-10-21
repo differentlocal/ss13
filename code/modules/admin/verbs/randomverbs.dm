@@ -60,6 +60,8 @@
 
 	var/msg = input("Message:", text("Subtle PM to [M.key]")) as text
 
+	msg = sanitize(msg)
+
 	if (!msg)
 		return
 	if(usr)
@@ -112,7 +114,7 @@
 			return
 		var/t = input("Message:", text("Private message to [M.key]"))  as text
 		if(src.holder.rank != "Coder" && src.holder.rank != "Host")
-			t = strip_html(t,500)
+			t = strip_html(sanitize(t),500)
 		if (!( t ))
 			return
 		if (usr.client && usr.client.holder)

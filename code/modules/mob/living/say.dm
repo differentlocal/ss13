@@ -42,6 +42,7 @@
 	var/italics = 0
 	var/message_range = null
 	var/message_mode = null
+	var/mark = null
 
 	if (src.brainloss >= 60 && prob(50))
 		if (ishuman(src))
@@ -54,15 +55,16 @@
 
 
 	else if (length(message) >= 2)
-		if (copytext(message, 1, 3) == ":r")
+		mark = copytext(message, 1, 3)
+		if (mark == ":r" || mark == ":ï")
 			message_mode = "right hand"
 			message = copytext(message, 3)
 
-		else if (copytext(message, 1, 3) == ":l")
+		else if (mark == ":l" || mark == ":ë")
 			message_mode = "left hand"
 			message = copytext(message, 3)
 
-		else if (copytext(message, 1, 3) == ":h")
+		else if (mark == ":h" || mark == ":ã")
 			if (ishuman(src))
 				message_mode = "secure headset"
 			message = copytext(message, 3)
@@ -71,7 +73,7 @@
 			message_mode = "whisper"
 			message = copytext(message, 3)*/
 
-		else if (copytext(message, 1, 3) == ":i")
+		else if (mark == ":i" || mark == ":è")
 			message_mode = "intercom"
 			message = copytext(message, 3)
 	//

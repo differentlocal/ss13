@@ -2,6 +2,7 @@
 *.rsc
 *.dmb
 *.int
+Thumbs.db
 
 config/*
 data/*

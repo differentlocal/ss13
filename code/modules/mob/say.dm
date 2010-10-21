@@ -15,9 +15,9 @@
 
 	if (istype(src, /mob/living/carbon/human) && src.name != src.real_name)
 		if (src:wear_id && src:wear_id:registered)
-			alt_name = " (as [src:wear_id:registered])"
+			alt_name = " (как [src:wear_id:registered])"
 		else
-			alt_name = " (as Unknown)"
+			alt_name = " (как неизвестный)"
 	else if (istype(src, /mob/dead/observer))
 		name = "Ghost"
 		alt_name = " ([src.real_name])"
@@ -46,15 +46,15 @@
 /mob/proc/say_quote(var/text)
 	var/ending = copytext(text, length(text))
 	if (src.stuttering)
-		return "stammers, \"[text]\"";
+		return "заикается: \"[text]\"";
 	if (src.brainloss >= 60)
-		return "gibbers, \"[text]\"";
+		return "бормочет: \"[text]\"";
 	if (ending == "?")
-		return "asks, \"[text]\"";
+		return "спрашивает: \"[text]\"";
 	else if (ending == "!")
-		return "exclaims, \"[text]\"";
+		return "восклицает: \"[text]\"";
 
-	return "says, \"[text]\"";
+	return "говорит: \"[text]\"";
 
 /mob/proc/emote(var/act)
 	return

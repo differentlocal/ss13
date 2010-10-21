@@ -6,7 +6,7 @@
 /mob/living/carbon/alien/say(var/message)
 
 	if (length(message) >= 2)
-		if (copytext(message, 1, 3) == ":a")
+		if (copytext(message, 1, 3) == ":a" || copytext(message, 1, 3) == ":ק")
 			message = copytext(message, 3)
 			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			src.alien_talk(message)
@@ -30,7 +30,7 @@
 		return
 
 	var/message_a = src.say_quote(message)
-	var/rendered = "<i><span class='game say'>Hivemind, <span class='name'>[src.name]</span> <span class='message'>[message_a]</span></span></i>"
+	var/rendered = "<i><span class='game say'>׃כüקאם, <span class='name'>[src.name]</span> <span class='message'>[message_a]</span></span></i>"
 	for (var/mob/living/S in world)
 		if(!S.stat)
 			if(S.alien_talk_understand)

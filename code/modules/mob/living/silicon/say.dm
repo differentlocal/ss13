@@ -14,7 +14,7 @@
 		return
 
 	if (length(message) >= 2)
-		if (copytext(message, 1, 3) == ":s")
+		if (copytext(message, 1, 3) == ":s" || copytext(message, 1, 3) == ":ð")
 			message = copytext(message, 3)
 			message = trim(copytext(sanitize(message), 1, MAX_MESSAGE_LEN))
 			src.robot_talk(message)
