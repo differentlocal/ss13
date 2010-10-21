@@ -61,7 +61,7 @@
 
 	message = src.say_quote(message)
 
-	rendered = "<i><span class='game say'>Hivemind, <span class='name'>[src.name]</span> <span class='message'>[message_a]</span></span></i>"
+	rendered = "<i><span class='game say'>׃כüקאם, <span class='name'>[src.name]</span> <span class='message'>[message_a]</span></span></i>"
 
 	for (var/mob/M in world)
 		if (istype(M, /mob/new_player))
