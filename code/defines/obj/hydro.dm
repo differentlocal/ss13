@@ -348,6 +348,24 @@
 	growthstages = 3
 	plant_type = 2
 
+/obj/item/seeds/lemonseed
+	name = "Lemon seeds"
+	icon_state = "seed-lemon"
+	mypath = "/obj/item/seeds/lemonseed"
+	species = "lemon"
+	plantname = "Lemon tree"
+	productname = "/obj/item/weapon/reagent_containers/food/snacks/grown/lemon"
+	lifespan = 25
+	endurance = 15
+	maturation = 5
+	production = 2
+	yield = 2
+	potency = 0
+	oneharvest = 1
+	plant_type = 0
+	growthstages = 2
+
+
 /*
 /obj/item/seeds/
 	name = ""
@@ -525,6 +543,17 @@ obj/item/weapon/grown/attackby(var/obj/item/O as obj, var/mob/user as mob)
 	desc = "Good for the eyes!"
 	icon_state = "carrot"
 	amount = 3
+	heal_amt = 1
+	New()
+		src.pixel_x = rand(-5.0, 5)
+		src.pixel_y = rand(-5.0, 5)
+
+/obj/item/weapon/reagent_containers/food/snacks/grown/lemon
+	seed = "/obj/item/seeds/lemonseed"
+	name = "Lemon"
+	desc = "Very sour"
+	icon_state = "lemon"
+	amount = 1
 	heal_amt = 1
 	New()
 		src.pixel_x = rand(-5.0, 5)
