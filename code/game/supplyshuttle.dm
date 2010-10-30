@@ -7,6 +7,7 @@
 #define SUPPLY_POINTSPERCRATE 5	//Points per crate sent back.
 #define SUPPLY_STATION_AREATYPE "/area/supply/station" //Type of the supply shuttle area for station
 #define SUPPLY_DOCK_AREATYPE "/area/supply/dock"	//Type of the supply shuttle area for dock
+#define SUPPLY_POINTSPERSLIP 1 //points per packing slip sent back stamped.
 
 var/supply_shuttle_moving = 0
 var/supply_shuttle_at_station = 0
@@ -176,6 +177,24 @@ var/supply_shuttle_points = 50
 	containertype = "/obj/crate"
 	containername = "Janitorial supplies"
 
+/obj/item/weapon/storage/lightbox/tubes
+
+/datum/supply_packs/lightbulbs
+	name = "Replacement lights"
+	contains = list("/obj/item/weapon/storage/lightbox/tubes",
+					"/obj/item/weapon/storage/lightbox/tubes",
+					"/obj/item/weapon/storage/lightbox/tubes",
+					"/obj/item/weapon/storage/lightbox/tubes",
+					"/obj/item/weapon/storage/lightbox",
+					"/obj/item/weapon/storage/lightbox",
+					"/obj/item/weapon/storage/lightbox",
+					"/obj/item/weapon/storage/lightbox")
+	cost = 10
+	containertype = "/obj/crate"
+	containername = "Replacement lights"
+
+
+
 /datum/supply_packs/plasma
 	name = "Plasma assembly crate"
 	contains = list("/obj/item/weapon/tank/plasma",
@@ -322,6 +341,8 @@ var/supply_shuttle_points = 50
 	"/obj/item/weapon/pestspray",
 	"/obj/item/weapon/pestspray",
 	"/obj/item/weapon/pestspray",
+	"/obj/item/weapon/minihoe",
+	"/obj/item/device/analyzer/plant_analyzer",
 	"/obj/item/clothing/gloves/latex",
 	"/obj/item/clothing/gloves/latex") // For handling nettles etc
 	cost = 10

@@ -46,7 +46,7 @@
 /mob/proc/say_quote(var/text)
 	var/ending = copytext(text, length(text))
 	if (src.stuttering)
-		return "заикаетс€: \"[text]\"";
+		return "заикается: \"[text]\"";
 	if (src.brainloss >= 60)
 		return "бормочет: \"[text]\"";
 	if (ending == "?")

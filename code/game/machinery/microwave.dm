@@ -7,8 +7,20 @@
 	var/xenomeat_amount = 0
 	var/humanmeat_amount = 0
 	var/donkpocket_amount = 0
+	var/milk_amount = 0
+	var/hotsauce_amount = 0
+	var/coldsauce_amount = 0
+	var/soysauce_amount = 0
+	var/ketchup_amount = 0
+	var/sauce_amount = 0		//This is so that I can lump all the sauces together in the microwave menu rather then clutter it up.
 	var/obj/extra_item = null // This is if an extra item is needed, eg a butte for an assburger
 	var/creates = "" // The item that is spawned when the recipe is made
+
+/datum/recipe/jellydonut
+	egg_amount = 1
+	flour_amount = 1
+	extra_item = /obj/item/weapon/reagent_containers/food/snacks/berryjam
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/jellydonut"
 
 /datum/recipe/donut
 	egg_amount = 1
@@ -86,12 +98,85 @@
 /datum/recipe/muffin
 	egg_amount = 2
 	flour_amount = 1
-	extra_item = /obj/item/weapon/reagent_containers/food/drinks/milk
+	milk_amount = 1
 	creates = "/obj/item/weapon/reagent_containers/food/snacks/muffin"
 
+/datum/recipe/eggplantparm	// Doesn't work EXACTLY right. The recipe works but it also works if you don't put in any cheese at all.
+	cheese_amount = 2		// I'm not sure why this is the case. -- Darem
+	extra_item = /obj/item/weapon/reagent_containers/food/snacks/grown/eggplant
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/eggplantparm"
 
-/obj/machinery/microwave/New() // *** After making the recipe in defines\obj\food.dmi, add it in here! ***
+/datum/recipe/soylenviridians
+	flour_amount = 3
+	extra_item = /obj/item/weapon/reagent_containers/food/snacks/grown/soybeans
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/soylenviridians"
+
+/datum/recipe/carrotcake
+	flour_amount = 3
+	egg_amount = 3
+	milk_amount = 1
+	extra_item = /obj/item/weapon/reagent_containers/food/snacks/grown/carrot
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/carrotcake"
+
+/datum/recipe/cheesecake
+	flour_amount = 3
+	egg_amount = 3
+	cheese_amount = 2
+	milk_amount = 1
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/cheesecake"
+
+/datum/recipe/plaincake
+	flour_amount = 3
+	egg_amount = 3
+	milk_amount = 1
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/plaincake"
+
+/datum/recipe/humeatpie
+	flour_amount = 2
+	humanmeat_amount = 1
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/humeatpie"
+
+/datum/recipe/momeatpie
+	flour_amount = 2
+	monkeymeat_amount = 1
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/momeatpie"
+
+/datum/recipe/xemeatpie
+	flour_amount = 2
+	xenomeat_amount = 1
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/xemeatpie"
+
+/datum/recipe/wingfangchu
+	soysauce_amount = 1
+	xenomeat_amount = 1
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/wingfangchu"
+
+/datum/recipe/chaosdonut
+	egg_amount = 1
+	flour_amount = 1
+	coldsauce_amount = 1
+	hotsauce_amount = 1
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/chaosdonut"
+
+/datum/recipe/humankabob
+	humanmeat_amount = 2
+	extra_item = /obj/item/weapon/rods
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/humankabob"
+
+/datum/recipe/monkeykabob
+	monkeymeat_amount = 2
+	extra_item = /obj/item/weapon/rods
+	creates = "/obj/item/weapon/reagent_containers/food/snacks/monkeykabob"
+
+// *** After making the recipe above, add it in here! ***
+// Special Note: When adding recipes to the list, make sure to list recipes with extra_item before similar recipes without
+//					one. The reason being that sometimes the FOR loop that searchs through the recipes will just stop
+//					at the wrong recipe. It's a hack job but it works until I clean up the microwave code.
+/obj/machinery/microwave/New()
 	..()
+	src.available_recipes += new /datum/recipe/humankabob(src)
+	src.available_recipes += new /datum/recipe/monkeykabob(src)
+	src.available_recipes += new /datum/recipe/jellydonut(src)
 	src.available_recipes += new /datum/recipe/donut(src)
 	src.available_recipes += new /datum/recipe/monkeyburger(src)
 	src.available_recipes += new /datum/recipe/humanburger(src)
@@ -107,6 +192,17 @@
 	src.available_recipes += new /datum/recipe/meatbreadhuman(src)
 	src.available_recipes += new /datum/recipe/omelette (src)
 	src.available_recipes += new /datum/recipe/muffin (src)
+	src.available_recipes += new /datum/recipe/eggplantparm(src)
+	src.available_recipes += new /datum/recipe/soylenviridians(src)
+	src.available_recipes += new /datum/recipe/carrotcake(src)
+	src.available_recipes += new /datum/recipe/cheesecake(src)
+	src.available_recipes += new /datum/recipe/plaincake(src)
+	src.available_recipes += new /datum/recipe/humeatpie(src)
+	src.available_recipes += new /datum/recipe/momeatpie(src)
+	src.available_recipes += new /datum/recipe/xemeatpie(src)
+	src.available_recipes += new /datum/recipe/wingfangchu(src)
+	//src.available_recipes += new /datum/recipe/chaosdonut(src) // Commented out until I come up with a better idea.
+
 
 
 /*******************
@@ -143,36 +239,42 @@ obj/machinery/microwave/attackby(var/obj/item/O as obj, var/mob/user as mob)
 			src.icon_state = "mw"
 		else //Otherwise bad luck!!
 			return
+
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/egg)) // If an egg is used, add it
 		if(src.egg_amount < 5)
 			for(var/mob/V in viewers(src, null))
 				V.show_message(text("\blue [user] adds an egg to the microwave."))
 			src.egg_amount++
 			del(O)
+
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/flour)) // If flour is used, add it
 		if(src.flour_amount < 5)
 			for(var/mob/V in viewers(src, null))
 				V.show_message(text("\blue [user] adds some flour to the microwave."))
 			src.flour_amount++
 			del(O)
+
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/cheesewedge)) // If cheese is used, add it
 		if(src.cheese_amount < 5)
 			for(var/mob/V in viewers(src, null))
 				V.show_message(text("\blue [user] adds some cheese to the microwave."))
 			src.cheese_amount++
 			del(O)
+
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/monkeymeat))
 		if(src.monkeymeat_amount < 5)
 			for(var/mob/V in viewers(src, null))
 				V.show_message(text("\blue [user] adds some meat to the microwave."))
 			src.monkeymeat_amount++
 			del(O)
+
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/xenomeat))
 		if(src.xenomeat_amount < 5)
 			for(var/mob/V in viewers(src, null))
 				V.show_message(text("\blue [user] adds some meat to the microwave."))
 			src.xenomeat_amount++
 			del(O)
+
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/humanmeat))
 		if(src.humanmeat_amount < 5)
 			for(var/mob/V in viewers(src, null))
@@ -181,12 +283,53 @@ obj/machinery/microwave/attackby(var/obj/item/O as obj, var/mob/user as mob)
 			src.humanmeat_job = O:subjectjob
 			src.humanmeat_amount++
 			del(O)
+
 	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/donkpocket))
 		if(src.donkpocket_amount < 2)
 			for(var/mob/V in viewers(src, null))
 				V.show_message(text("\blue [user] adds a donk-pocket to the microwave."))
 			src.donkpocket_amount++
 			del(O)
+
+	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/hotsauce))
+		if(src.hotsauce_amount < 5)
+			for(var/mob/V in viewers(src, null))
+				V.show_message(text("\blue [user] adds some meat to the microwave."))
+			src.hotsauce_amount++
+			src.sauce_amount++
+			del(O)
+
+	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/coldsauce))
+		if(src.coldsauce_amount < 5)
+			for(var/mob/V in viewers(src, null))
+				V.show_message(text("\blue [user] adds some coldsauce to the microwave."))
+			src.coldsauce_amount++
+			src.sauce_amount++
+			del(O)
+
+	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/soysauce))
+		if(src.soysauce_amount < 5)
+			for(var/mob/V in viewers(src, null))
+				V.show_message(text("\blue [user] adds some soysauce to the microwave."))
+			src.soysauce_amount++
+			src.sauce_amount++
+			del(O)
+
+	else if(istype(O, /obj/item/weapon/reagent_containers/food/snacks/ketchup))
+		if(src.ketchup_amount < 5)
+			for(var/mob/V in viewers(src, null))
+				V.show_message(text("\blue [user] adds some ketchup to the microwave."))
+			src.ketchup_amount++
+			src.sauce_amount++
+			del(O)
+
+	else if(istype(O, /obj/item/weapon/reagent_containers/food/drinks/milk))
+		if(src.milk_amount < 5)
+			for(var/mob/V in viewers(src, null))
+				V.show_message(text("\blue [user] adds some milk to the microwave."))
+			src.milk_amount++
+			del(O)
+
 	else
 		if(!istype(extra_item, /obj/item)) //Allow one non food item to be added!
 			user.u_equip(O)
@@ -235,6 +378,8 @@ Please clean it before use!</TT><BR>
 <B>Cheese:</B>[src.cheese_amount] cheese wedges<BR>
 <B>Monkey Meat:</B>[src.monkeymeat_amount] slabs of meat<BR>
 <B>Meat Turnovers:</B>[src.donkpocket_amount] turnovers<BR>
+<B>Various Sauces:</B>[src.sauce_amount] servings.<BR>
+<B>Milk:</B>[src.milk_amount] cups of milk.<BR>
 <B>Other Meat:</B>[src.humanmeat_amount] slabs of meat<BR>
 [xenodisplay]
 <HR>
@@ -265,13 +410,13 @@ Please clean it before use!</TT><BR>
 			var/operation = text2num(href_list["cook"])
 
 			var/cook_time = 200 // The time to wait before spawning the item
-			var/cooked_item = ""
+			var/cooked_item = null
 
 			if(operation == 1) // If cook was pressed
 				for(var/mob/V in viewers(src, null))
 					V.show_message(text("\blue The microwave turns on."))
 				for(var/datum/recipe/R in src.available_recipes) //Look through the recipe list we made above
-					if(src.egg_amount == R.egg_amount && src.flour_amount == R.flour_amount && src.monkeymeat_amount == R.monkeymeat_amount && src.humanmeat_amount == R.humanmeat_amount && src.donkpocket_amount == R.donkpocket_amount && src.xenomeat_amount == R.xenomeat_amount) // Check if it's an accepted recipe
+					if(src.egg_amount == R.egg_amount && src.flour_amount == R.flour_amount && src.monkeymeat_amount == R.monkeymeat_amount && src.humanmeat_amount == R.humanmeat_amount && src.donkpocket_amount == R.donkpocket_amount && src.xenomeat_amount == R.xenomeat_amount && src.hotsauce_amount == R.hotsauce_amount && src.coldsauce_amount == R.coldsauce_amount && src.soysauce_amount == R.soysauce_amount && src.ketchup_amount == R.ketchup_amount && src.milk_amount == R.milk_amount) // Check if it's an accepted recipe
 						var/thing
 						if(src.extra_item)
 							if (src.extra_item.type == R.extra_item) thing = 1
@@ -284,11 +429,19 @@ Please clean it before use!</TT><BR>
 							src.monkeymeat_amount = 0
 							src.humanmeat_amount = 0
 							src.donkpocket_amount = 0
+							src.milk_amount = 0
+							src.hotsauce_amount = 0
+							src.coldsauce_amount = 0
+							src.soysauce_amount = 0
+							src.ketchup_amount = 0
+							src.sauce_amount = 0
 							src.extra_item = null // And the extra item
 							cooked_item = R.creates // Store the item that will be created
 
-				if(cooked_item == "") //Oops that wasn't a recipe dummy!!!
-					if(src.egg_amount > 0 || src.flour_amount > 0 || src.water_amount > 0 || src.monkeymeat_amount > 0 || src.humanmeat_amount > 0 || src.donkpocket_amount > 0 && src.extra_item == null) //Make sure there's something inside though to dirty it
+
+
+				if(cooked_item == null) //Oops that wasn't a recipe dummy!!!
+					if(src.egg_amount > 0 || src.flour_amount > 0 || src.water_amount > 0 || src.monkeymeat_amount > 0 || src.humanmeat_amount > 0 || src.donkpocket_amount > 0 || src.hotsauce_amount > 0 ||src.coldsauce_amount > 0 || src.soysauce_amount > 0 || src.ketchup_amount > 0 || src.milk_amount > 0 && src.extra_item == null) //Make sure there's something inside though to dirty it
 						src.operating = 1 // Turn it on
 						src.icon_state = "mw1"
 						src.updateUsrDialog()
@@ -300,6 +453,12 @@ Please clean it before use!</TT><BR>
 						src.humanmeat_amount = 0
 						src.monkeymeat_amount = 0
 						src.donkpocket_amount = 0
+						src.milk_amount = 0
+						src.hotsauce_amount = 0
+						src.coldsauce_amount = 0
+						src.soysauce_amount = 0
+						src.ketchup_amount = 0
+						src.sauce_amount = 0
 						sleep(40) // Half way through
 						playsound(src.loc, 'splat.ogg', 50, 1) // Play a splat sound
 						icon_state = "mwbloody1" // Make it look dirty!!
@@ -325,6 +484,12 @@ Please clean it before use!</TT><BR>
 						src.humanmeat_amount = 0
 						src.monkeymeat_amount = 0
 						src.donkpocket_amount = 0
+						src.milk_amount = 0
+						src.hotsauce_amount = 0
+						src.coldsauce_amount = 0
+						src.soysauce_amount = 0
+						src.ketchup_amount = 0
+						src.sauce_amount = 0
 						sleep(60) // Wait a while
 						var/datum/effects/system/spark_spread/s = new /datum/effects/system/spark_spread
 						s.set_up(2, 1, src)
@@ -355,24 +520,33 @@ Please clean it before use!</TT><BR>
 				src.humanmeat_amount = 0
 				src.monkeymeat_amount = 0
 				src.donkpocket_amount = 0
+				src.milk_amount = 0
+				src.hotsauce_amount = 0
+				src.coldsauce_amount = 0
+				src.soysauce_amount = 0
+				src.ketchup_amount = 0
+				src.sauce_amount = 0
 				if(src.extra_item != null)
 					src.extra_item.loc = get_turf(src) // Eject the extra item so important shit like the disk can't be destroyed in there
 					src.extra_item = null
 				usr << "You dispose of the microwave contents."
 
-			var/cooking = text2path(cooked_item) // Get the item that needs to be spanwed
+			var/cooking = cooked_item // Get the item that needs to be spanwed
 			if(!isnull(cooking))
-				for(var/mob/V in viewers(src, null))
-					V.show_message(text("\blue The microwave begins cooking something!"))
 				src.operating = 1 // Turn it on so it can't be used again while it's cooking
 				src.icon_state = "mw1" //Make it look on too
 				src.updateUsrDialog()
 				src.being_cooked = new cooking(src)
-
 				spawn(cook_time) //After the cooking time
 					if(!isnull(src.being_cooked))
 						playsound(src.loc, 'ding.ogg', 50, 1)
 						if(istype(src.being_cooked, /obj/item/weapon/reagent_containers/food/snacks/humanburger))
+							src.being_cooked.name = humanmeat_name + src.being_cooked.name
+							src.being_cooked:job = humanmeat_job
+						else if(istype(src.being_cooked, /obj/item/weapon/reagent_containers/food/snacks/humeatpie))
+							src.being_cooked.name = humanmeat_name + src.being_cooked.name
+							src.being_cooked:job = humanmeat_job
+						else if(istype(src.being_cooked, /obj/item/weapon/reagent_containers/food/snacks/humankabob))
 							src.being_cooked.name = humanmeat_name + src.being_cooked.name
 							src.being_cooked:job = humanmeat_job
 						if(istype(src.being_cooked, /obj/item/weapon/reagent_containers/food/snacks/donkpocket))
@@ -390,7 +564,7 @@ Please clean it before use!</TT><BR>
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-//Meatbread slicing RIGHT BELOW*************
+//Food slicing RIGHT BELOW*************
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 
 

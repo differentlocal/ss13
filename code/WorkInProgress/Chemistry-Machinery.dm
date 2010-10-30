@@ -234,7 +234,7 @@
 
 
 
-/obj/machinery/pandemic/
+/obj/machinery/computer/pandemic
 	name = "PanD.E.M.I.C 2200"
 	density = 1
 	anchored = 1
@@ -244,48 +244,26 @@
 	var/wait = null
 	var/obj/item/weapon/reagent_containers/glass/beaker = null
 
-	ex_act(severity)
-		switch(severity)
-			if(1.0)
-				del(src)
-				return
-			if(2.0)
-				if (prob(50))
-					del(src)
-					return
 
-	blob_act()
-		if (prob(50))
-			del(src)
+	set_broken()
+		icon_state = (src.beaker?"mixer1_b":"mixer0_b")
+		stat |= BROKEN
 
-	meteorhit()
-		del(src)
-		return
 
 	power_change()
-		if(powered())
+
+		if(stat & BROKEN)
+			icon_state = (src.beaker?"mixer1_b":"mixer0_b")
+
+		else if(powered())
 			icon_state = (src.beaker?"mixer1":"mixer0")
 			stat &= ~NOPOWER
+
 		else
 			spawn(rand(0, 15))
 				src.icon_state = (src.beaker?"mixer1_nopower":"mixer0_nopower")
 				stat |= NOPOWER
 
-
-	attackby(var/obj/item/weapon/reagent_containers/glass/B as obj, var/mob/user as mob)
-		if(!istype(B, /obj/item/weapon/reagent_containers/glass))
-			return
-
-		if(src.beaker)
-			user << "A beaker is already loaded into the machine."
-			return
-
-		src.beaker =  B
-		user.drop_item()
-		B.loc = src
-		user << "You add the beaker to the machine!"
-		src.updateUsrDialog()
-		icon_state = "mixer1"
 
 	Topic(href, href_list)
 		if(stat & (NOPOWER|BROKEN)) return
@@ -298,12 +276,12 @@
 		if (href_list["create_vaccine"])
 			if(!src.wait)
 				var/obj/item/weapon/reagent_containers/glass/bottle/B = new/obj/item/weapon/reagent_containers/glass/bottle(src.loc)
-				var/vaccine_type = href_list["create_vaccine"]
+				var/vaccine_type = text2path(href_list["create_vaccine"])//the path is received as string - converting
 				var/datum/disease/D = new vaccine_type
 				var/name = input(usr,"Name:","Name the vaccine",D.name)
 				if(!name || name == " ") name = D.name
 				B.name = "[name] vaccine bottle"
-				B.reagents.add_reagent("vaccine",10,vaccine_type)
+				B.reagents.add_reagent("vaccine",15,vaccine_type)
 				del(D)
 				wait = 1
 				spawn(1200)
@@ -316,7 +294,7 @@
 			if(!wait)
 				var/obj/item/weapon/reagent_containers/glass/bottle/B = new/obj/item/weapon/reagent_containers/glass/bottle(src.loc)
 				B.icon_state = "bottle3"
-				var/type = href_list["create_virus_culture"]
+				var/type = text2path(href_list["create_virus_culture"])//the path is received as string - converting
 				var/datum/disease/D = new type
 				var/list/data = list("virus"=D)
 				var/name = input(usr,"Name:","Name the culture",D.name)
@@ -409,4 +387,48 @@
 
 		user << browse("<TITLE>PanD.E.M.I.C 2200</TITLE><BR>[dat]", "window=pandemic;size=575x400")
 		onclose(user, "pandemic")
+		return
+
+	attackby(var/obj/I as obj, var/mob/user as mob)
+		if(istype(I, /obj/item/weapon/screwdriver))
+			playsound(src.loc, 'Screwdriver.ogg', 50, 1)
+			if(do_after(user, 20))
+				if (src.stat & BROKEN)
+					user << "\blue The broken glass falls out."
+					var/obj/computerframe/A = new /obj/computerframe(src.loc)
+					new /obj/item/weapon/shard(src.loc)
+					var/obj/item/weapon/circuitboard/pandemic/M = new /obj/item/weapon/circuitboard/pandemic(A)
+					for (var/obj/C in src)
+						C.loc = src.loc
+					A.circuit = M
+					A.state = 3
+					A.icon_state = "3"
+					A.anchored = 1
+					del(src)
+				else
+					user << "\blue You disconnect the monitor."
+					var/obj/computerframe/A = new /obj/computerframe( src.loc )
+					var/obj/item/weapon/circuitboard/pandemic/M = new /obj/item/weapon/circuitboard/pandemic(A)
+					for (var/obj/C in src)
+						C.loc = src.loc
+					A.circuit = M
+					A.state = 4
+					A.icon_state = "4"
+					A.anchored = 1
+					del(src)
+		else if(istype(I, /obj/item/weapon/reagent_containers/glass))
+			if(stat & (NOPOWER|BROKEN)) return
+			if(src.beaker)
+				user << "A beaker is already loaded into the machine."
+				return
+
+			src.beaker =  I
+			user.drop_item()
+			I.loc = src
+			user << "You add the beaker to the machine!"
+			src.updateUsrDialog()
+			icon_state = "mixer1"
+
+		else
+			..()
 		return

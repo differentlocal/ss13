@@ -45,7 +45,7 @@ STI KALY - blind
 				return
 			if(prob(2))
 				affected_mob << "\red You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")]."
-			if(prob(5))
+			if(prob(2))
 				teleport()
 
 	return
@@ -103,7 +103,7 @@ STI KALY - blind
 
 	var/list/theareas = new/list()
 	for(var/area/AR in orange(80, affected_mob))
-		if(theareas.Find(AR)) continue
+		if(theareas.Find(AR) || AR.name == "Space") continue
 		theareas += AR
 
 	var/area/thearea = pick(theareas)
