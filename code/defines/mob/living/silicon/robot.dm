@@ -2,7 +2,7 @@
 	name = "Robot"
 	voice_name = "synthesized voice"
 	icon = 'robots.dmi'//
-	icon_state = "robot"
+	icon_state = "robot_bender"
 	health = 300
 
 
