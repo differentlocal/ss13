@@ -262,7 +262,15 @@ var/supply_shuttle_points = 50
 
 /datum/supply_packs/party
 	name = "Party equipment"
-	contains = list("/obj/item/weapon/reagent_containers/food/drinks/beer",
+	contains = list(
+	"/obj/item/clothing/mask/partymask",
+	"/obj/item/clothing/glasses/monocle",
+	"/obj/item/clothing/head/pirate",
+	"/obj/item/clothing/under/schoolgirl",
+	"/obj/item/clothing/glasses/eyepatch",
+	"/obj/item/clothing/under/kitten",
+	"/obj/item/clothing/under/bunny",
+	"/obj/item/clothing/head/pg_crown",
 	"/obj/item/weapon/reagent_containers/food/drinks/beer",
 	"/obj/item/weapon/reagent_containers/food/drinks/beer",
 	"/obj/item/weapon/reagent_containers/food/drinks/beer",

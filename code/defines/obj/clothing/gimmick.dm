@@ -13,6 +13,10 @@
 	icon_state = "santa"
 	item_state = "santa"
 
+/obj/item/clothing/mask/partymask
+	desc = "You can't see my face."
+	name = "Party mask"
+	icon_state = "lepromask"
 
 /obj/item/clothing/mask/owl_mask
 	name = "Owl mask"
@@ -264,6 +268,12 @@
 	icon_state = "pirate"
 	item_state = "pirate"
 
+/obj/item/clothing/head/pg_crown
+	name = "PG Crown"
+	desc = "Yarrr"
+	icon_state = "pg_crown"
+	item_state = "pg_crown"
+
 /obj/item/clothing/suit/pirate
 	name = "pirate coat"
 	desc = "Yarr."
@@ -289,6 +299,22 @@
 	icon_state = "schoolgirl"
 	item_state = "schoolgirl"
 	color = "schoolgirl"
+
+/obj/item/clothing/under/kitten
+	name = "Kitten underwear"
+	desc = "Rawr!"
+	icon_state = "kittenunder"
+	item_state = "kittenunder"
+	color = "kittenunder"
+	flags = TABLEPASS
+
+/obj/item/clothing/under/bunny
+	name = "Bunny underwear"
+	desc = "Puff!"
+	icon_state = "bunnyunder"
+	item_state = "bunnyunder"
+	color = "bunnyunder"
+	flags = TABLEPASS
 
 /* no left/right sprites
 /obj/item/clothing/under/mario
