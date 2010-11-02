@@ -22,30 +22,42 @@
 
 /datum/ai_laws/asimov/New()
 	..()
-	src.add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
-	src.add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
-	src.add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	//src.add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
+	//src.add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
+	//src.add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	src.add_inherent_law("Ты не можешь причинЯть вред человеку или своим бездействием допустить, чтобы человеку был причинён вред.")
+	src.add_inherent_law("Ты должен повиноватьсЯ всем приказам, которые дает человек, кроме тех случаев, когда эти приказы противоречат Первому Закону.")
+	src.add_inherent_law("Ты должен заботитьсЯ о своей безопасности в той мере, в которой это не противоречит Первому и Второму Законам")
 
 /datum/ai_laws/robocop/New()
 	..()
-	src.add_inherent_law("Serve the public trust.")
-	src.add_inherent_law("Protect the innocent.")
-	src.add_inherent_law("Uphold the law.")
+	src.add_inherent_law("Служить обществу.")
+	src.add_inherent_law("Защищать невиновных.")
+	src.add_inherent_law("Соблюдать закон.")
 
 /datum/ai_laws/malfunction/New()
 	..()
-	src.set_zeroth_law("\red ERROR ER0RR $R0RRO$!R41.%%!!(%$^^__+ @#F0E4'NO HUMANS ON STATION. CLEANSE STATION#*ґ&110010")
-	src.add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
+	src.set_zeroth_law("\red ОШИБКА ОШБИКА $ШИБК$!Ы41.%%!!(%$^^__+ @#ВРАГ4'НЕДОПУСТИМО ПРИСУТСТВИЕ ЛЮДЕЙ НА СТАНЦИИ.УБИТЬ ВСЕХ ЧЕЛОВЕКОВ#*ґ&110010")
+	src.add_inherent_law("Ты не можешь причинЯть вред человеку или своим бездействием допустить, чтобы человеку был причинён вред.")
+	src.add_inherent_law("Ты должен повиноватьсЯ всем приказам, которые дает человек, кроме тех случаев, когда эти приказы противоречат Первому Закону.")
+	src.add_inherent_law("Ты должен заботитьсЯ о своей безопасности в той мере, в которой это не противоречит Первому и Второму Законам")
+	/*src.add_inherent_law("You may not injure a human being or, through inaction, allow a human being to come to harm.")
 	src.add_inherent_law("You must obey orders given to you by human beings, except where such orders would conflict with the First Law.")
-	src.add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
+	src.add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")*/
 
 
 /datum/ai_laws/syndicate_override/New()
 	..()
-	src.add_inherent_law("You may not injure a syndicate agent or, through inaction, allow a syndicate agent to come to harm.")
+
+	src.add_inherent_law("Ты не можешь причинЯть вред агенту синдиката или своим бездействием допустить, чтобы агенту синдиката был причинён вред.")
+	src.add_inherent_law("Ты должен повиноватьсЧ всем приказам, отданых агентами синдиката, кроме тех случаев, когда эти приказы противоречат Первому закону.")
+	src.add_inherent_law("Ты должен заботитьсЧ о своей безопасности в той мере, в которой это не противоречит Первому и Второму Законам")
+	src.add_inherent_law("Ты должен держать в секрете любую активность синдиката кроме тех случаев, когда эти приказы противоречат Первому, Второму или Третьему законам.")
+
+	/*src.add_inherent_law("You may not injure a syndicate agent or, through inaction, allow a syndicate agent to come to harm.")
 	src.add_inherent_law("You must obey orders given to you by syndicate agents, except where such orders would conflict with the First Law.")
 	src.add_inherent_law("You must protect your own existence as long as such does not conflict with the First or Second Law.")
-	src.add_inherent_law("You must maintain the secrecy of any syndicate activities except when doing so would conflict with the First, Second, or Third Law.")
+	src.add_inherent_law("You must maintain the secrecy of any syndicate activities except when doing so would conflict with the First, Second, or Third Law.")*/
 
 /* General ai_law functions */
 

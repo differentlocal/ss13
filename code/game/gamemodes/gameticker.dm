@@ -21,8 +21,8 @@ var/global/datum/controller/gameticker/ticker
 	set background = 1
 
 	pregame_timeleft = 60
-	world << "<B><FONT color='blue'>Welcome to the pre-game lobby!</FONT></B>"
-	world << "Please, setup your character and select ready. Game will start in [pregame_timeleft] seconds"
+	world << "<B><FONT color='blue'>Зал ожиданиЯ. Добро пожаловать!</FONT></B>"
+	world << "Пожалуйста, настройте своего персонажа и нажмите Declare Ready или Join Game. Игра начнетсЯ через [pregame_timeleft] секунд"
 
 	while(current_state == GAME_STATE_PREGAME)
 		sleep(10)
@@ -46,7 +46,7 @@ var/global/datum/controller/gameticker/ticker
 	if(hide_mode)
 		var/modes = sortList(config.get_used_mode_names())
 
-		world << "<B>The current game mode is - Secret!</B>"
+		world << "<B>Текущий режим игры - Secret!</B>"
 		world << "<B>Possibilities:</B> [english_list(modes)]"
 	else
 		src.mode.announce()
@@ -90,7 +90,7 @@ var/global/datum/controller/gameticker/ticker
 				del(S)
 
 		//Start master_controller.process()
-		world << "<FONT color='blue'><B>Enjoy the game!</B></FONT>"
+		world << "<FONT color='blue'><B>ОТЫГРЫВАЙ&#64;НЕ ГРИФЬ!</B></FONT>"
 		spawn(-1)
 			world << sound('welcome.ogg') // Skie
 
@@ -150,7 +150,7 @@ var/global/datum/controller/gameticker/ticker
 
 			if(ticker.mode.name != "nuclear emergency" || noboom)
 				spawn(50)
-					world << "\blue <B>Restarting in 25 seconds</B>"
+					world << "\blue <B>Рестарт через 25 секунд</B>"
 
 					sleep(250)
 					world.Reboot()
@@ -186,9 +186,11 @@ var/global/datum/controller/gameticker/ticker
 	for (var/mob/living/silicon/ai/aiPlayer in world)
 		if (aiPlayer.name != "Inactive AI")
 			if (aiPlayer.stat != 2)
-				world << "<b>[aiPlayer.name]'s laws at the end of the game were:</b>"
+				//world << "<b>[aiPlayer.name]'s laws at the end of the game were:</b>"
+				world << "<b>Законы [aiPlayer.name]на момент окончаниЯ игры были такие:</b>"
 			else
-				world << "<b>[aiPlayer.name]'s laws when it was deactivated were:</b>"
+				//world << "<b>[aiPlayer.name]'s laws when it was deactivated were:</b>"
+				world << "<b>Законы [aiPlayer.name]на момент деактивации ИИ были такие:</b>"
 
 			aiPlayer.show_laws(1)
 

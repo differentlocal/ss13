@@ -11,7 +11,7 @@
 	switch(rand(1,7))
 		if(1)
 			event = 1
-			command_alert("Meteors have been detected on collision course with the station.", "Meteor Alert")
+			command_alert("Было замечено скопление метеоров по курсу станции.", "Внимание! Опасность метеоров")
 			world << sound('meteors.ogg')
 			spawn(100)
 				meteor_wave()
@@ -22,7 +22,7 @@
 
 		if(2)
 			event = 1
-			command_alert("Gravitational anomalies detected on the station. There is no additional data.", "Anomaly Alert")
+			command_alert("На станции выявлены гравитационные аномалии. Дополнительная информация отсутствует.", "Внимание! Опасность аномалий")
 			world << sound('granomalies.ogg')
 			var/turf/T = pick(blobstart)
 			var/obj/bhole/bh = new /obj/bhole( T.loc, 30 )
@@ -31,7 +31,7 @@
 
 		if(3)
 			event = 1
-			command_alert("Space-time anomalies detected on the station. There is no additional data.", "Anomaly Alert")
+			command_alert("На станции выявлены пространственно-временные аномалии. Дополнительная информация отсутствует.", "Внимание! Опасность аномалий")
 			world << sound('spanomalies.ogg')
 			var/list/turfs = list(	)
 			var/turf/picked
@@ -53,7 +53,7 @@
 							del(P)
 		if(4)
 			event = 1
-			command_alert("Confirmed anomaly type SPC-MGM-152 aboard [station_name()]. All personnel must destroy the anomaly.", "Anomaly Alert")
+			command_alert("Подтверждено наличине аномалии типа SPC-MGM-152 на борту [station_name()]. Весь персонал должен уничтожить аномалию.", "Внимание! Опасность аномалий")
 			world << sound('outbreak5.ogg')
 			var/turf/T = pick(blobstart)
 			var/obj/blob/bl = new /obj/blob( T.loc, 30 )
@@ -71,7 +71,7 @@
 
 		if(5)
 			event = 1
-			command_alert("High levels of radiation detected near the station. Please report to the Med-bay if you feel strange.", "Anomaly Alert")
+			command_alert("В близи станции выявлен высокий уровень радиации. Пожалуйста, обратитесь в мед.отсек если вы себя странно чувствуете.", "Внимание! Опасность аномалий")
 			world << sound('radiation.ogg')
 			for(var/mob/living/carbon/human/H in world)
 				H.radiation += rand(5,25)
@@ -275,7 +275,7 @@
 			break
 
 /proc/alien_infestation() // -- TLE
-	command_alert("Unidentified lifesigns detected coming aboard [station_name()]. Secure any exterior access, including ducting and ventilation.", "Lifesign Alert")
+	command_alert("На борту [station_name()] выЯвлены неидентифицированные формы жизни. Проследите за безопасностью путей наружу, включаЯ трубопровод и вентилЯцию.", "Внимание! Опасность инородных форм жизни.")
 	world << sound('aliens.ogg')
 	var/list/vents = list()
 	for(var/obj/machinery/atmospherics/unary/vent_pump/temp_vent in world)

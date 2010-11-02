@@ -399,7 +399,8 @@
 		return
 
 	emergency_shuttle.incall()
-	world << "\blue <B>Alert: The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.</B>"
+	//world << "\blue <B>Alert: The emergency shuttle has been called. It will arrive in [round(emergency_shuttle.timeleft()/60)] minutes.</B>"
+	world << "\blue <B>Внимание! Спасательный шаттл вызван. Он прибудет через [round(emergency_shuttle.timeleft()/60)] минут.</B>"
 	world << sound('shuttlecalled.ogg')
 
 	return
@@ -410,7 +411,7 @@
 	if( ticker.mode.name == "blob" )
 		return
 
-	world << "\blue <B>Alert: The shuttle is going back!</B>" //marker4
+	world << "\blue <B>Внимание! Спасательный шаттл отозван обратно</B>" //marker4
 	world << sound('shuttlerecalled.ogg')
 
 	emergency_shuttle.recall()
