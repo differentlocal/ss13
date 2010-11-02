@@ -1276,10 +1276,10 @@
 /mob/verb/changes()
 	set name = "Changelog"
 	if (src.client)
-		src << browse_rsc('postcardsmall.jpg')
+		src << browse_rsc('logo.png')
 		src << browse_rsc('somerights20.png')
 		src << browse_rsc('88x31.png')
-		src << browse('changelog.html', "window=changes;size=400x650")
+		src << browse('changelog.html', "window=changes;size=500x650")
 		src.client.changes = 1
 
 /mob/verb/succumb()
