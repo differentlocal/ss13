@@ -80,6 +80,7 @@
 	flags = FPRINT | TABLEPASS
 
 
+
 /obj/item/clothing/under/rainbow
 	name = "rainbow"
 	desc = "rainbow"
@@ -314,6 +315,22 @@
 	icon_state = "bunnyunder"
 	item_state = "bunnyunder"
 	color = "bunnyunder"
+	flags = TABLEPASS
+
+/obj/item/clothing/under/witness
+	name = "Witness suite"
+	desc = "He saw what you did"
+	icon_state = "witness"
+	item_state = "witness"
+	color = "witness"
+	flags = TABLEPASS
+
+/obj/item/clothing/under/latex
+	name = "Latex underwear"
+	desc = "Suite for slave who wish to wear latex"
+	icon_state = "latex"
+	item_state = "latex"
+	color = "latex"
 	flags = TABLEPASS
 
 /* no left/right sprites
