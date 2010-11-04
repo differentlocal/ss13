@@ -294,6 +294,8 @@
 					set_picture("ai_confused")
 				if("Sad")
 					set_picture("ai_sad")
+				if("Facepalm")
+					set_picture("ai_facepalm")
 				if("BSOD")
 					set_picture("ai_bsod")
 				if("Blank")
