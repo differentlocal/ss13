@@ -275,8 +275,8 @@
 	density = 0
 
 /obj/sign/doors
-	desc = "There are the doors ahead"
-	name = "Doors ahead"
+	desc = "Шлюз открывается нажатием кнопки"
+	name = "Doors"
 	icon = 'decals.dmi'
 	icon_state = "doors"
 	anchored = 1.0
