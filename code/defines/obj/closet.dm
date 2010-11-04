@@ -143,7 +143,12 @@
 	name = "Medical Wardrobe"
 	icon_state = "white"
 	icon_closed = "white"
-
+	
+/obj/closet/wardrobe/psychiatrist
+	name = "Medical Psychiatrist Wardrobe"
+	icon_state = "white"
+	icon_closed = "white"
+	
 /obj/closet/wardrobe/toxins_white
 	name = "Toxins Wardrobe"
 	icon_state = "white"

@@ -123,7 +123,10 @@
 	if(src.wear_suit)
 		switch(src.wear_suit.type)
 			if(/obj/item/clothing/suit/straight_jacket)
-				tally += 15
+				if (src.wear_suit.icon_state == "crazytied")
+					tally += 15
+				else
+					tally += 7
 			if(/obj/item/clothing/suit/fire)	//	firesuits slow you down a bit
 				tally += 1.3
 			if(/obj/item/clothing/suit/fire/heavy)	//	firesuits slow you down a bit
@@ -1102,6 +1105,12 @@
 				src.hand = 0
 				drop_item()
 				src.hand = h
+				src << "\red drop everything "
+			if (src.back)
+				src.r_hand = src.back
+				src.back = null
+				src.hand = 1
+				drop_item()
 
 	// Head
 	if (src.head)
@@ -1459,14 +1468,26 @@
 		if (src.health > 0)
 			if (src.w_uniform)
 				src.w_uniform.add_fingerprint(M)
-			src.sleeping = 0
-			src.resting = 0
-			if (src.paralysis >= 3) src.paralysis -= 3
-			if (src.stunned >= 3) src.stunned -= 3
-			if (src.weakened >= 3) src.weakened -= 3
-			playsound(src.loc, 'thudswoosh.ogg', 50, 1, -1)
-			for(var/mob/O in viewers(src, null))
-				O.show_message(text("\blue [] shakes [] trying to wake [] up!", M, src, src), 1)
+			if (src.wear_suit && istype (src.wear_suit, /obj/item/clothing/suit/straight_jacket))
+				playsound(src.loc, 'thudswoosh.ogg', 50, 1, -1)
+				if (src.wear_suit.icon_state == "crazy")
+					src.wear_suit.icon_state = "crazytied"
+					for(var/mob/O in viewers(src, null))
+						O.show_message(text("\blue [] restrains []!", M, src), 1)
+				else
+					src.wear_suit.icon_state = "crazy"
+					for(var/mob/O in viewers(src, null))
+						O.show_message(text("\blue [] releases []!", M, src), 1)
+				src.update_clothing()
+			else
+				src.sleeping = 0
+				src.resting = 0
+				if (src.paralysis >= 3) src.paralysis -= 3
+				if (src.stunned >= 3) src.stunned -= 3
+				if (src.weakened >= 3) src.weakened -= 3
+				playsound(src.loc, 'thudswoosh.ogg', 50, 1, -1)
+				for(var/mob/O in viewers(src, null))
+					O.show_message(text("\blue [] shakes [] trying to wake [] up!", M, src, src), 1)
 		else
 			if (M.health >= -75.0)
 				if (((M.head && M.head.flags & 4) || ((M.wear_mask && !( M.wear_mask.flags & 32 )) || ((src.head && src.head.flags & 4) || (src.wear_mask && !( src.wear_mask.flags & 32 ))))))
@@ -1612,7 +1633,8 @@
 	if (src.handcuffed)
 		return 1
 	if (istype(src.wear_suit, /obj/item/clothing/suit/straight_jacket))
-		return 1
+		if (src.wear_suit.icon_state == "crazytied")
+			return 1
 	return 0
 
 /mob/living/carbon/human/proc/update_body()

@@ -507,11 +507,20 @@
 	permeability_coefficient = 0.25
 	heat_transfer_coefficient = 0.75
 
+/obj/item/clothing/suit/psychiatrist
+	name = "Psychiatrist Doctor's suit"
+	desc = "A suit that protects against minor chemical spills."
+	icon_state = "psychiatrist"
+	item_state = "psychiatrist"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|LEGS
+	permeability_coefficient = 0.25
+	heat_transfer_coefficient = 0.75
+
 /obj/item/clothing/suit/straight_jacket
 	name = "straight jacket"
 	desc = "A suit that totally restrains an individual"
-	icon_state = "straight_jacket"
-	item_state = "straight_jacket"
+	icon_state = "crazy"
+	item_state = "crazy"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 
 /obj/item/clothing/suit/wcoat
@@ -830,6 +839,7 @@
 	color = "medical"
 	permeability_coefficient = 0.50
 
+
 /obj/item/clothing/under/rank/hydroponics
 	desc = "Made of a special fiber that gives special protection against biohazards. Has a Hydroponics rank stripe on it."
 	name = "Hydroponics Jumpsuit"
@@ -852,6 +862,12 @@
 	desc = "Wearing this, all the children love you, for all the wrong reasons."
 	icon_state = "clown"
 	color = "clown"
+
+/obj/item/clothing/under/restraint
+	name = "restraint jacket"
+	desc = "Restraint jacket, you cant use your hands if your sleeves are tied on your back"
+	icon_state = "crazy"
+	color = "crazy"
 
 /obj/item/clothing/under/chef
 	desc = "Issued only to the most hardcore chefs in space."

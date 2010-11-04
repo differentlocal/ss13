@@ -515,13 +515,25 @@ to clean it up, or just beat the shit out of it (which takes ages).
 				src.handcuffed.loc = src.loc
 				src.handcuffed.layer = initial(src.handcuffed.layer)
 				src.handcuffed = null
-			if ((src.l_hand || src.r_hand))
+			/*if ((src.l_hand || src.r_hand))
 				var/h = src.hand
 				src.hand = 1
 				drop_item()
 				src.hand = 0
 				drop_item()
-				src.hand = h
+				src.hand = h*/
+			src << "\red dropping items!"
+			for(var/obj/item/weapon/W in src)
+				if(istype(W, /datum/organ/external))
+					continue
+				src << "\red dropping " << W.name
+				src.u_equip(W)
+				if (src.client)
+					src.client.screen -= W
+				if (W)
+					W.loc = src.loc
+					W.dropped(src)
+					W.layer = initial(W.layer)
 
 	// Head
 	if (src.head)

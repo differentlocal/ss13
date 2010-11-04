@@ -175,6 +175,20 @@
 	new /obj/item/clothing/suit/labcoat(src)
 	new /obj/item/clothing/suit/labcoat(src)
 	return
+	
+/obj/closet/wardrobe/psychiatrist/New()
+	new /obj/item/clothing/suit/psychiatrist( src )
+	new /obj/item/clothing/suit/psychiatrist( src )
+	new /obj/item/clothing/suit/psychiatrist( src )
+	new /obj/item/clothing/suit/straight_jacket( src )
+	new /obj/item/clothing/suit/straight_jacket( src )
+	new /obj/item/clothing/suit/straight_jacket( src )
+	new /obj/item/clothing/suit/straight_jacket( src )
+	new /obj/item/clothing/suit/straight_jacket( src )
+	new /obj/item/clothing/suit/straight_jacket( src )
+	new /obj/item/clothing/suit/straight_jacket( src )
+	return
+	
 /obj/closet/wardrobe/toxins_white/New()
 	new /obj/item/clothing/under/rank/scientist( src )
 	new /obj/item/clothing/under/rank/scientist( src )
