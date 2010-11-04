@@ -274,6 +274,15 @@
 	opacity = 0
 	density = 0
 
+/obj/sign/doors
+	desc = "There are the doors ahead"
+	name = "Doors ahead"
+	icon = 'decals.dmi'
+	icon_state = "doors"
+	anchored = 1.0
+	opacity = 0
+	density = 0
+
 
 /obj/hud
 	name = "hud"
