@@ -183,10 +183,6 @@
 	new /obj/item/clothing/suit/straight_jacket( src )
 	new /obj/item/clothing/suit/straight_jacket( src )
 	new /obj/item/clothing/suit/straight_jacket( src )
-	new /obj/item/clothing/suit/straight_jacket( src )
-	new /obj/item/clothing/suit/straight_jacket( src )
-	new /obj/item/clothing/suit/straight_jacket( src )
-	new /obj/item/clothing/suit/straight_jacket( src )
 	return
 	
 /obj/closet/wardrobe/toxins_white/New()
