@@ -1968,6 +1968,16 @@
 		R.my_atom = src
 		R.add_reagent("sodawater", 50)
 
+/obj/item/weapon/reagent_containers/food/drinks/mojito
+	name = "Mojito"
+	desc = "A glass of Authentic Cuban Mojito made without the mint, but who cares?"
+	icon_state = "mojito"
+	heal_amt = 1
+	New()
+		var/datum/reagents/R = new/datum/reagents(50)
+		reagents = R
+		R.my_atom = src
+		R.add_reagent("mohito", 50)
 
 //Pills
 /obj/item/weapon/reagent_containers/pill/antitox
@@ -2244,6 +2254,10 @@
 					icon_state = "b52glass"
 					name = "B-52"
 					desc = "Kahlua, Irish Cream, and congac. You will get bombed."
+				if("mojito")
+					icon_state = "mojito"
+					name = "Mojito"
+					desc = "Authentic Cuban Mojito made without the mint. But who cares?"
 				if("longislandicedtea")
 					icon_state = "longislandicedteaglass"
 					name = "Long Island Iced Tea"

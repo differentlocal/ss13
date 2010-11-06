@@ -1407,6 +1407,25 @@ datum
 					M:confused += 2
 				..()
 
+		mojito
+			name = "Mojito"
+			id = "mojito"
+			description = "Authentic Cuban Mojito"
+			reagent_state = LIQUID
+			on_mob_life(var/mob/M)
+				if(!data) data = 1
+				data++
+				M.make_dizzy(3)
+				M.jitteriness = max(M.jitteriness-3,0)
+				if(data >= 35)
+					if (!M.stuttering) M.stuttering = 1
+					M.stuttering += 1
+				if(data >= 65 && prob(33))
+					if (!M.confused) M.confused = 1
+					M:confused += 1
+				M.bodytemperature = min(310, M.bodytemperature-8)
+				..()
+
 		martini
 			name = "Classic Martini"
 			id = "martini"
