@@ -771,28 +771,32 @@ turf/simulated/floor/proc/update_icon()
 	if(ticker && ticker.mode && ticker.mode.name == "nuclear emergency")
 		return
 	if (src.x <= 2)
-		if(prob(50))
-			if(istype(A, /obj/meteor))
-				del(A)
-				return
-			if(istype(A,/mob/living/carbon/human))
-				if(A:knowledge)
-					if(A:knowledge > 0)
-						if(prob(50))
-							A.z = 8
-						else
-							A.z = 3
+		//if(prob(50))
+		if(istype(A, /obj/meteor))
+			del(A)
+			return
+		if(istype(A,/mob/living/carbon/human) || istype(A,/mob/living/carbon/alien) || istype(A,/mob/living/silicon/robot))
+			//if(A:knowledge)
+				//if(A:knowledge > 0)
+					/*if(prob(50))
+						A.z = 8
 					else
-						A.z = 3
-				else
-					A.z = 3
+						A.z = 3*/
+			if (A.z == 4)
+				A.z = 1
 			else
 				A.z = 3
-			A.x = world.maxx - 2
-			spawn (0)
-				if ((A && A.loc))
-					A.loc.Entered(A)
+				//else
+				//	A.z = 3
+			//else
+			//	A.z = 3
 		else
+			A.z = 3
+		A.x = world.maxx - 2
+		spawn (0)
+			if ((A && A.loc))
+				A.loc.Entered(A)
+		/*else
 			if(istype(A, /obj/meteor))
 				del(A)
 				return
@@ -812,30 +816,34 @@ turf/simulated/floor/proc/update_icon()
 			A.x = world.maxx - 2
 			spawn (0)
 				if ((A && A.loc))
-					A.loc.Entered(A)
+					A.loc.Entered(A)*/
 	else if (A.x >= (world.maxx - 1))
-		if(prob(50))
-			if(istype(A, /obj/meteor))
-				del(A)
-				return
-			if(istype(A,/mob/living/carbon/human))
-				if(A:knowledge)
-					if(A:knowledge > 0)
-						if(prob(50))
-							A.z = 8
-						else
-							A.z = 3
+		//if(prob(50))
+		if(istype(A, /obj/meteor))
+			del(A)
+			return
+		if(istype(A,/mob/living/carbon/human) || istype(A,/mob/living/carbon/alien) || istype(A,/mob/living/silicon/robot))
+			//if(A:knowledge)
+				//if(A:knowledge > 0)
+					/*if(prob(50))
+						A.z = 8
 					else
-						A.z = 3
-				else
-					A.z = 3
+						A.z = 3*/
+			if (A.z == 1)
+				A.z = 4
 			else
 				A.z = 3
-			A.x = 3
-			spawn (0)
-				if ((A && A.loc))
-					A.loc.Entered(A)
+				//else
+				//	A.z = 3
+			//else
+			//	A.z = 3
 		else
+			A.z = 3
+		A.x = 3
+		spawn (0)
+			if ((A && A.loc))
+				A.loc.Entered(A)
+		/*else
 			if(istype(A, /obj/meteor))
 				del(A)
 				return
@@ -855,7 +863,7 @@ turf/simulated/floor/proc/update_icon()
 			A.x = 3
 			spawn (0)
 				if ((A && A.loc))
-					A.loc.Entered(A)
+					A.loc.Entered(A)*/
 	else if (src.y <= 2)
 		if(prob(50))
 			if(istype(A, /obj/meteor))
