@@ -1458,7 +1458,7 @@
 /obj/item/weapon/reagent_containers/food/snacks/monkeyburger
 	name = "monkeyburger"
 	desc = "The cornerstone of every nutritious breakfast."
-	icon_state = "burger"
+	icon_state = "mburger"
 	amount = 5
 	heal_amt = 2
 
