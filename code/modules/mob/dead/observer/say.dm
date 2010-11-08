@@ -16,22 +16,32 @@
 
 	for (var/mob/M in hearers(null, null))
 		if (!M.stat)
-			if(M.job == "Chaplain" || M.reagents.has_reagent("hell", 20))
-				if (prob (49))
+			if(M.job == "Chaplain" && M.reagents.has_reagent("hell", 20))
+				if (prob (20))
 					M.show_message("<span class='game'><i>“ы слышишь приглушенную речь, но там никого...</i></span>", 2)
-					if(prob(20))
+					if(prob(50))
 						playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
 				else
 					M.show_message("<span class='game'><i>[stutter(message)]</i></span>", 2)
 					if(prob(30))
 						playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
 			else
-				if (prob(50))
-					return
-				else if (prob (95))
-					M.show_message("<span class='game'><i>“ы слышишь приглушенную речь, но там никого...</i></span>", 2)
-					if(prob(20))
-						playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
+				if(M.job == "Chaplain" || M.reagents.has_reagent("hell", 20))
+					if (prob (49))
+						M.show_message("<span class='game'><i>“ы слышишь приглушенную речь, но там никого...</i></span>", 2)
+						if(prob(20))
+							playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
+					else
+						M.show_message("<span class='game'><i>[stutter(message)]</i></span>", 2)
+						if(prob(30))
+							playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
 				else
-					M.show_message("<span class='game'><i>[stutter(message)]</i></span>", 2)
-					playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
+					if (prob(50))
+						return
+					else if (prob (95))
+						M.show_message("<span class='game'><i>“ы слышишь приглушенную речь, но там никого...</i></span>", 2)
+						if(prob(20))
+							playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
+					else
+						M.show_message("<span class='game'><i>[stutter(message)]</i></span>", 2)
+						playsound(src.loc, pick('ghost.ogg','ghost2.ogg'), 10, 1)
