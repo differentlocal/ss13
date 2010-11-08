@@ -1449,15 +1449,28 @@ datum
 				if(data >= 65 && prob(33))
 					if (!M.confused) M.confused = 1
 					M:confused += 3
-				M.bodytemperature = min(310, M.bodytemperature+8)
+				M.bodytemperature = max(310, M.bodytemperature+3)
 
 				if(data > 20) M.druggy = max(M.druggy + 1, 20)
 				if(M.canmove) step(M, pick(cardinal))
 				if(data > 20 && prob(30)) M:emote(pick("twitch","drool","moan","giggle"))
 				holder.remove_reagent(src.id, 0.2)
 				if(data > 50 && prob(80))
-					for(var/obj/item/clothing/under/O in M)
-						M.u_equip(O)
+					if(istype(M, /mob/living/carbon))
+						var/mob/living/carbon/C = M
+						if ((C:l_hand || C:r_hand))
+							var/h = C:hand
+							C:hand = 1
+							C:drop_item()
+							C:hand = 0
+							C:drop_item()
+							C:hand = h
+							M << "\red drop everything "
+						if (C:w_uniform)
+							C:r_hand = C:w_uniform
+							C:w_uniform = null
+							C:hand = 1
+							C:drop_item()
 				if(data > 20 && prob(50)) M:brainloss++
 				..()
 
