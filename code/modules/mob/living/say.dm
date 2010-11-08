@@ -86,6 +86,11 @@
 	if (src.stuttering)
 		message = stutter(message)
 
+	// current place
+	if (src.loc.loc.name != "")
+		message = dd_replacetext(message, "%ì", src.loc.loc.name)
+		message = dd_replacetext(message, "%p", src.loc.loc.name)
+
 	// :downs:
 	if (src.brainloss >= 60)
 		message = dd_replacetext(message, " am ", " ")
