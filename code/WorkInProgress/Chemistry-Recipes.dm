@@ -577,12 +577,19 @@ datum
 			result = "vodkatonic"
 			required_reagents = list("vodka" = 2, "tonic" = 1)
 			result_amount = 5
-			
+
 		mojito
 			name = "Authentic Cuban Mojito"
 			id = "mojito"
 			result = "mojito"
 			required_reagents = list("rum" = 2, "limejuice" = 1, "sugar" = 1, "sodawater" = 1)
+			result_amount = 5
+
+		hell
+			name = "Hell of a Cocktail"
+			id = "hell"
+			result = "hell"
+			required_reagents = list("fuel" = 1, "toxin" = 1, "wine" = 1, "cola" = 1, "fire" = 1)
 			result_amount = 5
 
 		gin_fizz

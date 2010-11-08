@@ -124,7 +124,7 @@ datum
 						playsound(get_turf(my_atom), 'bubbles.ogg', 80, 1)
 
 						C.on_reaction(src, created_volume)
-
+				del_reagent("fire")
 				update_total()
 				return 0
 

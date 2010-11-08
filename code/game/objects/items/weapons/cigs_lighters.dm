@@ -32,6 +32,20 @@ ZIPPO
 	return
 
 
+/obj/item/weapon/zippo/afterattack(obj/O as obj, mob/user as mob)
+	if (src.lit == 1)
+		if (istype(O, /obj/item/weapon/reagent_containers/food/drinks/drinkingglass) && get_dist(src,O) <= 1)
+			if (O.reagents.reagent_list.len > 0)
+				if (O.reagents.has_reagent("cola") && O.reagents.has_reagent("fuel") && O.reagents.has_reagent("toxin") && O.reagents.has_reagent("wine"))
+					O.reagents.add_reagent("fire", 10)
+					O.reagents.handle_reactions()
+					for(var/mob/_O in viewers(user, null))
+						_O.show_message(text("\red [] lights the []", user, O), 1)
+	else
+		user << "First light your zippo"
+	return
+
+
 #define ZIPPO_LUM 2
 
 /obj/item/weapon/zippo/attack_self(mob/user)

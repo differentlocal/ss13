@@ -16,7 +16,7 @@
 
 	for (var/mob/M in hearers(null, null))
 		if (!M.stat)
-			if(M.job == "Chaplain")
+			if(M.job == "Chaplain" || M.reagents.has_reagent("hell", 20))
 				if (prob (49))
 					M.show_message("<span class='game'><i>“ы слышишь приглушенную речь, но там никого...</i></span>", 2)
 					if(prob(20))

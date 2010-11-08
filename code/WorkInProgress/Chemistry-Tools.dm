@@ -1979,6 +1979,17 @@
 		R.my_atom = src
 		R.add_reagent("mohito", 50)
 
+/obj/item/weapon/reagent_containers/food/drinks/hell
+	name = "Hell"
+	desc = "Hell of a Cocktail"
+	icon_state = "hell"
+	heal_amt = 1
+	New()
+		var/datum/reagents/R = new/datum/reagents(50)
+		reagents = R
+		R.my_atom = src
+		R.add_reagent("hell", 50)
+
 //Pills
 /obj/item/weapon/reagent_containers/pill/antitox
 	name = "Anti-toxins pill"
@@ -2306,6 +2317,10 @@
 					icon_state = "glass_clear"
 					name = "Glass of Water"
 					desc = "Are you really that boring?"
+				if("hell")
+					icon_state = "hell"
+					name = "Glass of Hell Cocktail"
+					desc = "Do not drink me?"
 				else
 					icon_state ="glass_brown"
 					name = "Glass of ..what?"

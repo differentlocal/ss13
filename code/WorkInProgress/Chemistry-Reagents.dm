@@ -1063,6 +1063,14 @@ datum
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
 /////////////////////// ALCHOHOLIC DRINKS BELOW, Beer is up there though, along with cola. Cap'n Pete's Cuban Spiced Rum////////////////////////////////
 /////////////////////////////////////////////////////////////////////////////////////////////////////////
+		fire
+			name = "fire"
+			id = "fire"
+			description = "The fire."
+			reagent_state = LIQUID
+			on_mob_life(var/mob/M)
+				..()
+				M.bodytemperature = min(340, M.bodytemperature+10)
 
 		whiskey
 			name = "Whiskey"
@@ -1424,6 +1432,33 @@ datum
 					if (!M.confused) M.confused = 1
 					M:confused += 1
 				M.bodytemperature = min(310, M.bodytemperature-8)
+				..()
+		hell
+			name = "Hell Cocktail"
+			id = "hell"
+			description = "Hell of a Cocktail"
+			reagent_state = LIQUID
+			on_mob_life(var/mob/M)
+				if(!data) data = 1
+				data++
+				M.make_dizzy(7)
+				M.jitteriness = max(M.jitteriness-3,0)
+				if(data >= 35)
+					if (!M.stuttering) M.stuttering = 1
+					M.stuttering += 3
+				if(data >= 65 && prob(33))
+					if (!M.confused) M.confused = 1
+					M:confused += 3
+				M.bodytemperature = min(310, M.bodytemperature+8)
+
+				if(data > 20) M.druggy = max(M.druggy + 1, 20)
+				if(M.canmove) step(M, pick(cardinal))
+				if(data > 20 && prob(30)) M:emote(pick("twitch","drool","moan","giggle"))
+				holder.remove_reagent(src.id, 0.2)
+				if(data > 50 && prob(80))
+					for(var/obj/item/clothing/under/O in M)
+						M.u_equip(O)
+				if(data > 20 && prob(50)) M:brainloss++
 				..()
 
 		martini
