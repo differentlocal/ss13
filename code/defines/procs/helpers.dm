@@ -120,8 +120,6 @@
 	return K
 
 /proc/sanitize(var/t)
-	t = dd_replacetext(t, "ÿ", "ß");
-
 	var/index = findtext(t, "\n")
 	while(index)
 		t = copytext(t, 1, index) + "#" + copytext(t, index+1)
@@ -132,7 +130,9 @@
 		t = copytext(t, 1, index) + "#" + copytext(t, index+1)
 		index = findtext(t, "\t")
 
-	return html_encode(t)
+	t = dd_replacetext(t, "ÿ", "@#255;")
+	t = html_encode(t)
+	return dd_replacetext(t, "@#255;", "&#255;")
 
 /proc/strip_html(var/t,var/limit=MAX_MESSAGE_LEN)
 	t = copytext(t,1,limit)

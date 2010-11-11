@@ -603,6 +603,10 @@
 			if(src.resting)
 				src.weakened = max(src.weakened, 5)
 
+			// при таком изменении полного заряда питания должно хватать на два часа (100 / 7200)
+			if (fullness > 0)
+				fullness -= 0.014
+
 			if(health < -100 || src.brain_op_stage == 4.0)
 				death()
 			else if(src.health < 0)
@@ -733,6 +737,19 @@
 							src.healths.icon_state = "health6"
 				else
 					src.healths.icon_state = "health7"
+
+			if (src.fullness_icon)
+				switch(fullness)
+					if(95 to INFINITY)
+						src.fullness_icon.icon_state = "fullness0"
+					if(70 to 95)
+						src.fullness_icon.icon_state = "fullness1"
+					if(50 to 70)
+						src.fullness_icon.icon_state = "fullness2"
+					if(30 to 50)
+						src.fullness_icon.icon_state = "fullness3"
+					else
+						src.fullness_icon.icon_state = "fullness4"
 
 			if(src.pullin)	src.pullin.icon_state = "pull[src.pulling ? 1 : 0]"
 

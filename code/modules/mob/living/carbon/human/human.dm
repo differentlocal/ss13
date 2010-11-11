@@ -120,6 +120,9 @@
 	var/health_deficiency = (100 - src.health)
 	if(health_deficiency >= 40) tally += (health_deficiency / 25)
 
+	var/hungry = (100 - src.fullness)
+	if (hungry >= 50) tally += (hungry / 10)
+
 	if(src.wear_suit)
 		switch(src.wear_suit.type)
 			if(/obj/item/clothing/suit/straight_jacket)

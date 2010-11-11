@@ -21,6 +21,7 @@
 	var/obj/screen/bodytemp = null
 	var/obj/screen/healths = null
 	var/obj/screen/throw_icon = null
+	var/obj/screen/fullness_icon = null
 
 	// var/list/obj/hallucination/hallucinations = list() - Not used at all - Skie
 
@@ -73,6 +74,7 @@
 	var/bruteloss = 0.0
 	var/cpr_time = 1.0
 	var/health = 100
+	var/fullness = 80 // 80% сытост
 	var/bodytemperature = 310.055	//98.7 F
 	var/drowsyness = 0.0
 	var/dizziness = 0

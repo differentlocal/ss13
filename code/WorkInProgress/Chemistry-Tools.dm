@@ -656,6 +656,9 @@
 	// 0 = no heat, 25 = cayenne, 50 = habanero, >75 = jolokia
 	var/heat_amt = 0
 
+	// кало
+	var/calories = 0
+
 	proc
 		heal(var/mob/M)
 			var/healing = min(src.heal_amt/2, 1.0) // Should prevent taking damage from healing
@@ -758,6 +761,19 @@
 					else if (temp_heat > 0 && temp_name == "Icepepper") // Herp derp, bad way to do it but herp derp
 						C.bodytemperature -= min(temp_heat*5, 25)
 						temp_heat -= 5 // Until heat amount is depleted
+	proc
+		eat(var/mob/M)
+			if(istype(M, /mob/living/carbon/human))
+				var/mob/living/carbon/human/C = M
+				//TODO: сделать насыщение постепенным
+				C.fullness += src.calories
+				// если пережрали - сблевнуть и упасть
+				if (C.fullness > 120)
+					C.fullness = 70
+					C.weakened += rand(1, 5)
+					C.fireloss += rand(5, 15)
+					C.updatehealth()
+
 
 
 /obj/item/weapon/reagent_containers/food/snacks
@@ -801,6 +817,8 @@
 					src.drug(M)
 				if(src.heat_amt > 0)
 					src.burn(M)
+				if(src.calories > 0)
+					src.eat(M)
 				if(!src.amount)
 					user << "\red You finish eating [src]."
 					del(src)
@@ -827,6 +845,8 @@
 					src.drug(M)
 				if(src.heat_amt > 0)
 					src.burn(M)
+				if(src.calories > 0)
+					src.eat(M)
 				if(!src.amount)
 					user << "\red [M] finishes eating [src]."
 					del(src)
@@ -1359,12 +1379,14 @@
 	desc = "Commander Riker's What-The-Crisps"
 	icon_state = "chips"
 	heal_amt = 1
+	calories = 2
 
 /obj/item/weapon/reagent_containers/food/snacks/donut
 	name = "donut"
 	desc = "Goes great with Robust Coffee."
 	icon_state = "donut1"
 	heal_amt = 1
+	calories = 3
 	New()
 		..()
 		if(rand(1,3) == 1)
@@ -1383,6 +1405,7 @@
 	icon_state = "egg"
 	amount = 1
 	heal_amt = 1
+	calories = 3
 
 /obj/item/weapon/reagent_containers/food/snacks/flour
 	name = "flour"
@@ -1397,6 +1420,7 @@
 	var/subjectname = ""
 	var/subjectjob = null
 	amount = 1
+	calories = 5
 
 /* Commented out due to being completly useless. Goddamn goon humor.
 /obj/item/weapon/reagent_containers/food/snacks/assburger
@@ -1413,6 +1437,7 @@
 	icon_state = "brainburger"
 	amount = 5
 	heal_amt = 2
+	calories = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/faggot
 	name = "faggot"
@@ -1452,6 +1477,7 @@
 	icon_state = "hburger"
 	amount = 5
 	heal_amt = 2
+	calories = 4
 	heal(var/mob/M)
 		..()
 
@@ -1461,13 +1487,15 @@
 	icon_state = "mburger"
 	amount = 5
 	heal_amt = 2
+	calories = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/meatbread
 	name = "meatbread loaf"
 	desc = "The culinary base of every self-respecting eloquen/tg/entleman."
 	icon_state = "meatbread"
 	amount = 30
-	heal_amt = 5
+	heal_amt = 6
+	calories = 0.5
 /*	New()
 		var/datum/reagents/R = new/datum/reagents(20)
 		reagents = R
@@ -1483,6 +1511,7 @@
 	icon_state = "meatbreadslice"
 	amount = 5
 	heal_amt = 6
+	calories = 0.5
 /*	New()
 		var/datum/reagents/R = new/datum/reagents(10)
 		reagents = R
@@ -1498,6 +1527,7 @@
 	icon_state = "cheesewheel"
 	amount = 25
 	heal_amt = 3
+	calories = 0.5
 	heal(var/mob/M)
 		..()
 
@@ -1507,6 +1537,7 @@
 	icon_state = "cheesewedge"
 	amount = 4
 	heal_amt = 4
+	calories = 0.5
 	heal(var/mob/M)
 		..()
 
@@ -1516,6 +1547,7 @@
 	icon_state = "omelette"
 	amount = 15
 	heal_amt = 3
+	calories = 1
 	heal(var/mob/M)
 		..()
 	attackby(obj/item/weapon/W as obj, mob/user as mob)
@@ -1529,6 +1561,7 @@
 	desc = "That's all you can say!"
 	amount = 1
 	heal_amt = 4
+	calories = 1
 	heal(var/mob/M)
 		..()
 
@@ -1538,6 +1571,7 @@
 	icon_state = "muffin"
 	amount = 4
 	heal_amt = 6
+	calories = 1
 	heal(var/mob/M)
 		..()
 
@@ -1566,18 +1600,21 @@
 	desc = "A slab of meat"
 	icon_state = "meat"
 	amount = 1
+	calories = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/xenomeat
 	name = "meat"
 	desc = "A slab of meat"
 	icon_state = "xenomeat"
 	amount = 1
+	calories = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/pie
 	name = "custard pie"
 	desc = "It smells delicious. You just want to plant your face in it."
 	icon_state = "pie"
 	amount = 3
+	calories = 4
 
 /obj/item/weapon/reagent_containers/food/snacks/waffles
 	name = "waffles"
@@ -1585,6 +1622,7 @@
 	icon_state = "waffles"
 	amount = 5
 	heal_amt = 2
+	calories = 1
 
 //Drinks
 /obj/item/weapon/reagent_containers/food/drinks/coffee
