@@ -2425,3 +2425,14 @@
 	var/obj/machinery/bot/mulebot/MB = AM
 	if(istype(MB))
 		MB.RunOver(src)
+
+/mob/living/carbon/human/proc/eat(var/obj/item/weapon/F)
+	if (istype(F, /obj/item/weapon/reagent_containers/food/snacks))
+		var/obj/item/weapon/reagent_containers/food/snacks/S = F
+		src.fullness += S.calories
+		// если пережрали - сблевнуть и упасть
+		if (src.fullness > 120)
+			src.fullness = 70
+			src.weakened += rand(1, 5)
+			src.fireloss += rand(10, 5)
+			src.updatehealth()

@@ -156,7 +156,10 @@
 	while(index)
 		t = copytext(t, 1, index) + copytext(t, index+1)
 		index = findtext(t, ">")
-	return html_encode(t)
+
+	t = dd_replacetext(t, "ÿ", "@#255;")
+	t = html_encode(t)
+	return dd_replacetext(t, "@#255;", "&#255;")
 
 /proc/add_zero(t, u)
 	while (length(t) < u)

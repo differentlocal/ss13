@@ -765,14 +765,15 @@
 		eat(var/mob/M)
 			if(istype(M, /mob/living/carbon/human))
 				var/mob/living/carbon/human/C = M
+				C.eat(src)
 				//TODO: сделать насыщение постепенным
-				C.fullness += src.calories
+				/*C.fullness += src.calories
 				// если пережрали - сблевнуть и упасть
 				if (C.fullness > 120)
 					C.fullness = 70
 					C.weakened += rand(1, 5)
 					C.fireloss += rand(5, 15)
-					C.updatehealth()
+					C.updatehealth()*/
 
 
 
