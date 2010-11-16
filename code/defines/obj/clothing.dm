@@ -237,6 +237,14 @@
 	item_state = "space"
 	permeability_coefficient = 0.01
 
+/obj/item/clothing/head/helmet/miner
+	name = "miner helmet"
+	icon_state = "miner"
+	flags = FPRINT | TABLEPASS | HEADSPACE | HEADCOVERSEYES | HEADCOVERSMOUTH
+	see_face = 0.0
+	item_state = "space"
+	permeability_coefficient = 0.01
+
 /obj/item/clothing/head/helmet/space/syndicate
 	name = "red space helmet"
 	icon_state = "syndicate"
@@ -649,6 +657,19 @@
 	name = "space suit"
 	desc = "A suit that protects against low pressure environments."
 	icon_state = "space"
+	gas_transfer_coefficient = 0.01
+	item_state = "s_suit"
+	w_class = 4//bulky item
+	flags = FPRINT | TABLEPASS | SUITSPACE
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
+	permeability_coefficient = 0.02
+	protective_temperature = 1000
+	heat_transfer_coefficient = 0.02
+
+/obj/item/clothing/suit/miner
+	name = "miner suit"
+	desc = "A suit that protects against low pressure environments."
+	icon_state = "miner"
 	gas_transfer_coefficient = 0.01
 	item_state = "s_suit"
 	w_class = 4//bulky item

@@ -137,6 +137,9 @@
 			if(/obj/item/clothing/suit/space)
 				if(!istype(src.loc, /turf/space))		//	space suits slow you down a bit unless in space
 					tally += 3
+			if(/obj/item/clothing/suit/miner)
+				if(!istype(src.loc, /turf/space))		//	space suits slow you down a bit unless in space
+					tally += 3
 
 	if (istype(src.shoes, /obj/item/clothing/shoes))
 		if (src.shoes.chained)
@@ -1217,7 +1220,7 @@
 		if (istype(M.wear_mask, /obj/item/clothing/mask/muzzle))
 			return
 		if (src.health > 0)
-			if (istype(src.wear_suit, /obj/item/clothing/suit/space))
+			if (istype(src.wear_suit, /obj/item/clothing/suit/space) || istype(src.wear_suit, /obj/item/clothing/suit/miner))
 				if (prob(25))
 					for(var/mob/O in viewers(src, null))
 						O.show_message(text("\red <B>[M.name] has attempted to bite []!</B>", src), 1)
@@ -1272,7 +1275,7 @@
 		if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 			return
 		if (src.health > 0)
-			if (istype(src.wear_suit, /obj/item/clothing/suit/space))
+			if (istype(src.wear_suit, /obj/item/clothing/suit/space) || istype(src.wear_suit, /obj/item/clothing/suit/miner))
 				if (prob(25))
 					for(var/mob/O in viewers(src, null))
 						O.show_message(text("\red <B>[M.name] has attempted to bite []!</B>", src), 1)
