@@ -207,6 +207,8 @@ mob/new_player
 					AttemptLateSpawn("Botanist", hydroponicsMax)
 				if ("23")
 					AttemptLateSpawn("Librarian", librarianMax)
+				if ("24")
+					AttemptLateSpawn("Psychiatrist", psychiatristMax)
 
 		if(!ready && href_list["preferences"])
 			preferences.process_link(src, href_list)
@@ -357,8 +359,13 @@ mob/new_player
 
 		if (IsJobAvailable("Botanist",hydroponicsMax))
 			dat += "<a href='byond://?src=\ref[src];SelectedJob=22'>Botanist</a><br>"
+
 		if (IsJobAvailable("Librarian",librarianMax))
 			dat += "<a href='byond://?src=\ref[src];SelectedJob=23'>Librarian</a><br>"
+
+		if (IsJobAvailable("Psychiatrist", psychiatristMax))
+			dat += "<a href='byond://?src=\ref[src];SelectedJob=24'>Psychiatrist</a><br>"
+
 		if (!jobban_isbanned(src,"Assistant"))
 			dat += "<a href='byond://?src=\ref[src];SelectedJob=18'>Assistant</a><br>"
 
