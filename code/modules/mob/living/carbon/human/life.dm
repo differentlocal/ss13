@@ -608,7 +608,7 @@
 			// при таком изменении полного заряда питания должно хватать на два часа (100 / 7200)
 			if (fullness > 0)
 				fullness -= 0.014
-				src << "\green [fullness] [world.timeofday]"
+				//src << "\green [fullness] [world.timeofday]"
 
 
 			if(fullness > 110 && !(src.mutations & 32))
