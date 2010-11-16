@@ -194,4 +194,5 @@
 				if(circuit.id) B:id = circuit.id
 				if(circuit.records) B:records = circuit.records
 				if(circuit.frequency) B:frequency = circuit.frequency
+				B:power_change()
 				del(src)

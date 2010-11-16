@@ -511,6 +511,10 @@
 		src.grabbed_by += G
 		G.synch()
 		playsound(src.loc, 'thudswoosh.ogg', 50, 1, -1)
+
+		M.attack_log += text("[] <b>[]/[]</b> схватил <b>[]/[]</b>", world.time, M, M.client, src, src.client)
+		src.attack_log += text("[] <b>[]/[]</b> схватил <b>[]/[]</b", world.time, M, M.client, src, src.client)
+
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 

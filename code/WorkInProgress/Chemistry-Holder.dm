@@ -243,6 +243,14 @@ datum
 
 				return 0
 
+			get_reagents()
+				var/res = ""
+				for(var/datum/reagent/A in reagent_list)
+					if (res != "") res += ","
+					res += A.name
+
+				return res
+
 ///////////////////////////////////////////////////////////////////////////////////
 
 

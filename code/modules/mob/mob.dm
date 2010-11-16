@@ -402,6 +402,11 @@
 							src.assailant << "\blue You can't strangle [src.affecting] through their suit collar!"
 							return
 						*/
+
+
+					src.assailant.attack_log += text("[] <b>[]/[]</b> душит <b>[]/[]</b>", world.time, src.assailant, src.assailant.client, src.affecting, src.affecting.client)
+					src.affecting.attack_log += text("[] <b>[]/[]</b> душит <b>[]/[]</b", world.time, src.assailant, src.assailant.client, src.affecting, src.affecting.client)
+
 					for(var/mob/O in viewers(src.assailant, null))
 						O.show_message(text("\red [] has reinforced his grip on [] (now neck)!", src.assailant, src.affecting), 1)
 

@@ -392,6 +392,11 @@
 
 		if(ismob(target) && target.reagents && reagents.total_volume)
 			user << "\blue You splash the solution onto [target]."
+
+			var/mob/M = target
+			M.attack_log += text("[] <b>[]/[]</b> облил <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, reagents.get_reagents())
+			user.attack_log += text("[] <b>[]/[]</b> облил <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, reagents.get_reagents())
+
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message(text("\red [] has been splashed with something by []!", target, user), 1)
 			src.reagents.reaction(target, TOUCH)
@@ -462,6 +467,10 @@
 				return
 
 			if(ismob(target))
+				var/mob/M = target
+				M.attack_log += text("[] <b>[]/[]</b> капнул на <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, reagents.get_reagents())
+				user.attack_log += text("[] <b>[]/[]</b> капнул на <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, reagents.get_reagents())
+
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message(text("\red <B>[] drips something onto []!</B>", user, target), 1)
 				src.reagents.reaction(target, TOUCH)
@@ -551,6 +560,10 @@
 					return
 
 				if(ismob(target))//Blood!
+					var/mob/M = target
+					M.attack_log += text("[] <b>[]/[]</b> взял кровь <b>[]/[]</b>", world.time, user, user.client, M, M.client)
+					user.attack_log += text("[] <b>[]/[]</b> взял кровь <b>[]/[]</b>", world.time, user, user.client, M, M.client)
+
 					if(src.reagents.has_reagent("blood"))
 						user << "\red There is already a blood sample in this syringe"
 						return
@@ -611,6 +624,10 @@
 					return
 
 				if(ismob(target) && target != user)
+					var/mob/M = target
+					M.attack_log += text("[] <b>[]/[]</b> вколол в <b>[]/[]</b> шприц с <b>[]</b>", world.time, user, user.client, M, M.client, reagents.get_reagents())
+					user.attack_log += text("[] <b>[]/[]</b> вколол в <b>[]/[]</b> шприц с <b>[]</b>", world.time, user, user.client, M, M.client, reagents.get_reagents())
+
 					for(var/mob/O in viewers(world.view, user))
 						O.show_message(text("\red <B>[] is trying to inject []!</B>", user, target), 1)
 					if(!do_mob(user, target)) return
@@ -825,9 +842,16 @@
 					del(src)
 				return 1
 			else
+				M.attack_log += text("[] <b>[]/[]</b> пытается накормить <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, src)
+				user.attack_log += text("[] <b>[]/[]</b> пытается накормить <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message("\red [user] attempts to feed [M] [src].", 1)
 				if(!do_mob(user, M)) return
+
+				M.attack_log += text("[] <b>[]/[]</b> накормил <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, src)
+				user.attack_log += text("[] <b>[]/[]</b> накормил <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 				for(var/mob/O in viewers(world.view, user))
 					O.show_message("\red [user] feeds [M] [src].", 1)
 				if(reagents)
@@ -915,9 +939,16 @@
 			return 1
 		else if( istype(M, /mob/living/carbon/human) )
 
+			M.attack_log += text("[] <b>[]/[]</b> пытается напоить <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, src)
+			user.attack_log += text("[] <b>[]/[]</b> пытается напоить <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to feed [M] [src].", 1)
 			if(!do_mob(user, M)) return
+
+			M.attack_log += text("[] <b>[]/[]</b> напоил <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, src)
+			user.attack_log += text("[] <b>[]/[]</b> напоил <b>[]/[]</b> с помощью <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] feeds [M] [src].", 1)
 
@@ -1000,10 +1031,16 @@
 
 		else if(istype(M, /mob/living/carbon/human) )
 
+			M.attack_log += text("[] <b>[]/[]</b> пытается накормить <b>[]/[]</b> с помощью <b>[] ([])</b>", world.time, user, user.client, M, M.client, src, reagents.get_reagents())
+			user.attack_log += text("[] <b>[]/[]</b> пытается накормить <b>[]/[]</b> с помощью <b>[] ([])</b>", world.time, user, user.client, M, M.client, src, reagents.get_reagents())
+
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] attempts to force [M] to swallow [src].", 1)
 
 			if(!do_mob(user, M)) return
+
+			M.attack_log += text("[] <b>[]/[]</b> накормил <b>[]/[]</b> с помощью [] ([])", world.time, user, user.client, M, M.client, src, reagents.get_reagents())
+			user.attack_log += text("[] <b>[]/[]</b> накормил <b>[]/[]</b> с помощью [] ([])", world.time, user, user.client, M, M.client, src, reagents.get_reagents())
 
 			for(var/mob/O in viewers(world.view, user))
 				O.show_message("\red [user] forces [M] to swallow [src].", 1)

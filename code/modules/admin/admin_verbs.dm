@@ -44,6 +44,7 @@
 			src.verbs += /client/proc/cmd_admin_add_freeform_ai_law
 			src.verbs += /client/proc/cmd_admin_add_random_ai_law
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_admin_create_centcom_report
 			src.verbs += /client/proc/cmd_admin_delete
 			src.verbs += /client/proc/cmd_admin_direct_narrate // -- TLE
@@ -139,6 +140,7 @@
 			src.verbs += /client/proc/cmd_admin_add_freeform_ai_law
 			src.verbs += /client/proc/cmd_admin_add_random_ai_law
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_admin_create_centcom_report
 			src.verbs += /client/proc/cmd_admin_delete
 			src.verbs += /client/proc/cmd_admin_direct_narrate // -- TLE
@@ -235,6 +237,7 @@
 			src.verbs += /proc/toggle_adminmsg
 //				src.verbs += /client/proc/grillify
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /proc/togglebuildmode
 			src.verbs += /client/proc/Jump
 			src.verbs += /client/proc/jumptoturf
@@ -330,6 +333,7 @@
 			src.verbs += /client/proc/cmd_admin_pm
 			src.verbs += /client/proc/cmd_admin_mute
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_admin_gib_self
 			src.verbs += /client/proc/cmd_admin_remove_plasma
 
@@ -367,6 +371,7 @@
 				src.deadchat = 1
 				src.verbs += /client/proc/Jump
 				src.verbs += /client/proc/cmd_admin_check_contents
+				src.verbs += /client/proc/cmd_admin_attack_log
 				src.verbs += /client/proc/jumptomob
 				src.verbs += /client/proc/jumptokey
 				src.verbs += /obj/admins/proc/toggleaban			//abandon mob
@@ -414,6 +419,7 @@
 			if(src.holder.state == 2) //observing
 				src.verbs += /obj/admins/proc/toggleaban			//abandon mob
 				src.verbs += /client/proc/cmd_admin_check_contents
+				src.verbs += /client/proc/cmd_admin_attack_log
 
 			//src.verbs += /obj/admins/proc/togglegoonsay
 			src.verbs += /client/proc/cmd_admin_pm
@@ -887,6 +893,7 @@
 			src.verbs += /client/proc/cmd_admin_say
 			src.verbs += /client/proc/dsay
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_debug_del_all
 			src.verbs += /client/proc/play_sound
 			src.verbs += /client/proc/modifytemperature
@@ -966,6 +973,7 @@
 			src.verbs += /client/proc/cmd_admin_say
 			src.verbs += /client/proc/dsay
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_debug_del_all
 			src.verbs += /client/proc/play_sound
 			src.verbs += /client/proc/modifytemperature
@@ -1051,6 +1059,7 @@
 			src.verbs += /proc/toggle_adminmsg
 //				src.verbs += /client/proc/grillify
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /proc/togglebuildmode
 			src.verbs += /client/proc/Jump
 			src.verbs += /client/proc/jumptoturf
@@ -1135,6 +1144,7 @@
 			src.verbs += /client/proc/cmd_admin_pm
 			src.verbs += /client/proc/cmd_admin_mute
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_admin_gib_self
 			src.verbs += /client/proc/cmd_admin_remove_plasma
 
@@ -1170,6 +1180,7 @@
 			if(src.holder.state == 2) //observing
 				src.verbs += /client/proc/Jump
 				src.verbs += /client/proc/cmd_admin_check_contents
+				src.verbs += /client/proc/cmd_admin_attack_log
 				src.verbs += /client/proc/jumptomob
 				src.verbs += /client/proc/jumptokey
 				src.verbs += /obj/admins/proc/toggleaban			//abandon mob
@@ -1210,6 +1221,7 @@
 			if(src.holder.state == 2) //observing
 				src.verbs += /obj/admins/proc/toggleaban			//abandon mob
 				src.verbs += /client/proc/cmd_admin_check_contents
+				src.verbs += /client/proc/cmd_admin_attack_log
 			//src.verbs += /obj/admins/proc/togglegoonsay
 			src.verbs += /client/proc/cmd_admin_pm
 

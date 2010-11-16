@@ -146,6 +146,10 @@
 	/////////////////////////
 	user.lastattacked = M
 	M.lastattacker = user
+
+	user.attack_log += text("[] <b>[]/[]</b> атаковал <b>[]/[]</b> с помощью <b>[]</b>", world.time, user ? user : "", user ? user.client : "", M, M.client, src)
+	M.attack_log += text("[] <b>[]/[]</b> атаковал <b>[]/[]</b> с помощью <b>[]</b>", world.time, user ? user : "", user ? user.client : "", M, M.client, src)
+
 	//spawn(1800)            // this wont work right
 	//	M.lastattacker = null
 	/////////////////////////

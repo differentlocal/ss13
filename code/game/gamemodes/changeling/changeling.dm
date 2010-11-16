@@ -229,3 +229,13 @@
 	if (!istype(changeling_mob))
 		return
 	changeling_mob.make_changeling()
+
+/datum/game_mode/changeling/check_finished()
+	if (!changeling)
+		return 1
+	if (!changeling.current)
+		return 1
+	if (changeling.current.stat == 2)
+		return 1
+	else
+		return ..()

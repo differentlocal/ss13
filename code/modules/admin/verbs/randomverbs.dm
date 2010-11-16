@@ -528,3 +528,12 @@
 	emergency_shuttle.recall()
 
 	return
+
+/client/proc/cmd_admin_attack_log(mob/M as mob in world)
+	set category = "Special Verbs"
+	set name = "Attack Log"
+
+	//var/list/L = M.get_contents()
+	usr << text("\red <b>Attack Log для []</b>", mob)
+	for(var/t in M.attack_log)
+		usr << "[t]"
