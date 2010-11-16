@@ -440,7 +440,7 @@
 	src.locked = 1
 
 	src.eject_wait = 1
-	spawn(30)
+	spawn(30 * 4)
 		src.eject_wait = 0
 
 	src.occupant = new /mob/living/carbon/human(src)
