@@ -6,6 +6,9 @@
 	// this includes admin-appointed traitors and multitraitors. Easy!
 	var/list/datum/mind/traitors = list()
 
+/datum/game_mode/proc/is_possible()
+	return 1
+
 /datum/game_mode/proc/announce()
 	world << "<B>[src] did not define announce()</B>"
 

@@ -53,8 +53,10 @@
 
 	var/list/possible_changelings = get_possible_changelings()
 
-	if(possible_changelings.len>0)
+	if (possible_changelings.len > 0)
 		changeling = pick(possible_changelings)
+	else
+		return 1
 
 
 	grant_changeling_powers(changeling.current)

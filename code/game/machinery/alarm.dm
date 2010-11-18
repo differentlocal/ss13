@@ -43,7 +43,8 @@
 		set_frequency(new_frequency)
 			radio_controller.remove_object(src, "[frequency]")
 			frequency = new_frequency
-			radio_connection = radio_controller.add_object(src, "[frequency]")
+
+			radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_GROUP, list("scrubber", "vent"))
 
 
 		send_signal(var/target, var/command)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise
@@ -57,7 +58,7 @@
 			signal.data["tag"] = target
 			signal.data["command"] = command
 
-			radio_connection.post_signal(src, signal)
+			radio_connection.post_signal(src, signal, null, RADIO_TAG, target)
 //			world << text("Signal [] Broadcasted to []", command, target)
 
 			return 1
@@ -251,7 +252,7 @@
 	else
 		alert_signal.data["alert"] = "minor"
 
-	frequency.post_signal(src, alert_signal)
+	frequency.post_signal(src, alert_signal, null, RADIO_GROUP, "general_alert")
 
 /obj/machinery/alarm/attackby(W as obj, user as mob)
 	if (istype(W, /obj/item/weapon/wirecutters))

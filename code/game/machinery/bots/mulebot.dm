@@ -80,8 +80,8 @@
 
 		spawn(5)	// must wait for map loading to finish
 			if(radio_controller)
-				radio_controller.add_object(src, "[control_freq]")
-				radio_controller.add_object(src, "[beacon_freq]")
+				radio_controller.add_object(src, "[control_freq]", RADIO_GROUP, "mulebot_control")
+				radio_controller.add_object(src, "[beacon_freq]", RADIO_GROUP, "beacon")
 
 			var/count = 0
 			for(var/obj/machinery/bot/mulebot/other in world)
@@ -893,7 +893,12 @@
 		for(var/key in keyval)
 			signal.data[key] = keyval[key]
 			//world << "sent [key],[keyval[key]] on [freq]"
-		frequency.post_signal(src, signal)
+		if (signal.data["findbeacon"])
+			frequency.post_signal(src, signal, null, RADIO_GROUP, "navbeacon")
+		else if (signal.data["type"] == "mulebot")
+			frequency.post_signal(src, signal, null, RADIO_GROUP, "mulebot")
+		else
+			frequency.post_signal(src, signal)
 
 	// signals bot status etc. to controller
 	proc/send_status()

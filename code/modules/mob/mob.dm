@@ -2028,6 +2028,8 @@
 	if (src.client && src.client.holder)
 		stat(null, "([x], [y], [z])")
 		stat(null, "CPU: [world.cpu]")
+		if (master_controller)
+			stat(null, "Loop: [master_controller.loop_freq]")
 
 /client/proc/station_explosion_cinematic()
 	if(src.mob)

@@ -36,7 +36,7 @@
 		set_frequency(new_frequency)
 			radio_controller.remove_object(src, "[frequency]")
 			frequency = new_frequency
-			radio_connection = radio_controller.add_object(src, "[frequency]")
+			radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_TAG, id_tag)
 
 		broadcast_status()
 			if(!radio_connection)
@@ -52,7 +52,7 @@
 			signal.data["panic"] = panic
 			signal.data["filter_co2"] = scrub_CO2
 			signal.data["filter_toxins"] = scrub_Toxins
-			radio_connection.post_signal(src, signal)
+			radio_connection.post_signal(src, signal, null, RADIO_GROUP, "scrubber")
 
 			return 1
 
