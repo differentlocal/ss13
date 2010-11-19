@@ -70,7 +70,7 @@ datum/controller/game_controller
 
 			//sleep(world.timeofday + 10 - start_time)
 			// пауза не менее 3 мс перед следующей итерацией
-			sleep(max(10 - (world.timeofday - start_time), 3))
+			sleep(max(30 - (world.timeofday - start_time), 3))
 			loop_freq = world.timeofday - start_time
 
 

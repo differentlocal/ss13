@@ -52,7 +52,8 @@
 			signal.data["panic"] = panic
 			signal.data["filter_co2"] = scrub_CO2
 			signal.data["filter_toxins"] = scrub_Toxins
-			radio_connection.post_signal(src, signal, null, RADIO_GROUP, "scrubber")
+			//radio_connection.post_signal(src, signal, null, RADIO_GROUP, "scrubber")
+			radio_connection.post_signal(src, signal, null, RADIO_TAG, id_tag)
 
 			return 1
 
