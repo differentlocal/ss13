@@ -170,7 +170,7 @@ WELDINGTOOOL
 	//check eye protection
 	var/safety = null
 	if (istype(user, /mob/living/carbon/human))
-		if (istype(user:head, /obj/item/clothing/head/helmet/welding) || istype(user:head, /obj/item/clothing/head/helmet/space))
+		if (istype(user:head, /obj/item/clothing/head/helmet/welding) || istype(user:head, /obj/item/clothing/head/helmet/space)|| istype(user:head, /obj/item/clothing/head/helmet/miner))
 			safety = 2
 		else if (istype(user:glasses, /obj/item/clothing/glasses/sunglasses))
 			safety = 1
