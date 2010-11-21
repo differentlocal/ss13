@@ -71,7 +71,10 @@ obj/machinery/embedded_controller
 		post_signal(datum/signal/signal)
 			signal.transmission_method = TRANSMISSION_RADIO
 			if(radio_connection)
-				return radio_connection.post_signal(src, signal)
+				if (signal.data["tag"])
+					return radio_connection.post_signal(src, signal, null, RADIO_TAG, signal.data["tag"])
+				else
+					return radio_connection.post_signal(src, signal)
 			else
 				del(signal)
 
@@ -79,4 +82,4 @@ obj/machinery/embedded_controller
 			set_frequency(new_frequency)
 				radio_controller.remove_object(src, "[frequency]")
 				frequency = new_frequency
-				radio_connection = radio_controller.add_object(src, "[frequency]")
+				radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_GROUP, list("airlock", "vent"))

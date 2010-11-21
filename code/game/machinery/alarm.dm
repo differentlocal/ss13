@@ -44,7 +44,8 @@
 			radio_controller.remove_object(src, "[frequency]")
 			frequency = new_frequency
 
-			radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_GROUP, list("scrubber", "vent"))
+			//radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_GROUP, list("scrubber", "vent"))
+			radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_TAG, list(sensors, vents))
 
 
 		send_signal(var/target, var/command)//sends signal 'command' to 'target'. Returns 0 if no radio connection, 1 otherwise

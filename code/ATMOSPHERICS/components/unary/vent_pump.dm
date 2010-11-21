@@ -117,7 +117,8 @@
 			signal.data["internal"] = internal_pressure_bound
 			signal.data["external"] = external_pressure_bound
 
-			radio_connection.post_signal(src, signal, null, RADIO_GROUP, "vent")
+			//radio_connection.post_signal(src, signal, null, RADIO_GROUP, "vent")
+			radio_connection.post_signal(src, signal, null, RADIO_TAG, id)
 
 			return 1
 
