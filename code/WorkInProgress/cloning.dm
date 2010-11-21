@@ -458,8 +458,8 @@
 	//Here let's calculate their health so the pod doesn't immediately eject them!!!
 	src.occupant.health = (src.occupant.bruteloss + src.occupant.toxloss + src.occupant.oxyloss)
 
-	src.occupant << "\blue <b>Clone generation process initiated.</b>"
-	src.occupant << "\blue This will take a moment, please hold."
+	src.occupant << "\blue <b>Начат процесс клонировани&#FF; вашего организма.</b>"
+	src.occupant << "\blue Это займёт некоторое время, пожалуйста съешьте ещё этих м&#FF;гких французских булок да выпейте чаю."
 
 	if (clonename)
 		src.occupant.real_name = clonename

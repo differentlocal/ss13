@@ -17,11 +17,13 @@
 
 	var/list/body_standing = list(  )
 	var/list/body_lying = list(  )
+	health = 100
+
 
 /mob/living/carbon/alien/humanoid/queen
 	name = "alien queen"
 
-	health = 250
+	health = 150
 	icon_state = "queen_s"
 
 /mob/living/carbon/alien/humanoid/rpbody

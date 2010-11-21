@@ -30,7 +30,7 @@
 		return
 
 	var/message_a = src.say_quote(message)
-	var/rendered = "<i><span class='game say'>Ульчан, <span class='name'>[src.name]</span> <span class='message'>[message_a]</span></span></i>"
+	var/rendered = "<i><span class='game say'>Чужие: <span class='name'>[src.name]</span> <span class='message'>[message_a]</span></span></i>"
 	for (var/mob/living/S in world)
 		if(!S.stat)
 			if(S.alien_talk_understand)
@@ -61,7 +61,7 @@
 
 	message = src.say_quote(message)
 
-	rendered = "<i><span class='game say'>Ульчан, <span class='name'>[src.name]</span> <span class='message'>[message_a]</span></span></i>"
+	rendered = "<i><span class='game say'>Чужие, <span class='name'>[src.name]</span> <span class='message'>[message_a]</span></span></i>"
 
 	for (var/mob/M in world)
 		if (istype(M, /mob/new_player))

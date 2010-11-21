@@ -116,8 +116,9 @@
 
 /obj/item/attack_paw(mob/user as mob)
 
-	if(isalien(user)) // -- TLE
-		user << "Your claws aren't capable of such fine manipulation."
+	if (isalien(user) && (! (istype(src, /obj/item/weapon/card/id) || istype(src,/obj/item/weapon/reagent_containers/food/snacks/donut)) )) // -- TLE
+		// алиен может брать в руку карточку ID и пончик
+		user << "Твои чудовищные когти мешают сделать это."
 		return
 
 	if (istype(src.loc, /obj/item/weapon/storage))
@@ -190,7 +191,7 @@
 							H.weakened = time
 					if(H.stat != 2)	H.stat = 1
 					for(var/mob/O in viewers(M, null))
-						O.show_message(text("\red <B>[] has been knocked unconscious!</B>", H), 1, "\red You hear someone fall.", 2)
+						O.show_message(text("\red <B>[] без сознани&#ff;!</B>", H), 1, "\red Слышно чьё-то падение.", 2)
 					if (prob(50))
 						if (ticker.mode.name == "revolution")
 							ticker.mode:remove_revolutionary(H.mind)
