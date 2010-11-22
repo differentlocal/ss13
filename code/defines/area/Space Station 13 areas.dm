@@ -124,6 +124,15 @@
 	icon_state = "shuttlered2"
 // === Trying to remove these areas:
 
+
+/area/shuttle/russian/station
+	name = "Russian Shuttle Area"
+	icon_state = "shuttle"
+
+/area/shuttle/russian/russian
+	name = "Russian Shuttle Area"
+	icon_state = "shuttle"
+
 /area/airtunnel1/      // referenced in airtunnel.dm:759
 
 /area/dummy/           // Referenced in engine.dm:261
@@ -714,6 +723,10 @@
 
 /area/derelict/ship
 	name = "Abandoned ship"
+	icon_state = "yellow"
+
+/area/derelict/supply
+	name = "Supply ship"
 	icon_state = "yellow"
 
 /area/construction
