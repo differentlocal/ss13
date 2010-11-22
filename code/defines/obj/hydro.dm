@@ -14,7 +14,7 @@
 // ********************************************************
 
 /obj/item/seeds
-	name = "seed"
+	name = "семена"
 	icon = 'hydroponics.dmi'
 	icon_state = "seed" // unknown plant seed - these shouldn't exist in-game
 	flags = FPRINT | TABLEPASS
@@ -35,7 +35,7 @@
 
 
 /obj/item/seeds/chiliseed
-	name = "Chili plant seeds"
+	name = "Семена перца Чили"
 	icon_state = "seed-chili"
 	mypath = "/obj/item/seeds/chiliseed"
 	species = "chili"
@@ -51,7 +51,7 @@
 	growthstages = 6
 
 /obj/item/seeds/berryseed
-	name = "Berry seeds"
+	name = "Семена Ягод"
 	icon_state = "seed-berry"
 	mypath = "/obj/item/seeds/berryseed"
 	species = "berry"
@@ -81,7 +81,7 @@
 	growthstages = 6
 
 /obj/item/seeds/tomatoseed
-	name = "Tomato seeds"
+	name = "Семена томатов"
 	icon_state = "seed-tomato"
 	mypath = "/obj/item/seeds/tomatoseed"
 	species = "tomato"
@@ -112,7 +112,7 @@
 	growthstages = 6
 
 /obj/item/seeds/soyaseed
-	name = "Soybean seeds"
+	name = "Семена сои"
 	icon_state = "seed-soybean"
 	mypath = "/obj/item/seeds/soyaseed"
 	species = "soybean"
@@ -145,7 +145,7 @@
 	growthstages = 6
 
 /obj/item/seeds/carrotseed
-	name = "Carrot seeds"
+	name = "Семена моркови"
 	icon_state = "seed-carrot"
 	mypath = "/obj/item/seeds/carrotseed"
 	species = "carrot"
@@ -264,7 +264,7 @@
 	plant_type = 2
 
 /obj/item/seeds/nettleseed
-	name = "Nettle seeds"
+	name = "Семена крапивы"
 	icon_state = "seed-nettle"
 	mypath = "/obj/item/seeds/nettleseed"
 	species = "nettle"
@@ -298,7 +298,7 @@
 	plant_type = 1
 
 /obj/item/seeds/weeds
-	name = "Weeds"
+	name = "Сорняки"
 	icon_state = "seed"
 	mypath = "/obj/item/seeds/weeds"
 	species = "weeds"
