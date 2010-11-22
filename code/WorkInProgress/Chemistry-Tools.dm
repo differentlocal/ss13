@@ -1055,10 +1055,10 @@
 	m_amt = 200
 	g_amt = 0
 
-	amount_per_transfer_from_this = 10
+	amount_per_transfer_from_this = 30
 	flags = FPRINT | OPENCONTAINER
 	New()
-		var/datum/reagents/R = new/datum/reagents(30)
+		var/datum/reagents/R = new/datum/reagents(90)
 		reagents = R
 		R.my_atom = src
 
