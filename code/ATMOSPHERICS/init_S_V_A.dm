@@ -54,6 +54,7 @@ datum/controller/game_controller
 						target_alarm.sensors[Sc.id_tag] = d_name //append scrubber to alarm 'sensors' list
 						Sc.name = d_name //set scrubber name
 						Sc.set_frequency(Sc.frequency)
+						target_alarm.set_frequency(Sc.frequency)
 						//debug
 						//world << "[Sc.name] in [M.name] is set to frequency [Sc.frequency] with ID [Sc.id_tag]"
 						//debug
@@ -75,6 +76,7 @@ datum/controller/game_controller
 						target_alarm.vents[P.id] = d_name //append vent to alarm 'vents' list
 						P.name = d_name //set vent name
 						P.set_frequency(P.frequency)
+						target_alarm.set_frequency(P.frequency)
 						//debug
 						//world << "[Sc.name] in [M.name] is set to frequency [Sc.frequency] with ID [Sc.id_tag]"
 						//debug
