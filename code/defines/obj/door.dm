@@ -1,5 +1,5 @@
 /obj/machinery/door
-	name = "Door"
+	name = "ƒверь"
 	icon = 'doorint.dmi'
 	icon_state = "door1"
 	opacity = 1
@@ -12,7 +12,7 @@
 	var/autoclose = 0
 
 /obj/machinery/door/firedoor
-	name = "Firelock"
+	name = "ѕожарная переборка"
 	icon = 'Doorfire.dmi'
 	icon_state = "door0"
 	var/blocked = null
@@ -21,7 +21,7 @@
 	var/nextstate = null
 
 /obj/machinery/door/firedoor/border_only
-	name = "Firelock"
+	name = "ѕожарная переборка"
 	icon = 'door_fire2.dmi'
 	icon_state = "door0"
 
