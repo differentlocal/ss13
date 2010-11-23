@@ -23,7 +23,8 @@ var/list/occupations = list(
 	"Botanist", "Botanist",
 	"Librarian",
 	"Lawyer",
-	"Virologist")
+	"Virologist",
+	"Psychiatrist")
 
 var/list/assistant_occupations = list(
 	"Assistant")

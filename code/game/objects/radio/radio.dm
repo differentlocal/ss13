@@ -13,7 +13,7 @@
 
 	set_frequency(frequency)
 	if(src.secure_frequency)
-		secure_radio_connection = radio_controller.add_object(src, "[secure_frequency]")
+		secure_radio_connection = radio_controller.add_object(src, "[secure_frequency]", RADIO_VOICE)
 
 /obj/item/device/radio
 	var/datum/radio_frequency/radio_connection
@@ -23,7 +23,7 @@
 		set_frequency(new_frequency)
 			radio_controller.remove_object(src, "[frequency]")
 			frequency = new_frequency
-			radio_connection = radio_controller.add_object(src, "[frequency]")
+			radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_VOICE)
 
 /obj/item/device/radio/attack_self(mob/user as mob)
 	user.machine = src
@@ -163,7 +163,7 @@ Frequency:
 	var/list/receive = list()
 
 	//for (var/obj/item/device/radio/R in radio_connection.devices)
-	for (var/obj/item/device/radio/R in connection.devices) // Modified for security headset code -- TLE
+	for (var/obj/item/device/radio/R in connection.voice) // Modified for security headset code -- TLE
 		if(R.accept_rad(src, message))
 			for (var/i in R.send_hear())
 				if (!(i in receive))

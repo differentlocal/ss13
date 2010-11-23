@@ -502,7 +502,7 @@ Rate: [volume_rate] L/sec<BR>"}
 		set_frequency(new_frequency)
 			radio_controller.remove_object(src, "[receive_frequency]")
 			receive_frequency = new_frequency
-			radio_connection = radio_controller.add_object(src, "[receive_frequency]")
+			radio_connection = radio_controller.add_object(src, "[receive_frequency]", RADIO_GROUP, "general_alert")
 
 
 	attack_hand(mob/user)

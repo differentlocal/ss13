@@ -99,7 +99,7 @@
 			radio_controller.remove_object(src, "[frequency]")
 			frequency = new_frequency
 			if(frequency)
-				radio_connection = radio_controller.add_object(src, "[frequency]")
+				radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_TAG, id)
 
 		broadcast_status()
 			if(!radio_connection)
@@ -117,7 +117,8 @@
 			signal.data["internal"] = internal_pressure_bound
 			signal.data["external"] = external_pressure_bound
 
-			radio_connection.post_signal(src, signal)
+			//radio_connection.post_signal(src, signal, null, RADIO_GROUP, "vent")
+			radio_connection.post_signal(src, signal, null, RADIO_TAG, id)
 
 			return 1
 

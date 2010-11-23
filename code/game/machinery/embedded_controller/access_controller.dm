@@ -154,8 +154,6 @@ obj/machinery/embedded_controller/radio/access_controller
 	var/interior_door_tag
 
 	initialize()
-		..()
-
 		var/datum/computer/file/embedded_program/access_controller/new_prog = new
 
 		new_prog.id_tag = id_tag
@@ -164,6 +162,14 @@ obj/machinery/embedded_controller/radio/access_controller
 
 		new_prog.master = src
 		program = new_prog
+
+		..()
+
+	set_frequency(new_frequency)
+		radio_controller.remove_object(src, "[frequency]")
+		frequency = new_frequency
+		radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_TAG, list(id_tag, exterior_door_tag, interior_door_tag))
+
 
 	update_icon()
 		if(on && program)

@@ -77,6 +77,7 @@ var
 	chaplainMax = 1
 	janitorMax = 1
 	doctorMax = 4
+	psychiatristMax = 1
 	clownMax = 1
 	chefMax = 1
 	roboticsMax = 3

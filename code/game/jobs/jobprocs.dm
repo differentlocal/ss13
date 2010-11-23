@@ -357,6 +357,14 @@
 			src.equip_if_possible(new /obj/item/clothing/suit/labcoat(src), slot_wear_suit)
 			src.equip_if_possible(new /obj/item/weapon/storage/firstaid/regular(src), slot_l_hand)
 
+		if ("Psychiatrist")
+			src.equip_if_possible(new /obj/item/device/radio/headset/headset_med (src), slot_ears) // -- TLE
+			src.equip_if_possible(new /obj/item/device/pda/medical(src), slot_belt)
+			src.equip_if_possible(new /obj/item/clothing/under/rank/medical(src), slot_w_uniform)
+			src.equip_if_possible(new /obj/item/clothing/shoes/white(src), slot_shoes)
+			src.equip_if_possible(new /obj/item/clothing/suit/psychiatrist(src), slot_wear_suit)
+			src.equip_if_possible(new /obj/item/weapon/storage/firstaid/regular(src), slot_l_hand)
+
 		if ("Captain")
 			src.equip_if_possible(new /obj/item/device/radio/headset/headset_com (src), slot_ears) // -- TLE
 			src.equip_if_possible(new /obj/item/weapon/storage/backpack(src), slot_back)

@@ -58,9 +58,13 @@
 		if("Security")
 			src.module = new /obj/item/weapon/robot_module/security(src)
 			src.hands.icon_state = "security"
-			var/icontype = input("Select an icon!", "Robot", null, null) in list("Standard", "Armored")
+			var/icontype = input("Select an icon!", "Robot", null, null) in list("Standard", "Armored", "Robocop", "Robocop2")
 			if(icontype == "Armored")
 				src.icon_state = "Security"
+			else if(icontype == "Robocop")
+				src.icon_state = "Security2"
+			else if(icontype == "Robocop2")
+				src.icon_state = "Security3"
 			else
 				src.icon_state = "robot"
 			src.modtype = "Sec"
@@ -511,6 +515,10 @@
 		src.grabbed_by += G
 		G.synch()
 		playsound(src.loc, 'thudswoosh.ogg', 50, 1, -1)
+
+		M.attack_log += text("[] <b>[]/[]</b> схватил <b>[]/[]</b>", world.time, M, M.client, src, src.client)
+		src.attack_log += text("[] <b>[]/[]</b> схватил <b>[]/[]</b", world.time, M, M.client, src, src.client)
+
 		for(var/mob/O in viewers(src, null))
 			O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 

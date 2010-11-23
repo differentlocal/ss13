@@ -116,7 +116,7 @@
 	// common cartridge procs
 
 	// send a signal on a frequency
-	proc/post_signal(var/freq, var/key, var/value, var/key2, var/value2, var/key3, var/value3)
+	proc/post_signal(var/freq, var/group, var/key, var/value, var/key2, var/value2, var/key3, var/value3)
 
 		//world << "Post: [freq]: [key]=[value], [key2]=[value2]"
 		var/datum/radio_frequency/frequency = radio_controller.return_frequency("[freq]")
@@ -132,7 +132,10 @@
 		if(key3)
 			signal.data[key3] = value3
 
-		frequency.post_signal(src, signal)
+		if (group)
+			frequency.post_signal(src, signal, null, RADIO_GROUP, group)
+		else
+			frequency.post_signal(src, signal)
 
 
 /obj/item/weapon/cartridge/engineering
@@ -162,7 +165,7 @@
 		..()
 		spawn(5)
 			if(radio_controller)
-				radio_controller.add_object(src, "[control_freq]")
+				radio_controller.add_object(src, "[control_freq]", RADIO_GROUP, "secbot")
 
 	// receive radio signals
 	// can detect bot status signals
@@ -176,7 +179,7 @@
 		for(var/d in signal.data)
 			world << "- [d] = [signal.data[d]]"
 		*/
-		if(signal.data["type"] == "secbot")
+		if (signal.data["type"] == "secbot")
 			if(!botlist)
 				botlist = new()
 
@@ -187,7 +190,7 @@
 				var/list/b = signal.data
 				botstatus = b.Copy()
 
-		if(istype(P)) P.updateSelfDialog()
+		if (istype(P)) P.updateSelfDialog()
 
 
 
@@ -200,23 +203,23 @@
 
 			if("control")
 				active = locate(href_list["bot"])
-				post_signal(control_freq, "command", "bot_status", "active", active)
+				post_signal(control_freq, "secbot_control", "command", "bot_status", "active", active)
 
 			if("scanbots")		// find all bots
 				botlist = null
-				post_signal(control_freq, "command", "bot_status")
+				post_signal(control_freq, "secbot_control", "command", "bot_status")
 
 			if("botlist")
 				active = null
 				PDA.updateSelfDialog()
 
 			if("stop", "go")
-				post_signal(control_freq, "command", href_list["op"], "active", active)
-				post_signal(control_freq, "command", "bot_status", "active", active)
+				post_signal(control_freq, "secbot_control", "command", href_list["op"], "active", active)
+				post_signal(control_freq, "secbot_control", "command", "bot_status", "active", active)
 
 			if("summon")
-				post_signal(control_freq, "command", "summon", "active", active, "target", get_turf(PDA) )
-				post_signal(control_freq, "command", "bot_status", "active", active)
+				post_signal(control_freq, "secbot_control", "command", "summon", "active", active, "target", get_turf(PDA) )
+				post_signal(control_freq, "secbot_control", "command", "bot_status", "active", active)
 
 /obj/item/weapon/cartridge/janitor
 	name = "CustodiPRO Cartridge"
@@ -293,10 +296,10 @@
 		..()
 		spawn(5)
 			if(radio_controller)
-				radio_controller.add_object(src, "[control_freq]")
-				radio_controller.add_object(src, "[beacon_freq]")
+				radio_controller.add_object(src, "[control_freq]", RADIO_GROUP, "mulebot")
+				radio_controller.add_object(src, "[beacon_freq]", RADIO_GROUP, "beacon")
 				spawn(10)
-					post_signal(beacon_freq, "findbeacon", "delivery")
+					post_signal(beacon_freq, "navbeacon", "findbeacon", "delivery")
 
 	// receive radio signals
 	// can detect bot status signals
@@ -344,43 +347,43 @@
 
 			if("control")
 				active = locate(href_list["bot"])
-				post_signal(control_freq, cmd, "bot_status")
+				post_signal(control_freq, "mulebot_control", cmd, "bot_status")
 
 			if("scanbots")		// find all bots
 				botlist = null
-				post_signal(control_freq, "command", "bot_status")
+				post_signal(control_freq, "mulebot_control", "command", "bot_status")
 
 			if("botlist")
 				active = null
 				PDA.updateSelfDialog()
 
 			if("unload")
-				post_signal(control_freq, cmd, "unload")
-				post_signal(control_freq, cmd, "bot_status")
+				post_signal(control_freq, "mulebot_control", cmd, "unload")
+				post_signal(control_freq, "mulebot_control", cmd, "bot_status")
 			if("setdest")
 				if(beacons)
 					var/dest = input("Select Bot Destination", "Mulebot [active.suffix] Interlink", active.destination) as null|anything in beacons
 					if(dest)
-						post_signal(control_freq, cmd, "target", "destination", dest)
-						post_signal(control_freq, cmd, "bot_status")
+						post_signal(control_freq, "mulebot_control", cmd, "target", "destination", dest)
+						post_signal(control_freq, "mulebot_control", cmd, "bot_status")
 
 			if("retoff")
-				post_signal(control_freq, cmd, "autoret", "value", 0)
-				post_signal(control_freq, cmd, "bot_status")
+				post_signal(control_freq, "mulebot_control", cmd, "autoret", "value", 0)
+				post_signal(control_freq, "mulebot_control", cmd, "bot_status")
 			if("reton")
-				post_signal(control_freq, cmd, "autoret", "value", 1)
-				post_signal(control_freq, cmd, "bot_status")
+				post_signal(control_freq, "mulebot_control", cmd, "autoret", "value", 1)
+				post_signal(control_freq, "mulebot_control", cmd, "bot_status")
 
 			if("pickoff")
-				post_signal(control_freq, cmd, "autopick", "value", 0)
-				post_signal(control_freq, cmd, "bot_status")
+				post_signal(control_freq, "mulebot_control", cmd, "autopick", "value", 0)
+				post_signal(control_freq, "mulebot_control", cmd, "bot_status")
 			if("pickon")
-				post_signal(control_freq, cmd, "autopick", "value", 1)
-				post_signal(control_freq, cmd, "bot_status")
+				post_signal(control_freq, "mulebot_control", cmd, "autopick", "value", 1)
+				post_signal(control_freq, "mulebot_control", cmd, "bot_status")
 
 			if("stop", "go", "home")
-				post_signal(control_freq, cmd, href_list["op"])
-				post_signal(control_freq, cmd, "bot_status")
+				post_signal(control_freq, "mulebot_control", cmd, href_list["op"])
+				post_signal(control_freq, "mulebot_control", cmd, "bot_status")
 
 
 /obj/item/weapon/cartridge/syndicate

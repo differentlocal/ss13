@@ -218,7 +218,7 @@
 										if("rank")
 											var/list/L = list( "Head of Personnel", "Captain", "AI" )
 											if ((istype(src.active1, /datum/data/record) && L.Find(src.rank)))
-												src.temp = text("<B>Rank:</B><BR>\n<B>Assistants:</B><BR>\n<A href='?src=\ref[];temp=1;rank=res_assist'>Assistant</A><BR>\n<B>Technicians:</B><BR>\n<A href='?src=\ref[];temp=1;rank=foren_tech'>Detective</A><BR>\n<A href='?src=\ref[];temp=1;rank=atmo_tech'>Atmospheric Technician</A><BR>\n<A href='?src=\ref[];temp=1;rank=engineer'>Station Engineer</A><BR>\n<B>Researchers:</B><BR>\n<A href='?src=\ref[];temp=1;rank=med_res'>Geneticist</A><BR>\n<A href='?src=\ref[];temp=1;rank=tox_res'>Scientist</A><BR>\n<B>Officers:</B><BR>\n<A href='?src=\ref[];temp=1;rank=med_doc'>Medical Doctor</A><BR>\n<A href='?src=\ref[];temp=1;rank=secure_off'>Security Officer</A><BR>\n<B>Higher Officers:</B><BR>\n<A href='?src=\ref[];temp=1;rank=hoperson'>Head of Security</A><BR>\n<A href='?src=\ref[];temp=1;rank=hosecurity'>Head of Personnel</A><BR>\n<A href='?src=\ref[];temp=1;rank=captain'>Captain</A><BR>", src, src, src, src, src, src, src, src, src, src, src)
+												src.temp = text("<B>Rank:</B><BR>\n<B>Assistants:</B><BR>\n<A href='?src=\ref[];temp=1;rank=res_assist'>Assistant</A><BR>\n<B>Technicians:</B><BR>\n<A href='?src=\ref[];temp=1;rank=foren_tech'>Detective</A><BR>\n<A href='?src=\ref[];temp=1;rank=atmo_tech'>Atmospheric Technician</A><BR>\n<A href='?src=\ref[];temp=1;rank=engineer'>Station Engineer</A><BR>\n<B>Researchers:</B><BR>\n<A href='?src=\ref[];temp=1;rank=med_res'>Geneticist</A><BR>\n<A href='?src=\ref[];temp=1;rank=tox_res'>Scientist</A><BR>\n<B>Officers:</B><BR>\n<A href='?src=\ref[];temp=1;rank=med_doc'>Medical Doctor</A><BR>\n<A href='?src=\ref[];temp=1;rank=psycho'>Psychiatrist</A><BR>\n<A href='?src=\ref[];temp=1;rank=secure_off'>Security Officer</A><BR>\n<B>Higher Officers:</B><BR>\n<A href='?src=\ref[];temp=1;rank=hoperson'>Head of Security</A><BR>\n<A href='?src=\ref[];temp=1;rank=hosecurity'>Head of Personnel</A><BR>\n<A href='?src=\ref[];temp=1;rank=captain'>Captain</A><BR>", src, src, src, src, src, src, src, src, src, src, src, src)
 											else
 												alert(usr, "You do not have the required rank to do this!")
 										else
@@ -238,8 +238,12 @@
 													src.active1.fields["rank"] = "Geneticist"
 												if("tox_res")
 													src.active1.fields["rank"] = "Scientist"
+												if("psycho")
+													src.active1.fields["rank"] = "Psychiatrist"
 												if("med_doc")
 													src.active1.fields["rank"] = "Medical Doctor"
+												if("psycho")
+													src.active1.fields["rank"] = "Psychiatrist"
 												if("secure_off")
 													src.active1.fields["rank"] = "Security Officer"
 												if("hoperson")

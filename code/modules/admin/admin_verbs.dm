@@ -32,6 +32,7 @@
 			src.verbs += /client/proc/admin_cancel_shuttle // -- Skie
 			src.verbs += /client/proc/air_report
 			src.verbs += /client/proc/air_status
+			src.verbs += /client/proc/radio_report
 			src.verbs += /client/proc/callproc
 			src.verbs += /client/proc/Cell
 			src.verbs += /client/proc/cmd_admin_alienize
@@ -44,6 +45,7 @@
 			src.verbs += /client/proc/cmd_admin_add_freeform_ai_law
 			src.verbs += /client/proc/cmd_admin_add_random_ai_law
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_admin_create_centcom_report
 			src.verbs += /client/proc/cmd_admin_delete
 			src.verbs += /client/proc/cmd_admin_direct_narrate // -- TLE
@@ -62,6 +64,7 @@
 			src.verbs += /client/proc/cmd_admin_world_narrate // -- TLE
 			src.verbs += /client/proc/cmd_debug_del_all
 			src.verbs += /client/proc/cmd_modify_ticker_variables
+			src.verbs += /client/proc/cmd_admin_grantfullaccess
 			src.verbs += /client/proc/deadchat					//toggles deadchat
 			src.verbs += /client/proc/Debug2					//debug toggle switch
 			src.verbs += /client/proc/drop_bomb // -- TLE
@@ -127,6 +130,7 @@
 			src.verbs += /client/proc/admin_cancel_shuttle // -- Skie
 			src.verbs += /client/proc/air_report
 			src.verbs += /client/proc/air_status
+			src.verbs += /client/proc/radio_report
 			src.verbs += /client/proc/callproc
 			src.verbs += /client/proc/Cell
 			src.verbs += /client/proc/cmd_admin_alienize
@@ -139,6 +143,7 @@
 			src.verbs += /client/proc/cmd_admin_add_freeform_ai_law
 			src.verbs += /client/proc/cmd_admin_add_random_ai_law
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_admin_create_centcom_report
 			src.verbs += /client/proc/cmd_admin_delete
 			src.verbs += /client/proc/cmd_admin_direct_narrate // -- TLE
@@ -158,6 +163,7 @@
 			src.verbs += /client/proc/cmd_debug_del_all
 			src.verbs += /client/proc/cmd_debug_tog_aliens
 			src.verbs += /client/proc/cmd_modify_ticker_variables
+			src.verbs += /client/proc/cmd_admin_grantfullaccess
 			src.verbs += /client/proc/deadchat					//toggles deadchat
 			src.verbs += /client/proc/Debug2					//debug toggle switch
 			src.verbs += /client/proc/dsay
@@ -235,6 +241,7 @@
 			src.verbs += /proc/toggle_adminmsg
 //				src.verbs += /client/proc/grillify
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /proc/togglebuildmode
 			src.verbs += /client/proc/Jump
 			src.verbs += /client/proc/jumptoturf
@@ -280,6 +287,7 @@
 			src.verbs += /client/proc/general_report
 			src.verbs += /client/proc/air_report
 			src.verbs += /client/proc/air_status
+			src.verbs += /client/proc/radio_report
 			src.verbs += /client/proc/fix_next_move
 
 			src.verbs += /client/proc/toggle_view_range
@@ -330,6 +338,7 @@
 			src.verbs += /client/proc/cmd_admin_pm
 			src.verbs += /client/proc/cmd_admin_mute
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_admin_gib_self
 			src.verbs += /client/proc/cmd_admin_remove_plasma
 
@@ -367,6 +376,7 @@
 				src.deadchat = 1
 				src.verbs += /client/proc/Jump
 				src.verbs += /client/proc/cmd_admin_check_contents
+				src.verbs += /client/proc/cmd_admin_attack_log
 				src.verbs += /client/proc/jumptomob
 				src.verbs += /client/proc/jumptokey
 				src.verbs += /obj/admins/proc/toggleaban			//abandon mob
@@ -414,6 +424,7 @@
 			if(src.holder.state == 2) //observing
 				src.verbs += /obj/admins/proc/toggleaban			//abandon mob
 				src.verbs += /client/proc/cmd_admin_check_contents
+				src.verbs += /client/proc/cmd_admin_attack_log
 
 			//src.verbs += /obj/admins/proc/togglegoonsay
 			src.verbs += /client/proc/cmd_admin_pm
@@ -533,6 +544,7 @@
 	src.verbs -= /client/proc/jumptokey
 	src.verbs -= /client/proc/cmd_admin_alienize
 	src.verbs -= /client/proc/cmd_admin_changelinginize
+	src.verbs -= /client/proc/cmd_admin_grantfullaccess
 //	src.verbs -= /client/proc/cmd_admin_list_admins
 	src.verbs -= /client/proc/Getmob
 	src.verbs -= /client/proc/sendmob
@@ -572,6 +584,7 @@
 	src.verbs -= /client/proc/general_report
 	src.verbs -= /client/proc/air_report
 	src.verbs -= /client/proc/air_status
+	src.verbs -= /client/proc/radio_report
 
 	src.verbs -= /client/proc/toggle_view_range
 	src.verbs -= /obj/admins/proc/toggle_aliens
@@ -887,6 +900,7 @@
 			src.verbs += /client/proc/cmd_admin_say
 			src.verbs += /client/proc/dsay
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_debug_del_all
 			src.verbs += /client/proc/play_sound
 			src.verbs += /client/proc/modifytemperature
@@ -911,6 +925,7 @@
 //			src.verbs += /client/proc/getmobs
 //			src.verbs += /client/proc/cmd_admin_list_admins
 			src.verbs += /client/proc/cmd_admin_list_occ
+			src.verbs += /client/proc/cmd_admin_grantfullaccess
 			src.verbs += /proc/togglebuildmode
 			src.verbs += /client/proc/jumptokey
 			src.verbs += /client/proc/Getmob
@@ -946,6 +961,7 @@
 			src.verbs += /client/proc/general_report
 			src.verbs += /client/proc/air_report
 			src.verbs += /client/proc/air_status
+			src.verbs += /client/proc/radio_report
 			src.verbs += /client/proc/fix_next_move
 
 			src.verbs += /client/proc/toggle_view_range
@@ -966,6 +982,7 @@
 			src.verbs += /client/proc/cmd_admin_say
 			src.verbs += /client/proc/dsay
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_debug_del_all
 			src.verbs += /client/proc/play_sound
 			src.verbs += /client/proc/modifytemperature
@@ -992,6 +1009,7 @@
 //			src.verbs += /client/proc/getmobs
 //			src.verbs += /client/proc/cmd_admin_list_admins
 			src.verbs += /client/proc/cmd_admin_list_occ
+			src.verbs += /client/proc/cmd_admin_grantfullaccess
 			src.verbs += /client/proc/jumptokey
 			src.verbs += /client/proc/Getmob
 			src.verbs += /client/proc/jobbans
@@ -1026,6 +1044,7 @@
 			src.verbs += /client/proc/general_report
 			src.verbs += /client/proc/air_report
 			src.verbs += /client/proc/air_status
+			src.verbs += /client/proc/radio_report
 			src.verbs += /client/proc/fix_next_move
 			src.verbs += /obj/admins/proc/spawn_atom
 
@@ -1051,6 +1070,7 @@
 			src.verbs += /proc/toggle_adminmsg
 //				src.verbs += /client/proc/grillify
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /proc/togglebuildmode
 			src.verbs += /client/proc/Jump
 			src.verbs += /client/proc/jumptoturf
@@ -1094,6 +1114,7 @@
 			src.verbs += /client/proc/general_report
 			src.verbs += /client/proc/air_report
 			src.verbs += /client/proc/air_status
+			src.verbs += /client/proc/radio_report
 			src.verbs += /client/proc/fix_next_move
 
 			src.verbs += /client/proc/toggle_view_range
@@ -1135,6 +1156,7 @@
 			src.verbs += /client/proc/cmd_admin_pm
 			src.verbs += /client/proc/cmd_admin_mute
 			src.verbs += /client/proc/cmd_admin_check_contents
+			src.verbs += /client/proc/cmd_admin_attack_log
 			src.verbs += /client/proc/cmd_admin_gib_self
 			src.verbs += /client/proc/cmd_admin_remove_plasma
 
@@ -1170,6 +1192,7 @@
 			if(src.holder.state == 2) //observing
 				src.verbs += /client/proc/Jump
 				src.verbs += /client/proc/cmd_admin_check_contents
+				src.verbs += /client/proc/cmd_admin_attack_log
 				src.verbs += /client/proc/jumptomob
 				src.verbs += /client/proc/jumptokey
 				src.verbs += /obj/admins/proc/toggleaban			//abandon mob
@@ -1210,6 +1233,7 @@
 			if(src.holder.state == 2) //observing
 				src.verbs += /obj/admins/proc/toggleaban			//abandon mob
 				src.verbs += /client/proc/cmd_admin_check_contents
+				src.verbs += /client/proc/cmd_admin_attack_log
 			//src.verbs += /obj/admins/proc/togglegoonsay
 			src.verbs += /client/proc/cmd_admin_pm
 
@@ -1324,6 +1348,7 @@
 //			src.verbs += /client/proc/getmobs
 //			src.verbs += /client/proc/cmd_admin_list_admins
 			src.verbs += /client/proc/cmd_admin_list_occ
+			src.verbs += /client/proc/cmd_admin_grantfullaccess
 			src.verbs -= /proc/togglebuildmode
 			src.verbs -= /client/proc/jumptokey
 			src.verbs -= /client/proc/Getmob
@@ -1359,6 +1384,7 @@
 			src.verbs -= /client/proc/general_report
 			src.verbs -= /client/proc/air_report
 			src.verbs -= /client/proc/air_status
+			src.verbs -= /client/proc/radio_report
 			src.verbs += /client/proc/fix_next_move
 
 			src.verbs += /client/proc/toggle_view_range
@@ -1405,6 +1431,7 @@
 //			src.verbs += /client/proc/getmobs
 //			src.verbs += /client/proc/cmd_admin_list_admins
 			src.verbs += /client/proc/cmd_admin_list_occ
+			src.verbs += /client/proc/cmd_admin_grantfullaccess
 			src.verbs -= /client/proc/jumptokey
 			src.verbs -= /client/proc/Getmob
 			src.verbs += /client/proc/jobbans
@@ -1439,6 +1466,7 @@
 			src.verbs -= /client/proc/general_report
 			src.verbs -= /client/proc/air_report
 			src.verbs -= /client/proc/air_status
+			src.verbs -= /client/proc/radio_report
 			src.verbs += /client/proc/fix_next_move
 			src.verbs += /obj/admins/proc/spawn_atom
 
@@ -1507,6 +1535,7 @@
 			src.verbs -= /client/proc/general_report
 			src.verbs -= /client/proc/air_report
 			src.verbs -= /client/proc/air_status
+			src.verbs -= /client/proc/radio_report
 			src.verbs -= /client/proc/fix_next_move
 
 			src.verbs += /client/proc/toggle_view_range

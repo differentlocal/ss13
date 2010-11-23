@@ -325,7 +325,12 @@ datum
 				groups_to_rebuild.len = 0
 
 			process_groups()
+				var/cnt = 0
 				for(var/datum/air_group/AG in air_groups)
+					cnt++
+					if (cnt == 50)
+						sleep(-1)
+						cnt = 0
 					AG.process_group()
 
 			process_singletons()

@@ -178,6 +178,12 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 		return
 	playsound(user, 'Gunshot.ogg', 100, 1)
 	src.bullets--
+
+	if (ismob(target))
+		var/mob/M = target
+		M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+		user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 	for(var/mob/O in viewers(user, null))
 		O.show_message(text("\red <B>[] fires a revolver at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
 	var/turf/T = user.loc
@@ -334,6 +340,12 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 		user.show_message("\red *click* *click*", 2)
 		return
 	playsound(user, 'Gunshot.ogg', 100, 1)
+
+	if (ismob(target))
+		var/mob/M = target
+		M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+		user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 	for(var/mob/O in viewers(user, null))
 		O.show_message(text("\red <B>[] fires a shotgun at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
 	var/turf/T = user.loc
@@ -533,6 +545,13 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 		user.show_message("\red *click* *click*", 2)
 		return
 	playsound(user, 'Gunshot.ogg', 100, 1)
+
+
+	if (ismob(target))
+		var/mob/M = target
+		M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+		user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 	for(var/mob/O in viewers(user, null))
 		O.show_message(text("\red <B>[] fires a shotgun at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
 	var/turf/T = user.loc
@@ -652,6 +671,12 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 		return
 	playsound(user, 'Gunshot.ogg', 100, 1)
 	src.bullets--
+
+	if (ismob(target))
+		var/mob/M = target
+		M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+		user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 	for(var/mob/O in viewers(user, null))
 		O.show_message(text("\red <B>[] fires the detectives revolver at []!</B>", user, target), 1, "\red You hear a gunshot", 2)
 	var/turf/T = user.loc
@@ -766,6 +791,11 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 		user << "\red *click* *click*"
 		return
 
+	if (ismob(target))
+		var/mob/M = target
+		M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+		user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 	playsound(user, 'Laser.ogg', 50, 1)
 	src.charges--
 	update_icon()
@@ -842,6 +872,11 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 	if(!isrobot(user) && src.charges < 1)
 		user << "\red *click* *click*";
 		return
+
+	if (ismob(target))
+		var/mob/M = target
+		M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+		user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
 
 	playsound(user, 'Taser.ogg', 50, 1)
 	if(isrobot(user))
@@ -968,6 +1003,11 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 		user << "\red *click* *click*";
 		return
 
+	if (ismob(target))
+		var/mob/M = target
+		M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+		user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+
 	playsound(user, 'Genhit.ogg', 20, 1)
 	src.charges--
 	var/turf/T = user.loc
@@ -1041,6 +1081,11 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 	if(src.charges < 1)
 		user << "\red *click* *click*";
 		return
+
+	if (ismob(target))
+		var/mob/M = target
+		M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+		user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
 
 	playsound(user, 'Taser.ogg', 50, 1)
 	src.charges--
@@ -1158,6 +1203,11 @@ obj/item/weapon/gun/revolver/attackby(obj/item/weapon/ammo/a357/A as obj, mob/us
 		if(src.charges < 1)
 			user << "\red *click* *click*";
 			return
+
+		if (ismob(target))
+			var/mob/M = target
+			M.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
+			user.attack_log += text("[] <b>[]/[]</b> выстрелил в <b>[]/[]</b> из <b>[]</b>", world.time, user, user.client, M, M.client, src)
 
 		playsound(user, 'Taser.ogg', 50, 1)
 		src.charges--

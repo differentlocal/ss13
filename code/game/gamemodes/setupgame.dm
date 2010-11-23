@@ -80,7 +80,7 @@
 			M.equip_if_possible(new /obj/item/weapon/tank/emergency_oxygen(M), M.slot_belt)
 			M.equip_if_possible(new /obj/item/clothing/under/rank/engineer(M), M.slot_w_uniform)
 			M.equip_if_possible(new /obj/item/clothing/shoes/orange(M), M.slot_shoes)
-			M.equip_if_possible(new /obj/item/clothing/suit/space(M), M.slot_wear_suit)
+			M.equip_if_possible(new /obj/item/clothing/suit/miner(M), M.slot_wear_suit)
 		//	M.equip_if_possible(new /obj/item/weapon/storage/toolbox/mechanical(M), M.slot_l_hand)
 			M.equip_if_possible(new /obj/item/clothing/gloves/yellow(M), M.slot_gloves)
 			M.equip_if_possible(new /obj/item/device/t_scanner(M), M.slot_r_store)

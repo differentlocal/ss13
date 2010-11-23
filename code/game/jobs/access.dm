@@ -37,6 +37,7 @@
 	access_library = 37
 	access_lawyer = 38
 	access_virology = 39
+	access_psychiatrist = 40
 
 
 /obj/var/list/req_access = null
@@ -104,6 +105,8 @@
 			return list(access_security, access_forensics_lockers, access_morgue, access_maint_tunnels)
 		if("Medical Doctor")
 			return list(access_medical, access_morgue)
+		if("Psychiatrist")
+			return list(access_medical, access_psychiatrist)
 		if("Botanist")	// -- TLE
 			return list(access_medical, access_hydroponics) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS
 		if("Librarian") // -- TLE
@@ -122,7 +125,7 @@
 			            access_maint_tunnels, access_bar, access_janitor, access_kitchen, access_robotics, access_armory, access_hydroponics)
 		if("Head of Personnel")
 			return list(access_security, access_brig, access_forensics_lockers,
-			            access_tox, access_tox_storage, access_chemistry, access_medical, access_medlab, access_engine,
+			            access_tox, access_tox_storage, access_chemistry, access_psychiatrist, access_medical, access_medlab, access_engine,
 			            access_emergency_storage, access_change_ids, access_ai_upload, access_eva, access_heads,
 			            access_all_personal_lockers, access_tech_storage, access_maint_tunnels, access_bar, access_janitor,
 			            access_crematorium, access_kitchen, access_robotics, access_cargo, access_cargo_bot, access_hydroponics, access_lawyer, access_virology)
@@ -131,7 +134,7 @@
 		if("Barman")
 			return list(access_bar)
 		if("Chemist")
-			return list(access_medical, access_chemistry)
+			return list(access_medical, access_chemistry, access_tox)
 		if("Janitor")
 			return list(access_janitor, access_maint_tunnels)
 		if("Clown")
@@ -249,5 +252,5 @@
 	return list("Assistant", "Station Engineer", "Detective", "Medical Doctor", "Captain", "Security Officer",
 				"Geneticist", "Scientist", "Head of Security", "Head of Personnel", "Atmospheric Technician",
 				"Chaplain", "Barman", "Chemist", "Janitor", "Clown", "Mime", "Chef", "Roboticist", "Quartermaster",
-				"Chief Engineer", "Research Director", "Botanist", "Librarian", "Lawyer", "Virologist")
+				"Chief Engineer", "Research Director", "Botanist", "Librarian", "Lawyer", "Virologist", "Psychiatrist")
 

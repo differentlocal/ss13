@@ -137,6 +137,9 @@
 			if(/obj/item/clothing/suit/space)
 				if(!istype(src.loc, /turf/space))		//	space suits slow you down a bit unless in space
 					tally += 3
+			if(/obj/item/clothing/suit/miner)
+				if(!istype(src.loc, /turf/space))		//	space suits slow you down a bit unless in space
+					tally += 3
 
 	if (istype(src.shoes, /obj/item/clothing/shoes))
 		if (src.shoes.chained)
@@ -1217,7 +1220,7 @@
 		if (istype(M.wear_mask, /obj/item/clothing/mask/muzzle))
 			return
 		if (src.health > 0)
-			if (istype(src.wear_suit, /obj/item/clothing/suit/space))
+			if (istype(src.wear_suit, /obj/item/clothing/suit/space) || istype(src.wear_suit, /obj/item/clothing/suit/miner))
 				if (prob(25))
 					for(var/mob/O in viewers(src, null))
 						O.show_message(text("\red <B>[M.name] has attempted to bite []!</B>", src), 1)
@@ -1272,7 +1275,7 @@
 		if (istype(src.wear_mask, /obj/item/clothing/mask/muzzle))
 			return
 		if (src.health > 0)
-			if (istype(src.wear_suit, /obj/item/clothing/suit/space))
+			if (istype(src.wear_suit, /obj/item/clothing/suit/space) || istype(src.wear_suit, /obj/item/clothing/suit/miner))
 				if (prob(25))
 					for(var/mob/O in viewers(src, null))
 						O.show_message(text("\red <B>[M.name] has attempted to bite []!</B>", src), 1)
@@ -1343,6 +1346,10 @@
 			src.grabbed_by += G
 			G.synch()
 			playsound(src.loc, 'thudswoosh.ogg', 50, 1, -1)
+
+			M.attack_log += text("[] <b>[]/[]</b> схватил <b>[]/[]</b>", world.time, M, M.client, src, src.client)
+			src.attack_log += text("[] <b>[]/[]</b> схватил <b>[]/[]</b", world.time, M, M.client, src, src.client)
+
 			for(var/mob/O in viewers(src, null))
 				O.show_message(text("\red [] has grabbed [] passively!", M, src), 1)
 		else
@@ -2425,3 +2432,14 @@
 	var/obj/machinery/bot/mulebot/MB = AM
 	if(istype(MB))
 		MB.RunOver(src)
+
+/mob/living/carbon/human/proc/eat(var/obj/item/weapon/F)
+	if (istype(F, /obj/item/weapon/reagent_containers/food/snacks))
+		var/obj/item/weapon/reagent_containers/food/snacks/S = F
+		src.fullness += S.calories
+		// если пережрали - сблевнуть и упасть
+		if (src.fullness > 120)
+			src.fullness = 70
+			src.weakened += rand(1, 5)
+			src.fireloss += rand(10, 5)
+			src.updatehealth()

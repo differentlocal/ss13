@@ -555,7 +555,7 @@
 		handle_chemicals_in_body()
 
 			if(reagents) reagents.metabolize(src)
-
+			/*
 			if(src.nutrition > 400 && !(src.mutations & 32))
 				if(prob(5 + round((src.nutrition - 200) / 2)))
 					src << "\red You suddenly feel blubbery!"
@@ -566,8 +566,10 @@
 					src << "\blue You feel fit again!"
 					src.mutations &= ~32
 					update_body()
+
 			if (src.nutrition > 0)
-				src.nutrition--
+				src.nutrition -= factor
+			*/
 
 			if (src.drowsyness)
 				src.drowsyness--
@@ -606,6 +608,17 @@
 			// при таком изменении полного зар€да питани€ должно хватать на два часа (100 / 7200)
 			if (fullness > 0)
 				fullness -= 0.014
+				//src << "\green [fullness] [world.timeofday]"
+
+
+			if(fullness > 110 && !(src.mutations & 32))
+				src << "\red ¬ы почувствовали себя толстым!"
+				src.mutations |= 32
+				update_body()
+			if (fullness < 100 && src.mutations & 32)
+				src << "\blue ¬ы снова худой!"
+				src.mutations &= ~32
+				update_body()
 
 			if(health < -100 || src.brain_op_stage == 4.0)
 				death()

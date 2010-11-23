@@ -192,8 +192,6 @@ obj/machinery/embedded_controller/radio/airlock_controller
 	var/sanitize_external
 
 	initialize()
-		..()
-
 		var/datum/computer/file/embedded_program/airlock_controller/new_prog = new
 
 		new_prog.id_tag = id_tag
@@ -205,6 +203,14 @@ obj/machinery/embedded_controller/radio/airlock_controller
 
 		new_prog.master = src
 		program = new_prog
+
+		..()
+
+	set_frequency(new_frequency)
+		radio_controller.remove_object(src, "[frequency]")
+		frequency = new_frequency
+		radio_connection = radio_controller.add_object(src, "[frequency]", RADIO_TAG, list(id_tag, exterior_door_tag, interior_door_tag, airpump_tag, sensor_tag))
+
 
 	update_icon()
 		if(on && program)

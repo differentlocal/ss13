@@ -233,3 +233,7 @@
 	icon_state = "teleport"
 	var/obj/item/locked = null
 	var/id = null
+
+/obj/machinery/computer/russian_shuttle
+	name = "Russian Shuttle"
+	icon_state = "shuttle"

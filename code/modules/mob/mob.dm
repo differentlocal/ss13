@@ -402,6 +402,11 @@
 							src.assailant << "\blue You can't strangle [src.affecting] through their suit collar!"
 							return
 						*/
+
+
+					src.assailant.attack_log += text("[] <b>[]/[]</b> душит <b>[]/[]</b>", world.time, src.assailant, src.assailant.client, src.affecting, src.affecting.client)
+					src.affecting.attack_log += text("[] <b>[]/[]</b> душит <b>[]/[]</b", world.time, src.assailant, src.assailant.client, src.affecting, src.affecting.client)
+
 					for(var/mob/O in viewers(src.assailant, null))
 						O.show_message(text("\red [] has reinforced his grip on [] (now neck)!", src.assailant, src.affecting), 1)
 
@@ -2023,6 +2028,8 @@
 	if (src.client && src.client.holder)
 		stat(null, "([x], [y], [z])")
 		stat(null, "CPU: [world.cpu]")
+		if (master_controller)
+			stat(null, "Loop: [master_controller.loop_freq]")
 
 /client/proc/station_explosion_cinematic()
 	if(src.mob)
