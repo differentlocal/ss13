@@ -923,6 +923,18 @@ datum
 				..()
 				return
 
+		imidazoline
+			name = "imidazoline"
+			id = "imidazoline"
+			description = "Heals eye damage"
+			reagent_state = LIQUID
+			on_mob_life(var/mob/M)
+				if(!M) M = holder.my_atom
+				M:eye_blurry = max(M:eye_blurry-5 , 0)
+				M:eye_blind = max(M:eye_blind-5 , 0)
+				..()
+				return
+
 		arithrazine
 			name = "Arithrazine"
 			id = "arithrazine"
