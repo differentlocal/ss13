@@ -77,6 +77,7 @@ Airlock index -> wire color are { 9, 4, 6, 7, 5, 8, 1, 2, 3 }.
 	autoclose = 1
 	var/doortype = 0
 	var/justzap = 0
+	var/obj/item/weapon/airlock_electronics/electronics = null
 
 /obj/machinery/door/airlock/command
 	name = "Airlock"
@@ -161,13 +162,13 @@ About the new airlock wires panel:
 			//raises them if they are down (only if power's on)
 			if (!src.locked)
 				src.locked = 1
-				usr << "You hear a click from the bottom of the door."
+				usr << "Ты слышишь щелчок внизу двери."
 				src.updateUsrDialog()
 			else
 				if(src.arePowerSystemsOn()) //only can raise bolts if power's on
 					src.locked = 0
 					src.updateUsrDialog()
-				usr << "You hear a click from inside the door."
+				usr << "Ты слышишь щелчок внутри двери."
 			update_icon()
 
 		if (AIRLOCK_WIRE_BACKUP_POWER1 || AIRLOCK_WIRE_BACKUP_POWER2)
@@ -416,14 +417,14 @@ About the new airlock wires panel:
 	user.burn_skin(shock_damage)
 	user.fireloss += shock_damage
 	user.updatehealth()
-	user << "\red <B>You feel a powerful shock course through your body!</B>"
+	user << "\red <B>ПЕРЕЕБАШИЛО РАСПИДАРАСИЛО ТОКОМ УЕБАЛО!</B>"
 	sleep(1)
 
 	if(user.stunned < shock_damage)	user.stunned = shock_damage
 	if(user.weakened < 20*prot)	user.weakened = 20*prot
 	for(var/mob/M in viewers(src))
 		if(M == user)	continue
-		M.show_message("\red [user.name] was shocked by the [src.name]!", 3, "\red You hear a heavy electrical crack", 2)
+		M.show_message("\red [user.name] ударен током от [src.name]!", 3, "\red Ты слышишь как летЯт искры.", 2)
 	return 1
 
 
@@ -473,7 +474,7 @@ About the new airlock wires panel:
 
 	//Separate interface for the AI.
 	user.machine = src
-	var/t1 = text("<B>Airlock Control</B><br>\n")
+	var/t1 = text("<B>Управление дверью</B><br>\n")
 	if (src.secondsMainPowerLost > 0)
 		if ((!src.isWireCut(AIRLOCK_WIRE_MAIN_POWER1)) && (!src.isWireCut(AIRLOCK_WIRE_MAIN_POWER2)))
 			t1 += text("Main power is offline for [] seconds.<br>\n", src.secondsMainPowerLost)
@@ -612,7 +613,7 @@ About the new airlock wires panel:
 			playsound(src.loc, 'bang.ogg', 25, 1)
 			if(!istype(H.head, /obj/item/clothing/head/helmet))
 				for(var/mob/M in viewers(src, null))
-					M << "\red [user] headbutts the airlock."
+					M << "\red [user] бьется головой в дверь."
 				var/datum/organ/external/affecting = H.organs["head"]
 				affecting.take_damage(10, 0)
 				H.stunned = 8
@@ -621,42 +622,42 @@ About the new airlock wires panel:
 				H.UpdateDamageIcon()
 			else
 				for(var/mob/M in viewers(src, null))
-					M << "\red [user] headbutts the airlock. Good thing they're wearing a helmet."
+					M << "\red [user] ударил головой дверь. Слава богу, что он в шлеме!"
 			return
 
 	if (src.p_open)
 		user.machine = src
-		var/t1 = text("<B>Access Panel</B><br>\n")
+		var/t1 = text("<B>Управление дверью</B><br>\n")
 
 		//t1 += text("[]: ", airlockFeatureNames[airlockWireColorToIndex[9]])
 		var/list/wires = list(
-			"Orange" = 1,
-			"Dark red" = 2,
-			"White" = 3,
-			"Yellow" = 4,
-			"Red" = 5,
-			"Blue" = 6,
-			"Green" = 7,
-			"Grey" = 8,
-			"Black" = 9
+			"Оранжевый с полоской" = 1,
+			"Оранжевый" = 2,
+			"Зеленый с полоской" = 3,
+			"Синий" = 4,
+			"Синий с полоской" = 5,
+			"Зеленый" = 6,
+			"Коричневый с полоской" = 7,
+			"Коричневый" = 8,
+			"Черный" = 9
 		)
 		for(var/wiredesc in wires)
 			var/is_uncut = src.wires & airlockWireColorToFlag[wires[wiredesc]]
 			t1 += "[wiredesc] wire: "
 			if(!is_uncut)
-				t1 += "<a href='?src=\ref[src];wires=[wires[wiredesc]]'>Mend</a>"
+				t1 += "<a href='?src=\ref[src];wires=[wires[wiredesc]]'>Скрутить</a>"
 			else
-				t1 += "<a href='?src=\ref[src];wires=[wires[wiredesc]]'>Cut</a> "
-				t1 += "<a href='?src=\ref[src];pulse=[wires[wiredesc]]'>Pulse</a> "
+				t1 += "<a href='?src=\ref[src];wires=[wires[wiredesc]]'>Перерезать</a> "
+				t1 += "<a href='?src=\ref[src];pulse=[wires[wiredesc]]'>Прозвонить</a> "
 				if(src.signalers[wires[wiredesc]])
-					t1 += "<a href='?src=\ref[src];remove-signaler=[wires[wiredesc]]'>Detach signaler</a>"
+					t1 += "<a href='?src=\ref[src];remove-signaler=[wires[wiredesc]]'>Отключить передатчик</a>"
 				else
-					t1 += "<a href='?src=\ref[src];signaler=[wires[wiredesc]]'>Attach signaler</a>"
+					t1 += "<a href='?src=\ref[src];signaler=[wires[wiredesc]]'>Подключить передатчик</a>"
 			t1 += "<br>"
 
-		t1 += text("<br>\n[]<br>\n[]<br>\n[]", (src.locked ? "The door bolts have fallen!" : "The door bolts look up."), ((src.arePowerSystemsOn() && !(stat & NOPOWER)) ? "The test light is on." : "The test light is off!"), (src.aiControlDisabled==0 ? "The 'AI control allowed' light is on." : "The 'AI control allowed' light is off."))
+		t1 += text("<br>\n[]<br>\n[]<br>\n[]", (src.locked ? "Затворы упали!" : "Затворы поднЯты."), ((src.arePowerSystemsOn() && !(stat & NOPOWER)) ? "Тестовый светодиод горит." : "Тестовый светодиод не горит!"), (src.aiControlDisabled==0 ? "Светодиод 'ИИ' горит." : "Светодиод 'ИИ' не горит."))
 
-		t1 += text("<p><a href='?src=\ref[];close=1'>Close</a></p>\n", src)
+		t1 += text("<p><a href='?src=\ref[];close=1'>Закрыть</a></p>\n", src)
 
 		user << browse(t1, "window=airlock")
 		onclose(user, "airlock")
@@ -683,7 +684,7 @@ About the new airlock wires panel:
 			if (href_list["wires"])
 				var/t1 = text2num(href_list["wires"])
 				if (!( istype(usr.equipped(), /obj/item/weapon/wirecutters) ))
-					usr << "You need wirecutters!"
+					usr << "Нужны кусачки!"
 					return
 				if (src.isWireColorCut(t1))
 					src.mend(t1)
@@ -692,24 +693,24 @@ About the new airlock wires panel:
 			else if (href_list["pulse"])
 				var/t1 = text2num(href_list["pulse"])
 				if (!istype(usr.equipped(), /obj/item/device/multitool))
-					usr << "You need a multitool!"
+					usr << "Нужен мультитул!"
 					return
 				if (src.isWireColorCut(t1))
-					usr << "You can't pulse a cut wire."
+					usr << "НельзЯ прозвонить обрезанный кабель."
 					return
 				else
 					src.pulse(t1)
 			else if(href_list["signaler"])
 				var/wirenum = text2num(href_list["signaler"])
 				if(!istype(usr.equipped(), /obj/item/device/radio/signaler))
-					usr << "You need a signaller!"
+					usr << "Нужен передатчик!"
 					return
 				if(src.isWireColorCut(wirenum))
-					usr << "You can't attach a signaller to a cut wire."
+					usr << "НельзЯ подключитьсЯ к перерезанному кабелю."
 					return
 				var/obj/item/device/radio/signaler/R = usr.equipped()
 				if(!R.b_stat)
-					usr << "This radio can't be attached!"
+					usr << "Этот передатчик не может быть подключен!"
 					return
 				var/mob/M = usr
 				M.drop_item()
@@ -719,7 +720,7 @@ About the new airlock wires panel:
 			else if(href_list["remove-signaler"])
 				var/wirenum = text2num(href_list["remove-signaler"])
 				if(!(src.signalers[wirenum]))
-					usr << "There's no signaller attached to that wire!"
+					usr << "Да тут нет никакого передатчика!"
 					return
 				var/obj/item/device/radio/signaler/R = src.signalers[wirenum]
 				R.loc = usr.loc
@@ -869,17 +870,31 @@ About the new airlock wires panel:
 				W.use_fuel(2)
 				W.eyecheck(user)
 			else
-				user << "Need more welding fuel!"
+				user << "Надо больше горючки!"
 				return
 			if (!src.welded)
-				src.welded = 1
+				user << "Ты начал заваривать дверь."
+				sleep(100)
+				if(get_turf(user) == T)
+					src.welded = 1
+					user << "Ты заварил дверь!"
+					src.update_icon()
 			else
-				src.welded = null
-			src.update_icon()
+				user << "Ты начал разваривать дверь."
+				sleep(100)
+				if(get_turf(user) == T)
+					src.welded = null
+					user << "Ты разварил дверь!"
+					src.update_icon()
+
 			return
 	else if (istype(C, /obj/item/weapon/screwdriver))
-		src.p_open = !( src.p_open )
-		src.update_icon()
+		user << "Ты начал откручивать крышку панели."
+		sleep(20)
+		if(get_turf(user) == T)
+			user << "Ты открутил крышку панели!"
+			src.p_open = !( src.p_open )
+			src.update_icon()
 	else if (istype(C, /obj/item/weapon/wirecutters))
 		return src.attack_hand(user)
 	else if (istype(C, /obj/item/device/multitool))
@@ -889,10 +904,10 @@ About the new airlock wires panel:
 	else if (istype(C, /obj/item/weapon/crowbar))
 		if ((src.density) && ( src.welded ) && !( src.operating ) && src.p_open )
 			playsound(src.loc, 'Crowbar.ogg', 100, 1)
-			user.visible_message("[user] removes the electronics from the airlock assembly.", "You start to remove electronics into the airlock assembly.")
-			sleep(40)
+			user.visible_message("[user] выламывает электронику из двери.", "Ты начинаешь выламывать электронику из двери.")
+			sleep(300)
 			if(get_turf(user) == T)
-				user << "\blue You removed the airlock electronics!"
+				user << "\blue Ты выломал электронику из двери!"
 				switch(src.doortype)
 					if(0) new/obj/door_assembly/door_assembly_0( src.loc )
 					if(1) new/obj/door_assembly/door_assembly_com( src.loc )
@@ -902,7 +917,15 @@ About the new airlock wires panel:
 					if(5) new/obj/door_assembly/door_assembly_mai( src.loc )
 					if(6) new/obj/door_assembly/door_assembly_ext( src.loc )
 					if(7) new/obj/door_assembly/door_assembly_g( src.loc )
-				new/obj/item/device/multitool( src.loc )
+				var/obj/item/weapon/airlock_electronics/ae
+				if (!electronics)
+					ae = new/obj/item/weapon/airlock_electronics( src.loc )
+					ae.conf_access = src.req_access
+				else
+					ae = electronics
+					electronics = null
+					ae.loc = src.loc
+
 				del(src)
 				return
 		if ((src.density) && (!( src.welded ) && !( src.operating ) && ((!src.arePowerSystemsOn()) || (stat & NOPOWER)) && !( src.locked )))

@@ -368,6 +368,7 @@
 #include "code\game\machinery\computer\security.dm"
 #include "code\game\machinery\computer\shuttle.dm"
 #include "code\game\machinery\doors\airlock.dm"
+#include "code\game\machinery\doors\airlock_electronics.dm"
 #include "code\game\machinery\doors\brigdoors.dm"
 #include "code\game\machinery\doors\checkForMultipleDoors.dm"
 #include "code\game\machinery\doors\door.dm"

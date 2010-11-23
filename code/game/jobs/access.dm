@@ -105,8 +105,6 @@
 			return list(access_security, access_forensics_lockers, access_morgue, access_maint_tunnels)
 		if("Medical Doctor")
 			return list(access_medical, access_morgue)
-		if("Psychiatrist")
-			return list(access_medical, access_psychiatrist)
 		if("Botanist")	// -- TLE
 			return list(access_medical, access_hydroponics) // Removed tox and chem access because STOP PISSING OFF THE CHEMIST GUYS
 		if("Librarian") // -- TLE
@@ -128,7 +126,7 @@
 			            access_tox, access_tox_storage, access_chemistry, access_psychiatrist, access_medical, access_medlab, access_engine,
 			            access_emergency_storage, access_change_ids, access_ai_upload, access_eva, access_heads,
 			            access_all_personal_lockers, access_tech_storage, access_maint_tunnels, access_bar, access_janitor,
-			            access_crematorium, access_kitchen, access_robotics, access_cargo, access_cargo_bot, access_hydroponics, access_lawyer, access_virology)
+			            access_crematorium, access_kitchen, access_robotics, access_cargo, access_cargo_bot, access_hydroponics, access_lawyer, access_virology, access_psychiatrist)
 		if("Atmospheric Technician")
 			return list(access_atmospherics, access_maint_tunnels, access_emergency_storage)
 		if("Barman")
@@ -158,6 +156,8 @@
 			            access_tox_storage, access_chemistry, access_teleporter, access_hydroponics, access_virology)
 		if("Virologist")
 			return list(access_medical, access_morgue, access_virology)
+		if("Psychiatrist")
+			return list(access_medical, access_psychiatrist)
 		else
 			return list()
 
@@ -169,7 +169,7 @@
 	            access_teleporter, access_eva, access_heads, access_captain, access_all_personal_lockers,
 	            access_tech_storage, access_chapel_office, access_atmospherics, access_kitchen,
 	            access_bar, access_janitor, access_crematorium, access_robotics, access_cargo, access_cargo_bot, access_construction,
-	            access_hydroponics, access_library, access_manufacturing, access_lawyer, access_virology)
+	            access_hydroponics, access_library, access_manufacturing, access_lawyer, access_virology, access_psychiatrist)
 
 /proc/get_access_desc(A)
 	switch(A)
@@ -247,6 +247,8 @@
 			return "Robotics"
 		if(access_virology)
 			return "Virology"
+		if(access_manufacturing)
+			return "Manufacturing"
 
 /proc/get_all_jobs()
 	return list("Assistant", "Station Engineer", "Detective", "Medical Doctor", "Captain", "Security Officer",

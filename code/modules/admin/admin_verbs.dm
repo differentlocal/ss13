@@ -762,7 +762,7 @@
 		message_admins("\blue [src.ckey] warned [M.ckey], resulting in a 10 minute autoban.")
 
 		del(M.client)
-		del(M)
+		//del(M)
 
 /client/proc/drop_bomb() // Some admin dickery that can probably be done better -- TLE
 	set category = "Special Verbs"

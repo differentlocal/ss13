@@ -198,7 +198,7 @@ var/showadminmessages = 1
 				return
 			switch(alert("Temporary Ban?",,"Yes","No"))
 				if("Yes")
-					var/mins = input(usr,"How long (in minutes)?","Ban time",1440) as num
+					var/mins = input(usr,"How long (in minutes)?", "Ban time", 30) as num
 					if(!mins)
 						return
 					if(mins >= 525600) mins = 525599
@@ -213,7 +213,7 @@ var/showadminmessages = 1
 					message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis will be removed in [mins] minutes.")
 
 					del(M.client)
-					del(M)
+					//del(M)
 				if("No")
 					var/reason = input(usr,"Reason?","reason","Griefer") as text
 					if(!reason)
@@ -226,7 +226,7 @@ var/showadminmessages = 1
 					message_admins("\blue[usr.client.ckey] has banned [M.ckey].\nReason: [reason]\nThis is a permanent ban.")
 
 					del(M.client)
-					del(M)
+					//del(M)
 
 	if (href_list["remove"])
 		if ((src.rank in list( "Administrator", "Primary Administrator", "Shit Guy", "Coder", "Host"  )))
