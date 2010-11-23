@@ -1,8 +1,8 @@
 /mob/living/carbon/alien
 	name = "alien"
 	voice_name = "alien"
-	voice_message = "hisses"
-	say_message = "hisses"
+	voice_message = "шипит"
+	say_message = "шипит"
 	icon = 'alien.dmi'
 
 	toxloss = 250
