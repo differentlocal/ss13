@@ -78,10 +78,10 @@
 					break
 
 			if (!cancel && !abandon_allowed)
-				world << "<B>Everyone is dead! Resetting in 30 seconds!</B>"
+				world << "<B>Ура! Все погибли! Рестарт через 30 секунд!</B>"
 
 				spawn (300)
-					log_game("Rebooting because of no live players")
+					log_game("Перезапуск сервера, так как нет живых игроков")
 					world.Reboot()
 
 	return ..(gibbed)

@@ -77,10 +77,10 @@
 		var/mob/living/carbon/human/tmob = M
 		if (!tmob.lying && istype(tmob.shoes, /obj/item/clothing/shoes/clown_shoes))
 			if(istype(tmob.head, /obj/item/clothing/head/helmet))
-				tmob << "\red You stumble and fall to the ground. Thankfully, that helmet protected you."
+				tmob << "\red Вы споткнулись и ударились головой. Хорошо, что шлем см&#ff;гчил удар."
 				tmob.weakened = max(rand(1,2), tmob.weakened)
 			else
-				tmob << "\red You stumble and hit your head."
+				tmob << "\red Вы споткнулись и ударились головой."
 				tmob.weakened = max(rand(3,10), tmob.weakened)
 				tmob.stuttering = max(rand(0,3), tmob.stuttering)
 				tmob.make_dizzy(150)
@@ -155,7 +155,7 @@
 					if ((M.m_intent == "run") && (!istype(M:shoes, /obj/item/clothing/shoes/galoshes)))
 						M.pulling = null
 						step(M, M.dir)
-						M << "\blue You slipped on the wet floor!"
+						M << "\blue Вы поскользнулись на мокром полу!"
 						playsound(src.loc, 'slip.ogg', 50, 1, -3)
 						M.stunned = 8
 						M.weakened = 5
@@ -166,7 +166,7 @@
 					if (M.m_intent == "run")
 						M.pulling = null
 						step(M, M.dir)
-						M << "\blue You slipped on the wet floor!"
+						M << "\blue Вы поскользнулись на мокром полу!"
 						playsound(src.loc, 'slip.ogg', 50, 1, -3)
 						M.stunned = 8
 						M.weakened = 5
@@ -182,7 +182,7 @@
 				spawn(3) step(M, M.dir)
 				spawn(4) step(M, M.dir)
 				M.bruteloss += 2 // Was 5 -- TLE
-				M << "\blue You slipped on the floor!"
+				M << "\blue Вы поскользнулись!"
 				playsound(src.loc, 'slip.ogg', 50, 1, -3)
 				M.weakened = 10
 
@@ -248,7 +248,7 @@
 /turf/simulated/wall/examine()
 	set src in oview(1)
 
-	usr << "It looks like a regular wall."
+	usr << "Похоже на обычную стену."
 	return
 
 /turf/simulated/wall/ex_act(severity)
@@ -276,11 +276,11 @@
 /turf/simulated/wall/attack_paw(mob/user as mob)
 	if ((user.mutations & 8))
 		if (prob(40))
-			usr << text("\blue You smash through the wall.")
+			usr << text("\blue Вы проломились сквозь стену.")
 			dismantle_wall(1)
 			return
 		else
-			usr << text("\blue You punch the wall.")
+			usr << text("\blue Вы ударили стену.")
 			return
 
 	return src.attack_hand(user)
@@ -288,14 +288,14 @@
 /turf/simulated/wall/attack_hand(mob/user as mob)
 	if ((user.mutations & 8))
 		if (prob(40))
-			usr << text("\blue You smash through the wall.")
+			usr << text("\blue Вы проломились сквозь стену.")
 			dismantle_wall(1)
 			return
 		else
-			usr << text("\blue You punch the wall.")
+			usr << text("\blue Вы ударили стену.")
 			return
 
-	user << "\blue You push the wall but nothing happens!"
+	user << "\blue Вы ударили стену, но ничего не произошло!"
 	playsound(src.loc, 'Genhit.ogg', 25, 1)
 	src.add_fingerprint(user)
 	return
@@ -303,7 +303,7 @@
 /turf/simulated/wall/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "\red You don't have the dexterity to do this!"
+		usr << "\red Вам не хватает ловкости, чтобы сделать это!"
 		return
 
 	if (istype(W, /obj/item/weapon/weldingtool) && W:welding)
@@ -324,22 +324,22 @@
 			var/turf/simulated/floor/F = ReplaceWithFloor()
 			F.to_plating()
 			F.burn_tile()
-			user << "\red The thermite melts the wall."
+			user << "\red Термит прожигает стену."
 			spawn(100) del(O)
 			return
 
 		if (W:get_fuel() < 5)
-			user << "\blue You need more welding fuel to complete this task."
+			user << "\blue Дл&#ff; завершени&#ff; действи&#ff; не хватает горючего."
 			return
 		W:use_fuel(5)
 
-		user << "\blue Now disassembling the outer wall plating."
+		user << "\blue Вы разбираете покрытие стены."
 		playsound(src.loc, 'Welder.ogg', 100, 1)
 
 		sleep(100)
 		if (istype(src, /turf/simulated/wall))
 			if ((user.loc == T && user.equipped() == W))
-				user << "\blue You disassembled the outer wall plating."
+				user << "\blue Вы разобрали покрытие стены."
 				dismantle_wall()
 
 	else
@@ -350,7 +350,7 @@
 /turf/simulated/wall/r_wall/attackby(obj/item/weapon/W as obj, mob/user as mob)
 
 	if (!(istype(usr, /mob/living/carbon/human) || ticker) && ticker.mode.name != "monkey")
-		usr << "\red You don't have the dexterity to do this!"
+		usr << "\red Вам не хватает ловкости, чтобы сделать это!"
 		return
 
 	if (istype(W, /obj/item/weapon/weldingtool) && W:welding)
@@ -371,7 +371,7 @@
 			var/turf/simulated/floor/F = ReplaceWithFloor()
 			F.to_plating()
 			F.burn_tile()
-			user << "\red The thermite melts the wall."
+			user << "\red Термит прожигает стену."
 			spawn(100) del(O)
 			return
 
