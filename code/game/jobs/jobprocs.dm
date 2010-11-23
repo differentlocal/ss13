@@ -90,7 +90,7 @@
 
 
 	if (captain_choice == null)
-		world << "Captainship not forced on anyone."
+		world << "Капитан отсутствует!"
 	else
 		captain_choice.mind.assigned_role = "Captain"
 
@@ -503,7 +503,7 @@
 			src.equip_if_possible(new /obj/item/clothing/shoes/brown(src), slot_shoes)
 			src.equip_if_possible(new /obj/item/clothing/under/rank/research_director(src), slot_w_uniform)
 			src.equip_if_possible(new /obj/item/clothing/suit/labcoat(src), slot_wear_suit)
-			src.equip_if_possible(new /obj/item/weapon/pen(src), slot_l_hand)
+//			src.equip_if_possible(new /obj/item/weapon/pen(src), slot_l_hand)
 			src.equip_if_possible(new /obj/item/weapon/clipboard(src), slot_r_hand)
 
 		if ("Virologist")
@@ -521,7 +521,7 @@
 
 	spawnId(rank)
 	if(rank == "Captain")
-		world << "<b>[src] is the captain!</b>"
+		world << "<b>[src] - капитан!</b>"
 	src << "<B>You are the [rank].</B>"
 	src.job = rank
 	src.mind.assigned_role = rank
@@ -569,7 +569,7 @@
 	if(C)
 		C.registered = src.real_name
 		C.assignment = rank
-		C.name = "[C.registered]'s ID Card ([C.assignment])"
+		C.name = "Карточка ID [C.registered] ([C.assignment])"
 		C.access = get_access(C.assignment)
 		src.equip_if_possible(C, slot_wear_id)
 	src.equip_if_possible(new /obj/item/weapon/pen(src), slot_r_store)

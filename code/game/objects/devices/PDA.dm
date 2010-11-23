@@ -27,7 +27,7 @@
 	var/ttone = "beep" //The ringtone!
 	var/honkamt = 0 //How many honks left when infected with honk.exe
 	var/mimeamt = 0 //How many silence left when infected with mime.exe
-	var/note = "Congratulations, your station has chosen the Thinktronic 5100 Personal Data Assistant!" //Current note in the notepad function.
+	var/note = "Поздравляем! Персонал вашей станции использует Thinktronic 5100 Personal Data Assistant!" //Current note in the notepad function.
 	var/datum/data/record/active1 = null //General
 	var/datum/data/record/active2 = null //Medical
 	var/datum/data/record/active3 = null //Security
@@ -276,7 +276,7 @@
 
 /obj/item/weapon/cartridge/quartermaster
 	name = "Space Parts & Space Vendors Cartridge"
-	desc = "Perfect for the Quartermaster on the go!"
+	desc = "Perfect for the Quartermaster on the go!!!"
 	icon_state = "cart-q"
 	access_quartermaster = 1
 

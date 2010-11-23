@@ -117,7 +117,7 @@
 							if(1)
 								emote("twitch")
 							if(2 to 3)
-								say("[prob(50) ? ";" : ""][pick("SHIT", "PISS", "FUCK", "CUNT", "COCKSUCKER", "MOTHERFUCKER", "TITS")]")
+								say("[prob(50) ? ";" : ""][pick("япюрэ", "уси", "еаюрэ", "охгдхыю", "усеяня", "бшакъднй", "яхяэйх")]")
 						var/old_x = src.pixel_x
 						var/old_y = src.pixel_y
 						src.pixel_x += rand(-2,2)
