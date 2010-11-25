@@ -194,7 +194,7 @@
 	throw_range = 10
 	force = 4.0
 	var/list/syringes = new/list()
-	var/max_syringes = 1
+	var/max_syringes = 10
 	m_amt = 2000
 
 	examine()
@@ -1093,10 +1093,10 @@
 	m_amt = 200
 	g_amt = 0
 
-	amount_per_transfer_from_this = 10
+	amount_per_transfer_from_this = 30
 	flags = FPRINT | OPENCONTAINER
 	New()
-		var/datum/reagents/R = new/datum/reagents(30)
+		var/datum/reagents/R = new/datum/reagents(150)
 		reagents = R
 		R.my_atom = src
 
