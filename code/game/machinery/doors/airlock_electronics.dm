@@ -1,7 +1,7 @@
 /obj/item/weapon/airlock_electronics
 	name = "Airlock Electronics"
-	icon = 'airlock_machines.dmi'
-	icon_state = "airlock_control_off"
+	icon = 'door_assembly.dmi'
+	icon_state = "door_electronics"
 
 	req_access = list(access_engine)
 
