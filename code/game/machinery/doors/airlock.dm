@@ -417,7 +417,7 @@ About the new airlock wires panel:
 	user.burn_skin(shock_damage)
 	user.fireloss += shock_damage
 	user.updatehealth()
-	user << "\red <B>ПЕРЕЕБАШИЛО РАСПИДАРАСИЛО ТОКОМ УЕБАЛО!</B>"
+	user << "\red <B>Вас ударило током</B>"
 	sleep(1)
 
 	if(user.stunned < shock_damage)	user.stunned = shock_damage
@@ -627,38 +627,39 @@ About the new airlock wires panel:
 
 	if (src.p_open)
 		user.machine = src
-		var/t1 = text("<B>Управление дверью</B><br>\n")
+		var/t1 = text("<B>Управление дверью</B><br><div style=\"font-family:Verdana;font-size:10px\">\n")
 
 		//t1 += text("[]: ", airlockFeatureNames[airlockWireColorToIndex[9]])
 		var/list/wires = list(
-			"Оранжевый с полоской" = 1,
-			"Оранжевый" = 2,
-			"Зеленый с полоской" = 3,
-			"Синий" = 4,
-			"Синий с полоской" = 5,
-			"Зеленый" = 6,
-			"Коричневый с полоской" = 7,
-			"Коричневый" = 8,
-			"Черный" = 9
+			"Крсаный" = 1,
+			"Зеленый" = 2,
+			"Синий" = 3,
+			"Белый" = 4,
+			"Черный" = 5,
+			"Коричневый" = 6,
+			"Серый" = 7,
+			"Фиолетовый" = 8,
+			"Желтый" = 9
 		)
 		for(var/wiredesc in wires)
 			var/is_uncut = src.wires & airlockWireColorToFlag[wires[wiredesc]]
-			t1 += "[wiredesc] wire: "
+			t1 += "<span style=\"display:inline-block;width:100px\">[wiredesc]:</span>"
 			if(!is_uncut)
-				t1 += "<a href='?src=\ref[src];wires=[wires[wiredesc]]'>Скрутить</a>"
+				t1 += "<a style=\"display:inline-block;width:50px;font-size:10px\" href='?src=\ref[src];wires=[wires[wiredesc]]'>Скрутить</a>"
 			else
-				t1 += "<a href='?src=\ref[src];wires=[wires[wiredesc]]'>Перерезать</a> "
-				t1 += "<a href='?src=\ref[src];pulse=[wires[wiredesc]]'>Прозвонить</a> "
+				t1 += "<a style=\"display:inline-block;width:50px;font-size:10px\" href='?src=\ref[src];wires=[wires[wiredesc]]'>Перерезать</a> "
+				t1 += "<a style=\"display:inline-block;width:50px;font-size:10px\" href='?src=\ref[src];pulse=[wires[wiredesc]]'>Прозвонить</a> "
 				if(src.signalers[wires[wiredesc]])
-					t1 += "<a href='?src=\ref[src];remove-signaler=[wires[wiredesc]]'>Отключить передатчик</a>"
+					t1 += "<a style=\"display:inline-block;width:120px;font-size:10px\" href='?src=\ref[src];remove-signaler=[wires[wiredesc]]'>Откл. передатчик</a>"
 				else
-					t1 += "<a href='?src=\ref[src];signaler=[wires[wiredesc]]'>Подключить передатчик</a>"
+					t1 += "<a style=\"display:inline-block;width:120px;font-size:10px\" href='?src=\ref[src];signaler=[wires[wiredesc]]'>Подкл. передатчик</a>"
 			t1 += "<br>"
 
-		t1 += text("<br>\n[]<br>\n[]<br>\n[]", (src.locked ? "Затворы упали!" : "Затворы поднЯты."), ((src.arePowerSystemsOn() && !(stat & NOPOWER)) ? "Тестовый светодиод горит." : "Тестовый светодиод не горит!"), (src.aiControlDisabled==0 ? "Светодиод 'ИИ' горит." : "Светодиод 'ИИ' не горит."))
+		t1 += text("<br>\n[]<br>\n[]<br>\n[]", (src.locked ? "Затворы опущены!" : "Затворы поднЯты."), ((src.arePowerSystemsOn() && !(stat & NOPOWER)) ? "Тестовый светодиод горит." : "Тестовый светодиод не горит!"), (src.aiControlDisabled==0 ? "Светодиод 'ИИ' горит." : "Светодиод 'ИИ' не горит."))
 
 		t1 += text("<p><a href='?src=\ref[];close=1'>Закрыть</a></p>\n", src)
 
+		t1 += "</div>"
 		user << browse(t1, "window=airlock")
 		onclose(user, "airlock")
 
