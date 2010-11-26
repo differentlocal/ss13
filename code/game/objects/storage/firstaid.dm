@@ -44,6 +44,18 @@
 	new /obj/item/device/healthanalyzer( src )
 	return
 
+/obj/item/weapon/storage/firstaid/specaid/New()
+
+	..()
+	new /obj/item/weapon/reagent_containers/syringe/tricordrazine( src )
+	new /obj/item/weapon/reagent_containers/syringe/tricordrazine( src )
+	new /obj/item/weapon/reagent_containers/syringe/tricordrazine( src )
+	new /obj/item/weapon/reagent_containers/syringe/tricordrazine( src )
+	new /obj/item/weapon/reagent_containers/syringe/tricordrazine( src )
+	new /obj/item/weapon/reagent_containers/syringe/tricordrazine( src )
+	new /obj/item/device/healthanalyzer( src )
+	return
+
 /obj/item/weapon/storage/pill_bottle/kelotane
 	name = "Pill bottle (kelotane)"
 	desc = "Contains pills used to treat burns."

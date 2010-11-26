@@ -146,6 +146,18 @@ var/supply_shuttle_points = 50
 	containertype = "/obj/crate/medical"
 	containername = "Medical crate"
 
+/datum/supply_packs/medical2
+	name = "Medical special crate"
+	contains = list("/obj/item/weapon/storage/firstaid/specaid",
+					"/obj/item/weapon/storage/firstaid/specaid",
+					"/obj/item/weapon/storage/firstaid/specaid",
+					"/obj/item/weapon/storage/firstaid/specaid",
+					"/obj/item/weapon/storage/firstaid/specaid",
+					"/obj/item/weapon/storage/firstaid/specaid")
+	cost = 30
+	containertype = "/obj/crate/medical"
+	containername = "Medical special crate"
+
 
 /datum/supply_packs/virus
 	name = "Virus crate"

@@ -1390,6 +1390,17 @@
 		R.add_reagent("anti_toxin", 15)
 		update_icon()
 
+/obj/item/weapon/reagent_containers/syringe/tricordrazine
+	name = "Syringe (tricordrazine)"
+	desc = "Contains tricordrazine."
+	New()
+		var/datum/reagents/R = new/datum/reagents(15)
+		reagents = R
+		R.maximum_volume = 15
+		R.my_atom = src
+		R.add_reagent("tricordrazine", 15)
+		update_icon()
+
 /obj/item/weapon/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"
 	desc = "Contains antiviral agents."
