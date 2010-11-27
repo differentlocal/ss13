@@ -68,6 +68,45 @@ RCD
 				user << "The RCD now holds [matter]/30 matter-units."
 				desc = "A RCD. It currently holds [matter]/30 matter-units."
 			return
+			# Finalization fix (by differentlocal)
+	else if (istype(A, /obj/structure/girder) && mode == 1)
+		if (istype(A, /obj/structure/girder) && matter >= 2)
+			user << "Finalizing Wall (2)..."
+			playsound(src.loc, 'click.ogg', 50, 1)
+			if(do_after(user, 20))
+				spark_system.set_up(5, 0, src)
+				src.spark_system.start()
+				A:ReplaceWithWall()
+				playsound(src.loc, 'Deconstruct.ogg', 50, 1)
+				matter -= 2
+				user << "The RCD now holds [matter]/30 matter-units."
+				desc = "A RCD. It currently holds [matter]/30 matter-units."
+			return
+		if (istype(A, /obj/structure/girder/reinforced) && matter >= 3)
+			user << "Finalizing Reinforced Wall (3)..."
+			playsound(src.loc, 'click.ogg', 50, 1)
+			if(do_after(user, 20))
+				spark_system.set_up(5, 0, src)
+				src.spark_system.start()
+				A:ReplaceWithRWall()
+				playsound(src.loc, 'Deconstruct.ogg', 50, 1)
+				matter -= 3
+				user << "The RCD now holds [matter]/30 matter-units."
+				desc = "A RCD. It currently holds [matter]/30 matter-units."
+			return
+	else if (istype(A, /obj/lattice) && mode == 1)
+			user << "Finalizing Floor (1)..."
+			playsound(src.loc, 'click.ogg', 50, 1)
+			if(do_after(user, 20))
+				spark_system.set_up(5, 0, src)
+				src.spark_system.start()
+				A:ReplaceWithFloor()
+				playsound(src.loc, 'Deconstruct.ogg', 50, 1)
+				matter -= 3
+				user << "The RCD now holds [matter]/30 matter-units."
+				desc = "A RCD. It currently holds [matter]/30 matter-units."
+			return
+			#End finalization fix
 	else if (istype(A, /turf/simulated/floor) && mode == 2 && matter >= 10)
 		user << "Building Airlock (10)..."
 		playsound(src.loc, 'click.ogg', 50, 1)
