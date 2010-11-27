@@ -106,6 +106,21 @@ RCD
 				user << "The RCD now holds [matter]/30 matter-units."
 				desc = "A RCD. It currently holds [matter]/30 matter-units."
 			return
+	else if (istype(A, /obj/door_assembly && mode == 3)
+			user << "Finalizing Airlock (8)..."
+			playsound(src.loc, 'click.ogg', 50, 1)
+			if (do_after(user, 50))
+				spakr_system.set_up(5, 0, src)
+				src.spark_system.start()
+				A:ReplaceWithFloor  //Dirty hack
+				var/obj/machinery/door/airlock/T = new /obj/machinery/door/airlock( A )
+				matter -=8
+				T.autoclose = 1
+				playsound(src.loc, 'Deconstruct.ogg', 50, 1)
+				user << "The RCD now holds [matter]/30 matter-units."
+				desc = "A RCD. It currently holds [matter]/30 matter-untis."
+				playsound(src.loc, 'sparks2.ogg', 50, 1)
+			return
 			#End finalization fix
 	else if (istype(A, /turf/simulated/floor) && mode == 2 && matter >= 10)
 		user << "Building Airlock (10)..."
